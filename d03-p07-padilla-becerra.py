@@ -235,9 +235,10 @@ def e5():
     
 
 #Funciones del ejercicio 6    
-def autos():#
+def autos():
+    #Pide la placa  y las millas recorridas
     placa = (int(input("Dame tu numero de auto: ")));
-    millas = (float(input("¿Cuantas millas haz recorrido?: "))); #Pide la placa  y las millas recorridas
+    millas = (float(input("¿Cuantas millas haz recorrido?: "))); 
     
     if millas > 80: #Si las millas son mayores a 80 desplegar el mensaje
         print("\n-Esta arriba del limite de velocidad-\n");
