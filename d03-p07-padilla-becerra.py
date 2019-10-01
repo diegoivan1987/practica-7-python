@@ -9,7 +9,7 @@ def aprobacion():
     aprobatoria = 80;
     if calif > aprobatoria and calif <=100: #Si su calificacion es mayor a 80 y menor o
         #igual a 100 esta aprobado
-        print("aprobado");
+        print("Aprobado");
     elif calif <= aprobatoria and calif >= 0: #Si es menor a 80  y mayor o igual a 0 esta
         #reprobado
         print("Reprobado");
@@ -242,15 +242,15 @@ def autos():
     
     if millas > 80: #Si las millas son mayores a 80 desplegar el mensaje
         print("\n-Esta arriba del limite de velocidad-\n");
-    else: #En otro caso muestra mensaje
-        print("\n-No esta arriba del limite de velocidad-\n");
+    else: #En otro caso no hace nada
+        pass;
         
     kms = (float(input("¿Cuantos kilometros haz recorrido?: "))); #Pide los km recorridos
     
     if kms > 200 and kms <350: #Si los km pasan 200 pero tambien son menores a 350 desplegar el mensaje
         print("\n-Hace falta mantenimiento al auto-\n");
-    else: #En otro caso muestra otro mensaje
-        print("\n- No Hace falta mantenimiento al auto-\n");
+    else: #En otro caso no hace nada
+        pass;
         
     #Pide los km que recorre por litro
     km_litro = (int(input("¿Cuantos kilometros reccores por litro de gasolina? (Solo de 16 a 10): ")));
