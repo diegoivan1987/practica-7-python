@@ -16,11 +16,33 @@ def e1(): #Funcion para realizar el ejercicio 1
     print("\nEjercicio 1");
     esfera();
 
-def e2():
-    pass;
+def cubo(): #Funcion para calcular el volumen de un cubo mientras se pueda
+    arista = (float(input("Deme una arista:"))); #Pedimos la arista
+    cont = 0; #Inicializamos el contador en 0
+    while arista > 0: #Mientras la arista sea mayor a 0, seguira calculando volumenes
+        cont += 1; #Se le añade 1 al contador por cada vez que calcula un volumen
+        volumen = arista * arista * arista; #Saca el volumen del cubo
+        print("El volumen del cubo de arista", arista,"es:", volumen); #Lo imprime
+        print("Ha calculado el volumen de", cont, "cubos"); #Imprime cuantos volumenes se han calculado
+        arista = (float(input("\nDeme una arista:"))); #Se vuelve a pedir la arista para seguir el ciclo
 
-def e3():
-    pass;
+def e2(): #Funcion para realizar el ejercicio 2
+    print("\nEjercicio 2");
+    cubo();
+
+def tablas(): #Imprimir la tabla de multiplicacion del numero que digite el usuario
+    tabla = (float(input("Digite de cual numero quiera la tabla: "))); #Pide el numero de la tabla
+    cont = tabla; #La tabla empezara multiplicandose con el mismo
+    while cont >=0: #Mientras que el contador sea mayor o igual a 0
+        valor = cont * tabla; #Sacara el valor de cada multiplicacion
+        print(tabla, "x", cont, "=", valor); #Lo mandara a imprimir
+        cont -=1; #Y se le ira descontando 1 para ir en descendiente
+        
+def e3(): #Funcion para realizar el ejercicio 3
+    print("\nEjercicio 3");
+    tablas();
+
+  
 
 def e4():
     pass;
@@ -33,5 +55,6 @@ def e6():
 
 def menu():
     pass;
+
 
 
