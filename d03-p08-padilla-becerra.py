@@ -33,6 +33,9 @@ def e2(): #Funcion para realizar el ejercicio 2
 def tablas(): #Imprimir la tabla de multiplicacion del numero que digite el usuario
     tabla = (float(input("Digite de cual numero quiera la tabla: "))); #Pide el numero de la tabla
     cont = tabla; #La tabla empezara multiplicandose con el mismo
+    if cont < 0: #Si pide la tabla de un numero negativo
+        cont = cont * (-1); #Cambia el auxiliar contador a positivo para sacar los valores de la tabla
+    
     while cont >=0: #Mientras que el contador sea mayor o igual a 0
         valor = cont * tabla; #Sacara el valor de cada multiplicacion
         print(tabla, "x", cont, "=", valor); #Lo mandara a imprimir
@@ -50,11 +53,45 @@ def e4():
 def e5():
     pass;
 
-def e6():
-    pass;
+def transito(): #Se leera las calcomanias de autos para saber cuantos autos tienen calcomania de cada color
+    #Inicializamos las variables de las calcomanias
+    amarillo = 0;
+    rosa = 0;
+    rojo = 0;
+    verde = 0;
+    azul = 0; 
+    op=(int(input("Ingrese 1 si quiere ingresar una calcomania: "))); #Pregunta al usuario si quiere ingresar calcomania
+    while op == 1: #Si es 1 ingresara la calcomania
+        placa = (str(input("Digite el codigo de la calcomania: "))); #Pedira la calcomania
+        #Comparara el ultimo caracter y dependiendo de que numero sea añadira a la variable de la respectiva calcomania 1
+        if placa[-1] == "1" or placa[-1] == "2" : 
+            amarillo += 1; 
+        elif placa[-1] == "3" or placa[-1] == "4" :
+            rosa += 1;
+        elif placa[-1] == "5" or placa[-1] == "6" :
+            rojo += 1;
+        elif placa[-1] == "7" or placa[-1] == "8" :
+            verde += 1;
+        elif placa[-1] == "9" or placa[-1] == "0" :
+            azul += 1;
+        else : #Si su ultimo caracter no es un numero, la calcomania no sera valida
+            print("Calcomania no valida!");
+        op=(int(input("\nIngrese 1 si quiere ingresar otra calcomania: "))); #Pregunta al usuario si quiere ingresar otra calcomania
+
+    #Imprime el total de cada calcomania
+    print("Hay", amarillo, "calcomanias amarillas");
+    print("Hay", rosa, "calcomanias rosas");
+    print("Hay", rojo, "calcomanias rojas");
+    print("Hay", verde, "calcomanias verdes");
+    print("Hay", azul, "calcomanias azules");
+
+def e6(): #Funcion para realizar el ejercicio 6
+    print("\nEjercicio 6");
+    transito();
 
 def menu():
     pass;
+
 
 
 
