@@ -1,6 +1,6 @@
 #practica 07
-#padilla valdez gustavo
 #becerra gonzalez diego ivan
+#padilla valdez gustavo
 
 
 #Funciones del ejercicio 1
@@ -18,6 +18,7 @@ def aprobacion():
 
 def e1():
     print("\nEjercicio 1");
+
     aprobacion();
 
 
@@ -341,5 +342,6 @@ e6();
 e7();
 
 print("\npractica 07");
-print("padilla valdez gustavo");
 print("becerra gonzalez diego ivan");
+print("padilla valdez gustavo");
+
