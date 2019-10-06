@@ -3,12 +3,12 @@
 #becerra gonzalez diego ivan
 
 def esfera(): #Funcion para calcular el area de una esfera
-    pi=3.1416;#Definimos pi para mayor comodidad
-    radio=(float(input("Dame el radio: "))); #Le pedimos al usuario el radio
+    pi = 3.1416;#Definimos pi
+    radio = float(input("Dame el radio: ")); #Le pedimos al usuario el radio
     while radio <= 0: #Si es menor o igual a 0 este pedira que vuelva a ingresar el radio hasta que sea valido
         print("ERROR: El radio debe ser mayor que cero");
-        radio=(float(input("\nDame el radio: ")));
-    area= 4 * pi * (radio*radio);#Calculara el area con los datos ya dados
+        radio = float(input("\nDame el radio: "));
+    area = 4 * pi * (radio*radio);#Calculara el area con los datos ya dados
     print("El área de una esfera de radio", radio, "es de:", area); #Y lo imprimira
 
 
@@ -32,14 +32,14 @@ def e2(): #Funcion para realizar el ejercicio 2
 
 def tablas(): #Imprimir la tabla de multiplicacion del numero que digite el usuario
     tabla = (float(input("Digite de cual numero quiera la tabla: "))); #Pide el numero de la tabla
-    cont = tabla; #La tabla empezara multiplicandose con el mismo
+    cont = tabla; #La tabla empezara multiplicandose con el mismo valor ingresado
     if cont < 0: #Si pide la tabla de un numero negativo
         cont = cont * (-1); #Cambia el auxiliar contador a positivo para sacar los valores de la tabla
     
     while cont >=0: #Mientras que el contador sea mayor o igual a 0
-        valor = cont * tabla; #Sacara el valor de cada multiplicacion
-        print(tabla, "x", cont, "=", valor); #Lo mandara a imprimir
-        cont -=1; #Y se le ira descontando 1 para ir en descendiente
+        valor = tabla * cont; #Sacara el valor de cada multiplicacion
+        print("\n",tabla, "x", cont, "=", valor); #Lo mandara a imprimir
+        cont -= 1; #Y se le ira descontando 1 para ir en descendiente
         
 def e3(): #Funcion para realizar el ejercicio 3
     print("\nEjercicio 3");
@@ -89,7 +89,7 @@ def e6(): #Funcion para realizar el ejercicio 6
     print("\nEjercicio 6");
     transito();
 
-def menu():
+def menu():#funcion que pide el ejercicio a ejecutar
     opcion = int(input("\nIngresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#le pide el ejercicio a ejecutar
     while opcion != 7 :#mientras no ingrese salir, el while se repetira
         if opcion == 1 :#si la opcion es = a 1 ejecuta el ejercicio 1
@@ -110,7 +110,7 @@ def menu():
         elif opcion == 6 :#si la opcion es = a 6 ejecuta el ejercicio 6
             e6();
             opcion = int(input("\nIngresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#vuelve a preguntar que opcion quiere
-        else :#si ingresa cualquier otro valor, pide que ingrese uno correcto
+        else :#si ingresa cualquier otro numero, pide que ingrese uno correcto
             print("\nIngresa un numero valido");
             opcion = int(input("Ingresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#vuelve a preguntar que opcion quiere
             
