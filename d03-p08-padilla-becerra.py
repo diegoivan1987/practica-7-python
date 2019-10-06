@@ -48,10 +48,10 @@ def e3(): #Funcion para realizar el ejercicio 3
   
 
 def e4():
-    pass;
+    print("\nEjercicio 4");
 
 def e5():
-    pass;
+    print("\nEjercicio 5");
 
 def transito(): #Se leera las calcomanias de autos para saber cuantos autos tienen calcomania de cada color
     #Inicializamos las variables de las calcomanias
@@ -90,8 +90,33 @@ def e6(): #Funcion para realizar el ejercicio 6
     transito();
 
 def menu():
-    pass;
+    opcion = int(input("\nIngresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#le pide el ejercicio a ejecutar
+    while opcion != 7 :#mientras no ingrese salir, el while se repetira
+        if opcion == 1 :#si la opcion es = a 1 ejecuta el ejercicio 1
+            e1();
+            opcion = int(input("\nIngresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#vuelve a preguntar que opcion quiere
+        elif opcion == 2 :#si la opcion es = a 2 ejecuta el ejercicio 2
+            e2();
+            opcion = int(input("\nIngresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#vuelve a preguntar que opcion quiere            
+        elif opcion == 3 :#si la opcion es = a 3 ejecuta el ejercicio 3
+            e3();
+            opcion = int(input("\nIngresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#vuelve a preguntar que opcion quiere
+        elif opcion == 4 :#si la opcion es = a 4 ejecuta el ejercicio 4
+            e4();
+            opcion = int(input("\nIngresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#vuelve a preguntar que opcion quiere
+        elif opcion == 5 :#si la opcion es = a 5 ejecuta el ejercicio 5
+            e5();
+            opcion = int(input("\nIngresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#vuelve a preguntar que opcion quiere
+        elif opcion == 6 :#si la opcion es = a 6 ejecuta el ejercicio 6
+            e6();
+            opcion = int(input("\nIngresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#vuelve a preguntar que opcion quiere
+        else :#si ingresa cualquier otro valor, pide que ingrese uno correcto
+            print("\nIngresa un numero valido");
+            opcion = int(input("Ingresa el numero de ejercicio que quieres ejecutar y 7 para salir "));#vuelve a preguntar que opcion quiere
+            
 
+menu();
 
-
-
+print("\npractica 08");
+print("padilla valdez gustavo");
+print("becerra gonzalez diego ivan");
