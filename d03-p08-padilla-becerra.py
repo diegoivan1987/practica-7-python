@@ -45,10 +45,19 @@ def e3(): #Funcion para realizar el ejercicio 3
     print("\nEjercicio 3");
     tablas();
 
-  
-
+def numeros():#lee un numero que ingrese el usuario y lo imprime en negativo
+    numero = 1;#se inicializa asi para que entre al while
+    while numero != 0 :#mientras no ingrese la opcion de salida, seguira dentro
+        numero = float(input("Ingresa un numero positivo o 0 para salir "));#guarda el valor del numero
+        while numero < 0 :#mientras ingresa un numero negativo, pide que lo ingrese positivo
+            numero = float(input("Debes ingresar un numero positivo "));
+        if numero != 0 :#si el numero no es 0, imprime el negativo
+            negativo = numero * -1;#hace la conversion a negativo
+            print(negativo);
+    
 def e4():
     print("\nEjercicio 4");
+    numeros();
 
 def e5():
     print("\nEjercicio 5");
