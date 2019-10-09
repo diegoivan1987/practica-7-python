@@ -61,57 +61,48 @@ def e4():#Funcion para realizar el ejercicio 4
 
 def cal_alumnos():#guarda las calificaciones de los alumnos, muestra la calificacion mas baja y la moda
     limite = int(input("Ingresa el numero de alumnos "));#ingresa el numero de alumnos
-    contador = int(1);#contador que se usara como auxiliar
+    contador = int(0);#contador que se usara como auxiliar
     calificaciones = [];#lista que guardara todas las calificaciones
-    while contador <= limite :#mientras el contador no supere al limite, se repetira
-        print("Ingresa la calificacion del alumno ",contador);#pide la calificacion del alumno 
-        calificaciones.append(float(input()));#la guarda en la lista
+    while contador < limite :#mientras el contador no supere al limite, se repetira
+        print("Ingresa la calificacion del alumno ",contador+1);#pide la calificacion del alumno 
+        calificaciones.append(int(input()));#la guarda en la lista
+        while calificaciones[contador] < 0 or calificaciones[contador] > 100 :#si la calificacion no entra dentro del rango, la vuelve a pedir
+            calificaciones[contador]=(int(input("Ingresa una calificacion valida ")));
         contador += 1;#aumenta el contador en 1
+        
     contador = 0;
     print("\nLas calificaciones fueron:");
     while contador < limite :#imprime todas las calificaciones
         print("Alumno ",contador + 1," calificacion ",calificaciones[contador]);
         contador += 1;
         
-    repeticiones = [];
-    sin_repetirse = [];
-    i = 0;
-    while i < limite :
-        sin_repetirse.append(-10);
-        i += 1;
-    i = 0;
-    while i < limite :
-        repeticiones.append(1);
-        i += 1;
-        
-    i = 0;
-    i2 = 0;
-    i3 = 0;
-    num_dif = 0;
-    while i < limite :
-        i2 = i;
-        while i2+1 < limite-1 :
-            if calificaciones[i2] != calificaciones[i2+1]:
-                i3=i2;
-                while i3 < limite-1 :
-                    if sin_repetirse[i3] != calificaciones[i3+1]:
-                        sin_repetirse[i3] = calificaciones[i3+1];
-                        
-                        num_dif +=1;
-                    i3 += 1;
-            elif calificaciones[i2] == calificaciones[i2+1]:
-                repeticiones[i2] +=1;
-            i2+=1;
-        i+=1;
+    repeticiones = [];#aqui se guardaran cuantas veces se repite cada calificacion
+    contador = 0;
+    while contador < limite :#agregamos campos a la lista igual al numero de calificaciones
+        repeticiones.append(0);#llenamos los campos con 0 para que al momento de introducir un numero de repeticion real, diferenciarlo
+        contador += 1;
+
+    contador = 0;
+    contador2 = 0;
+    while contador < limite :#recorremos la lista
+        contador2 = 0;
+        while contador2 < limite :#recorremos la lista de nuevo
+            if calificaciones[contador] == calificaciones[contador2] :#comparara cada elemento de la lista y contara cuantas veces se repite cada uno
+                repeticiones[contador] = (repeticiones[contador])+1;#guarda el numero de repeticiones en la otra lista
+            contador2 += 1;
+        contador += 1;
+
+    contador = 0;
+    mayor = 0;#guardara la mayor cantidad de repeticiones
+    posicion_mayor = 0;#guardara la posicion del numero con mayor cantidad de repeticiones
+    while contador < limite :#recorremos la lista
+        if repeticiones[contador] > mayor :#si el numero de repeticiones es mayor al de la variable, se copia el numero mayor a la varibale
+            mayor = repeticiones[contador];
+            posicion_mayor = contador;#guarda la posicion del numero con mas repeticiones
+        contador += 1;
+
+    print("La moda es ",calificaciones[posicion_mayor],"con ",repeticiones[posicion_mayor],"repeticiones");
     
-    i = 0;
-    while i < limite :
-        print( sin_repetirse[i]);
-        i += 1;
-    i = 0;
-    while i < limite :
-        print(repeticiones[i]);
-        i += 1;         
                 
 
 def e5():
