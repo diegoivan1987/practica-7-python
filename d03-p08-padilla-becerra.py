@@ -77,28 +77,42 @@ def cal_alumnos():#guarda las calificaciones de los alumnos, muestra la califica
     sin_repetirse = [];
     i = 0;
     while i < limite :
-        sin_repetirse.append(-1);
+        sin_repetirse.append(-10);
         i += 1;
+    i = 0;
+    while i < limite :
+        repeticiones.append(1);
+        i += 1;
+        
     i = 0;
     i2 = 0;
     i3 = 0;
     num_dif = 0;
     while i < limite :
-        while i2 < limite :
-            if calificaciones[i] != calificaciones[i2] :
-                while i3 < limite :
-                    if calificaciones[i2] != sin_repetirse[i3] :
-                        sin_repetirse[i3] = calificaciones[i2];
-                        num_dif += 1;
-                    i3 +=1
-            i2 +=1;
-        i += 1;
-
-    i = 0;
-    print(num_dif);
-    while i < num_dif:
-        print(sin_repetirse[i]);
+        i2 = i;
+        while i2+1 < limite-1 :
+            if calificaciones[i2] != calificaciones[i2+1]:
+                i3=i2;
+                while i3 < limite-1 :
+                    if sin_repetirse[i3] != calificaciones[i3+1]:
+                        sin_repetirse[i3] = calificaciones[i3+1];
+                        
+                        num_dif +=1;
+                    i3 += 1;
+            elif calificaciones[i2] == calificaciones[i2+1]:
+                repeticiones[i2] +=1;
+            i2+=1;
         i+=1;
+    
+    i = 0;
+    while i < limite :
+        print( sin_repetirse[i]);
+        i += 1;
+    i = 0;
+    while i < limite :
+        print(repeticiones[i]);
+        i += 1;         
+                
 
 def e5():
     print("\nEjercicio 5");
