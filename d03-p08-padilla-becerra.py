@@ -55,12 +55,54 @@ def numeros():#lee un numero que ingrese el usuario y lo imprime en negativo
             negativo = numero * -1;#hace la conversion a negativo
             print(negativo);
     
-def e4():
+def e4():#Funcion para realizar el ejercicio 4
     print("\nEjercicio 4");
     numeros();
 
+def cal_alumnos():#guarda las calificaciones de los alumnos, muestra la calificacion mas baja y la moda
+    limite = int(input("Ingresa el numero de alumnos "));#ingresa el numero de alumnos
+    contador = int(1);#contador que se usara como auxiliar
+    calificaciones = [];#lista que guardara todas las calificaciones
+    while contador <= limite :#mientras el contador no supere al limite, se repetira
+        print("Ingresa la calificacion del alumno ",contador);#pide la calificacion del alumno 
+        calificaciones.append(float(input()));#la guarda en la lista
+        contador += 1;#aumenta el contador en 1
+    contador = 0;
+    print("\nLas calificaciones fueron:");
+    while contador < limite :#imprime todas las calificaciones
+        print("Alumno ",contador + 1," calificacion ",calificaciones[contador]);
+        contador += 1;
+        
+    repeticiones = [];
+    sin_repetirse = [];
+    i = 0;
+    while i < limite :
+        sin_repetirse.append(-1);
+        i += 1;
+    i = 0;
+    i2 = 0;
+    i3 = 0;
+    num_dif = 0;
+    while i < limite :
+        while i2 < limite :
+            if calificaciones[i] != calificaciones[i2] :
+                while i3 < limite :
+                    if calificaciones[i2] != sin_repetirse[i3] :
+                        sin_repetirse[i3] = calificaciones[i2];
+                        num_dif += 1;
+                    i3 +=1
+            i2 +=1;
+        i += 1;
+
+    i = 0;
+    print(num_dif);
+    while i < num_dif:
+        print(sin_repetirse[i]);
+        i+=1;
+
 def e5():
     print("\nEjercicio 5");
+    cal_alumnos();
 
 def transito(): #Se leera las calcomanias de autos para saber cuantos autos tienen calcomania de cada color
     #Inicializamos las variables de las calcomanias
