@@ -101,6 +101,17 @@ def cal_alumnos():#guarda las calificaciones de los alumnos, muestra la califica
             posicion_mayor = contador;#guarda la posicion del numero con mas repeticiones
         contador += 1;
 
+    contador = 0;
+    menor = 101;#guardara el numero menor
+    posicion_menor = 0;#guardara la posicion del numero menor
+    while contador < limite :
+        if menor > calificaciones[contador] :#si hay un numero menor que 'menor', lo guarda
+            menor = calificaciones[contador];
+            posicion_menor = contador;
+        contador += 1;
+        
+    #imprimimos los datos que nos piden
+    print("La calificacion menor fue del alumno ",posicion_menor+1,"con calificacion de ",calificaciones[posicion_menor]);
     print("La moda es ",calificaciones[posicion_mayor],"con ",repeticiones[posicion_mayor],"repeticiones");
     
                 
