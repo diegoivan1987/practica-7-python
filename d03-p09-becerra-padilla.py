@@ -24,39 +24,42 @@ def e7():#funcion para el ejercicio 7
     print("\nEjercicio 7");
 
 def menu():#muestra un menu para ejecutar los ejercicios
-        aumento = 1 ;#sera la variable que hace infinito el ciclo
-        for i in range(aumento) :#se repetira hasta llegar a 1, al llegar a una opcion o validacion i se inicia en 0
+        aumento = [0] ;#sera la variable que hace infinito el ciclo
+        for i in aumento :#se repetira hasta llegar a 1, al llegar a una opcion o validacion i se inicia en 0
                 opcion = str(input("\nIngresa el numero de ejercicio a ejecutar y 8 para salir "));
                 try :#si ingresa un numero, lo ejecuta
                         opcion = int(opcion);
                         if opcion < 1 or opcion > 8 :#si esta fuera del rango o es negativo
-                                opcion = str(input("Debes ingresar un numero "));
+                                opcion = str(input("Debes ingresar un numero valido "));
+                                aumento.append(0);
                         else :#en otro caso
                                 if opcion == 1 :#ejecuta el ejercicio 1
                                         e1();
-                                        aumento += 1;
+                                        aumento.append(0);
                                 if opcion == 2 :#ejecuta el ejercicio 2
                                         e2();
-                                        aumento += 1;
+                                        aumento.append(0);
                                 if opcion == 3 :#ejecuta el ejercicio 3
                                         e3();
-                                        aumento += 1;
+                                        aumento.append(0);
                                 if opcion == 4 :#ejecuta el ejercicio 4
                                         e4();
-                                        aumento += 1;
+                                        aumento.append(0);
                                 if opcion == 5 :#ejecuta el ejercicio 5
                                         e5();
-                                        aumento += 1;
+                                        aumento.append(0);
                                 if opcion == 6 :#ejecuta el ejercicio 6
                                         e6();
-                                        aumento += 1;
+                                        aumento.append(0);
                                 if opcion == 7 :#ejecuta el ejercicio 7
                                         e7();
-                                        aumento += 1;
+                                        aumento.append(0);
+                                if opcion == 8 :
+                                        pass;
                                 
                 except :#en caso de que ingrese un caracter
                         opcion = str(input("Debes ingresar un numero "));
-                        aumento += 1;
+                        aumento.append(0);
                         
 
 menu();
