@@ -31,7 +31,30 @@ def menu():#muestra un menu para ejecutar los ejercicios
                         opcion = int(opcion);
                         if opcion < 1 or opcion > 8 :#si esta fuera del rango o es negativo
                                 opcion = str(input("Debes ingresar un numero valido "));
-                                aumento.append(0);
+                                opcion = int(opcion);
+                                if opcion == 1 :#ejecuta el ejercicio 1
+                                        e1();
+                                        aumento.append(0);
+                                if opcion == 2 :#ejecuta el ejercicio 2
+                                        e2();
+                                        aumento.append(0);
+                                if opcion == 3 :#ejecuta el ejercicio 3
+                                        e3();
+                                        aumento.append(0);
+                                if opcion == 4 :#ejecuta el ejercicio 4
+                                        e4();
+                                        aumento.append(0);
+                                if opcion == 5 :#ejecuta el ejercicio 5
+                                        e5();
+                                        aumento.append(0);
+                                if opcion == 6 :#ejecuta el ejercicio 6
+                                        e6();
+                                        aumento.append(0);
+                                if opcion == 7 :#ejecuta el ejercicio 7
+                                        e7();
+                                        aumento.append(0);
+                                if opcion == 8 :
+                                        pass;#no se agrega nada para que termine el ciclo
                         else :#en otro caso
                                 if opcion == 1 :#ejecuta el ejercicio 1
                                         e1();
@@ -55,10 +78,10 @@ def menu():#muestra un menu para ejecutar los ejercicios
                                         e7();
                                         aumento.append(0);
                                 if opcion == 8 :
-                                        pass;
+                                        pass;#no se agrega nada para que termine el ciclo
                                 
                 except :#en caso de que ingrese un caracter
-                        opcion = str(input("Debes ingresar un numero "));
+                        print("\nDebes de ingresar solo numeros");
                         aumento.append(0);
                         
 
