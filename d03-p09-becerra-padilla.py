@@ -160,6 +160,9 @@ def e2():#funcion para el ejercicio 2
     print("\nEjercicio 2");
     neumaticos();
 
+def e3():#funcion para el ejercicio 3
+    print("\nEjercicio 3");
+
 def diputados():
         aumento = [0] ;#sera la variable que hace infinito el ciclo
         favor = 0;
@@ -208,8 +211,6 @@ def diputados():
         else:
             print("No hubo votos");
 
-def e3():#funcion para el ejercicio 3
-    print("\nEjercicio 3");
 
 def e4():#funcion para el ejercicio 4
     print("\nEjercicio 4");
