@@ -159,13 +159,61 @@ def neumaticos():#muestra un menu para ejecutar los ejercicios
 def e2():#funcion para el ejercicio 2
     print("\nEjercicio 2");
     neumaticos();
- 
+
+def diputados():
+        aumento = [0] ;#sera la variable que hace infinito el ciclo
+        favor = 0;
+        contra = 0;
+        abst = 0;
+
+        
+        for i in aumento :#se repetira hasta llegar a 1, al llegar a una opcion o validacion i se inicia en 0
+                print("\n-ENCUESTA DEL TRATADO DE LIBRE Y COMERCIO-"); 
+                print("Ingrese 0 si esta en contra");
+                print("Ingrese 1 si esta a favor");
+                print("Ingrese 2 para abstenerse a votar");
+                print("Ingresar 3 si ya han terminado de votar");
+                opcion = str(input("Digite su opcion: "));
+                try :#si ingresa un numero, lo ejecuta
+                        opcion = int(opcion);
+                        if opcion < 0 or opcion > 3 :#si esta fuera del rango o es negativo
+                                print("Debes ingresar una opcion valida");
+                                aumento.append(0); 
+
+                        else :#en otro caso
+                                if opcion == 1 :#ejecuta el ejercicio 1
+                                        favor += 1;
+                                        aumento.append(0);
+                                if opcion == 0 :#ejecuta el ejercicio 2
+                                        contra += 1;
+                                        aumento.append(0);
+                                if opcion == 3 :#ejecuta el ejercicio 2
+                                        pass;        
+                                if opcion == 2 :#ejecuta el ejercicio 3
+                                        abst += 1;
+                                        aumento.append(0);
+                                
+                                
+                except :#en caso de que ingrese un caracter
+                        print("\nDebes de ingresar solo numeros enteros para poder votar");
+                        aumento.append(0);
+        total_votos = favor + contra + abst;
+        if total_votos != 0:
+            promfavor= (favor / total_votos) * 100;
+            promcontra= (contra / total_votos) * 100;
+            promabst= (abst / total_votos) * 100;
+            print("El promedio de los votos a favor fue de %" , promfavor , "Con un total de votos de " , favor);
+            print("El promedio de los votos en contra fue de %" , promcontra , "Con un total de votos de " , contra);
+            print("El promedio de los votos abstenidos fue de %" , promabst , "Con un total de votos de " , abst);
+        else:
+            print("No hubo votos");
 
 def e3():#funcion para el ejercicio 3
     print("\nEjercicio 3");
 
 def e4():#funcion para el ejercicio 4
     print("\nEjercicio 4");
+    diputados();
 
 def e5():#funcion para el ejercicio 5
     print("\nEjercicio 5");
