@@ -216,8 +216,54 @@ def e4():#funcion para el ejercicio 4
     print("\nEjercicio 4");
     diputados();
 
+def suma():
+    aumento = [0] ;#sera la variable que hace infinito el ciclo
+    aux=0; #Se necesitara una variable auxiliar para hacer calculos
+    
+    
+    for i in aumento : #Se crea el for en caso de que ingrese un numero invalido
+        numero= str(input("Ingresa el numero de donde empezara la suma: "));
+        try:
+            numero = int(numero);
+            total=0; #Se inicializa el total
+            if numero < 1: #Si ingresa algun valor menor a 1 no se hara ninguna suma
+                print("Debes ingresar una opcion valida");
+                aumento.append(0);
+            else :
+                #Se hara la impresion y la suma a traves del for
+                print("-Suma en decimal-");
+                for x in range(numero) : 
+                    if numero-aux > 1: #El if-else, esta solo por el signo al final
+                        print(numero-aux , end=" + ");
+                        total += numero-aux; #El total va sumando todos los numeros en sucesion
+                        aux += 1; #El auxiliar sirve para decrecer el numero de partida
+                    else :
+                        print(numero-aux , end=" = ");
+                        total += numero-aux;
+                        aux += 1;
+                        
+                print(total); #Imprime el total en decimal
+                aux=0;
+                total=0; #Reinicializa el auxiliar y el total para volverlo a utilizar en el hexadecimal
+                print("-Suma en hexadecimal-"); #Hace lo mismo que en el for decimal, pero tratando el dato como hexadecimal
+                for y in range(numero) :
+                    if numero-aux > 1:
+                        print(hex(numero-aux) , end=" + ");
+                        total += numero-aux;
+                        aux += 1;
+                    else :
+                        print(hex(numero-aux) , end=" = ");
+                        total += numero-aux;
+                        aux += 1;
+                print(hex(total)); #Imprime el total en hexadecimal
+
+        except:
+            print("Ingresa un numero entero!");
+            aumento.append(0);
+
 def e5():#funcion para el ejercicio 5
     print("\nEjercicio 5");
+    suma();
    
 def e6():#funcion para el ejercicio 6
     print("\nEjercicio 6");
