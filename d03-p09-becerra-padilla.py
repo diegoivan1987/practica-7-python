@@ -264,9 +264,145 @@ def suma():
 def e5():#funcion para el ejercicio 5
     print("\nEjercicio 5");
     suma();
-   
+
+def python():
+    aumento = [0] ; #Toda esta parte sera inicializacion de tablas y variables que se necesitaran
+    aumentob = [0]; #Equivalente a hacer el ciclo while, en caso de que la calificacion de la materia este mal
+    aumentocod = [0]; #Equivalente al while, pero para en caso de que el codigo este repetido
+    alumnos=0; #Variable para contar el total de alumnos, y que servira a la hora de calcular el promedio
+    cod_totales=0; #El total de codigos que existen, para compararlos y encontrar alguno igual
+    pmax=0; #El promedio maximo, que se usara de auxiliar
+    cmax=""; #El codigo del promedio maximo, que se usara de auxiliar
+    empate=0; #Contador en caso de que haya en caso de empate, poder saber cuantos empataron
+    pmaxs=[]; #Lista para guardar los promedios maximos
+    cmaxs=[]; #Lista para guardar los codigos de los promedios maximos
+    codigos=[]; #Lista para guardar codigos
+    promedio=[]; #Lista para guardar promedios
+    materia1=[]; #Listas para guardar calificaciones de materias
+    materia2=[];
+    materia3=[];
+    
+    print("\n-Programando en Python con Profesor Campos-"); 
+    for i in aumento: #Se crea el ciclo for, para que se sigan subiendo datos de alumnos
+        print("\nIngrese 1 si quiere ingresar datos del alumno");
+        print("Ingrese 0 si ya se termino de registrar los alumnos");
+        opcion = str(input("Digite su opcion: "));
+        try :#si ingresa un numero, lo ejecuta
+            opcion = int(opcion);
+            
+            if opcion < 0 or opcion > 1 :#si esta fuera del rango o es negativo te lo repite
+                print("Debes ingresar 1 ó 0");
+                aumento.append(0);
+            else:
+                if opcion==1: #Si elige meter datos
+                    aumento.append(0);
+                    alumnos +=1; 
+                    aux= str(input("Dame tu codigo de alumno "));
+
+                    for x in range(cod_totales):
+                    #Este for sera para comprobar que el codigo no este registrado, comparandolo  con todos los de la lista
+                        for z in aumentocod:
+                            if aux == codigos[x]:
+                                print("Codigo ya registrado! Ingrese otro: ", end="");
+                                aux=str(input());
+                                aumentocod.append(0);
+                    
+                    cod_totales+=1;
+                    codigos.append(aux); #Agregara el codigo a la lista
+                        
+                    
+                    for x in aumentob: #Los for in aumentob, sera para evitar calificaciones erroneas, en vez del while
+                        error=1;
+                        print("Dame la calificacion de tu materia #1" , end=" ");
+                        auxm= str(input()); 
+                        try:
+                            auxm = int(auxm);
+                            if auxm < 0 or auxm > 100: #Si no esta en el rango, pide la calificacion valida
+                                print("Ingresa una calificacion valida!");
+                                aumentob.append(0);
+                            else: #Si todo esta bien ,lo agrega a la lista 
+                                materia1.append(auxm);
+                                aumentob = [0];
+
+                        except:
+                            print("Ingresa numero entero para la calificacion!");
+                            aumentob.append(0);
+                    for x in aumentob: #Mismo caso que el for anterior
+                        print("Dame la calificacion de tu materia #2", end=" ");
+                        auxm= str(input());
+                        try:
+                            auxm = int(auxm);
+                            if auxm < 0 or auxm > 100:
+                                print("Ingresa una calificacion valida!");
+                                aumentob.append(0);
+                            else:
+                                materia2.append(auxm);
+                                aumentob = [0];
+
+                        except:
+                            print("Ingresa numero entero para la calificacion!");
+                            aumentob.append(0);
+                    for x in aumentob: #Mismo caso que el for anterior
+                        print("Dame la calificacion de tu materia #3" , end=" ");
+                        auxm= str(input());
+                        try:
+                            auxm = int(auxm);
+                            if auxm < 0 or auxm > 100:
+                                print("Ingresa una calificacion valida!");
+                                aumentob.append(0);
+                            else:
+                                materia3.append(auxm);
+                                aumentob = [0];
+
+                        except:
+                            print("Ingresa numero entero para la calificacion!");
+                            aumentob.append(0);
+                if opcion==0: #Si decide salir
+                    if alumnos > 0: #Tiene que haber alumnos para sacar promedios
+                        for y in range(alumnos): #Con este for saca los promedios de cada alumno
+                            mat1= materia1[y];
+                            mat2= materia2[y];
+                            mat3= materia3[y];
+                            prom=(mat1+mat2+mat3)/3;
+                            promedio.append(prom);
+                        for y in range(alumnos): #Este for saca el promedio maximo
+                            if promedio[y] > pmax: #Si es mayor al maximo, reinicializara el empate y la lista de promedios maximos
+                                #Y solo se ingresara el nuevo promedio maximo
+                                empate=0;
+                                pmaxs=[];
+                                cmaxs=[];
+                                pmax=promedio[y];
+                                cmax=codigos[y];
+                                cmaxs.append(cmax);
+                                pmaxs.append(pmax);
+                            elif promedio[y]==pmax: #Si es igual al maximo, lo añadira a la lista de promedio maximos, y añadira 1 mas al caso de empate
+                                empate+=1;
+                                pmax=promedio[y];
+                                cmax=codigos[y];
+                                cmaxs.append(cmax);
+                                pmaxs.append(pmax);
+                        #If else para saber que mensaje imprimir en caso o no de empate
+                        if empate != 0:
+                                print("--Hubo ",empate+1," niños empatados con los promedios mas alto--");
+                        else:
+                            print("--Promedio mas alto--");
+                            
+                        for z in range(empate+1):#Imprime el o los promedios maximos
+                            prom=pmaxs[z];
+                            cod=cmaxs[z];
+                            print("El alumno de codigo ",cod," obtuvo un promedio de ", prom);      
+                    else: #Si no se registraron alumnos, no hace nada
+                        print("No se registro ningun alumno");
+                                                                                 
+        except :#en caso de que ingrese un caracter
+            print("\nDebes de ingresar solo numeros enteros para elegir su opcion");
+            aumento.append(0);
+
+
+        
 def e6():#funcion para el ejercicio 6
     print("\nEjercicio 6");
+    python();
 
 def e7():#funcion para el ejercicio 7
     print("\nEjercicio 7");
@@ -278,31 +414,9 @@ def menu():#muestra un menu para ejecutar los ejercicios
                 try :#si ingresa un numero, lo ejecuta
                         opcion = int(opcion);
                         if opcion < 1 or opcion > 8 :#si esta fuera del rango o es negativo
-                                opcion = str(input("Debes ingresar un numero valido "));
-                                opcion = int(opcion);
-                                if opcion == 1 :#ejecuta el ejercicio 1
-                                        e1();
-                                        aumento.append(0);
-                                if opcion == 2 :#ejecuta el ejercicio 2
-                                        e2();
-                                        aumento.append(0);
-                                if opcion == 3 :#ejecuta el ejercicio 3
-                                        e3();
-                                        aumento.append(0);
-                                if opcion == 4 :#ejecuta el ejercicio 4
-                                        e4();
-                                        aumento.append(0);
-                                if opcion == 5 :#ejecuta el ejercicio 5
-                                        e5();
-                                        aumento.append(0);
-                                if opcion == 6 :#ejecuta el ejercicio 6
-                                        e6();
-                                        aumento.append(0);
-                                if opcion == 7 :#ejecuta el ejercicio 7
-                                        e7();
-                                        aumento.append(0);
-                                if opcion == 8 :
-                                        pass;#no se agrega nada para que termine el ciclo
+                                print("Debes ingresar un numero valido ");
+                                aumento.append(0);
+                                
                         else :#en otro caso
                                 if opcion == 1 :#ejecuta el ejercicio 1
                                         e1();
