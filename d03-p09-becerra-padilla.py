@@ -158,8 +158,74 @@ def e2():#funcion para el ejercicio 2
     print("\nEjercicio 2");
     neumaticos();
 
+def bachoco():#determina el promedio de calidad de n-gallinas y calcula el precio del kg de huevo
+    aumento = [0];#lista para el for infinito
+    aumento2 = [0];#otra lista para ciclos for internos
+    calidades = [];#lista que  guardara la calidad de todas las gallinas
+    contador = 0;#contara el numero de gallinas ingresadas
+    print("Formula bachoco");
+    for i in aumento:
+        opcionBachoco = str(input("Ingresa 1 para ingresar los datos de una gallina y 2 para imprimir el precio por kg de huevo "));
+        try:#entra si se puede hacer la conversion a numero
+            opcionBachoco = int(opcionBachoco);
+            if opcionBachoco < 1 or opcionBachoco > 2 :#si esta fuera del rango
+                print("Debes ingresar una opcion valida");
+                aumento.append(0);
+            elif opcionBachoco == 1:#ingresa datos de la gallina
+                for i2 in aumento2 :
+                    peso = str(input("Ingresa el peso de la gallina en kg "));
+                    try:#si ingreso un numero
+                        peso = int(peso);
+                    except:#si ingresa un caracter
+                        print("Debes ingresar el peso con numeros");
+                        aumento2.append(0);
+                aumento2 = [0];#se vuelve a vaciar la lista
+                for i2 in aumento2 :
+                    altura = str(input("Ingresa la altura de la gallina  "));
+                    try:#si ingreso un numero
+                        altura = int(altura);
+                    except:#si ingresa un caracter
+                        print("Debes ingresar la altura con numeros");
+                        aumento2.append(0);
+                aumento2 = [0];#se vuelve a vaciar la lista
+                for i2 in aumento2 :
+                    huevos = str(input("Ingresa el numero de huevos que pone "));
+                    try:#si ingreso un numero
+                        huevos = int(huevos);
+                    except:#si ingresa un caracter
+                        print("Debes ingresar el dato usando numeros");
+                        aumento2.append(0);
+                        
+                calidad = (peso*altura)/huevos;#calcula la calidad de la gallina
+                calidades[i] = calidad;#guarda la calidad de la gallina
+                contador += 1;#se aumenta el numero de gallinas
+                aumento.append(0);
+            elif opcionBachoco == 2 :
+                sumatoria = 0;#guardara el valor de todas las calidades de las gallinas
+                for i2 in calidades :#recorre la lista de calidad
+                    sumatoria += calidades[i2];
+                promedio = sumatoria/contador;#saca el promedio de calidad de las gallinas
+
+                precioK = 0;#precio por kilo de huevo
+                if promedio >= 15 :
+                    precioK = promedio * 1.2;
+                elif promedio > 8 and promedio < 15 :
+                    precioK = promedio;
+                elif promedio <= 8 :
+                    precioK = promedio * 0.8;
+
+                print("Se ingresaron los datos de ",contador," gallinas");
+                print("El promedio de calidad es ",promedio);
+                print("El precio por kg de huevo es ",precioK);
+        except:#por si ingresa un caracter
+            print("Solo se pueden ingresa numeros");
+            aumento.append(0);
+
+    
+
 def e3():#funcion para el ejercicio 3
     print("\nEjercicio 3");
+    bachoco();
 
 def diputados():
         aumento = [0] ;#sera la variable que hace infinito el ciclo
