@@ -41,21 +41,19 @@ def descuento():#calcula el descuento total que se hace en un teatro
             boletos.append(-2);
 
     costo = 100;#costo del boleto
-    desc1 = costo * 0.35;#descuento de la categoria 1
-    desc2 = costo * 0.25;#descuento de la categoria 2
-    desc3 = costo * 0.1;#descuento de la categoria 3
-    desc4 = costo * 0.25;#descuento de la categoria 4
-    desc5 = costo * 0.35;#descuento de la categoria 5
-    descuento_total = (desc1*cat1)+(desc2*cat2)+(desc3*cat3)+(desc4*cat4)+(desc5*cat5);#sumatoria
+    desc1 = (costo * 0.35)*cat1;#descuento de la categoria 1
+    desc2 = (costo * 0.25)*cat2;#descuento de la categoria 2
+    desc3 = (costo * 0.1)*cat3;#descuento de la categoria 3
+    desc4 = (costo * 0.25)*cat4;#descuento de la categoria 4
+    desc5 = (costo * 0.35)*cat5;#descuento de la categoria 5
     #se imprimen los datos
     print("El boleto cuesta 100");
-    print("Personas de la categoria 1: ",cat1);
-    print("Personas de la categoria 2: ",cat2);
-    print("Personas de la categoria 3: ",cat3);
-    print("Personas de la categoria 4: ",cat4);
-    print("Personas de la categoria 5: ",cat5);
-    print("Descuento total: ",descuento_total);
-
+    print("Personas de la categoria 1: ",cat1," y el dinero descontado en esa categoria ",desc1);
+    print("Personas de la categoria 2: ",cat2," y el dinero descontado en esa categoria ",desc2);
+    print("Personas de la categoria 3: ",cat3," y el dinero descontado en esa categoria ",desc3);
+    print("Personas de la categoria 4: ",cat4," y el dinero descontado en esa categoria ",desc4);
+    print("Personas de la categoria 5: ",cat5," y el dinero descontado en esa categoria ",desc5);
+    
 def e1():#funcion para el ejercicio 1
     print("\nEjercicio 1");
     descuento();
@@ -168,13 +166,13 @@ def diputados():
         favor = 0; #Inicializo variables de votos para evitar errores
         contra = 0;
         abst = 0;
-        diputados= 10; #Son 10 diputados ficticiamente
+        diputados= 500;
         
         for i in aumento :#se repetira hasta llegar a 1, al llegar a una opcion o validacion i se inicia en 0
                 print("\n-ENCUESTA DEL TRATADO DE LIBRE Y COMERCIO-"); 
                 print("Ingrese 0 si esta en contra");
                 print("Ingrese 1 si esta a favor");
-                print("Ingrese 2 para abstenerse a votar");
+                print("Ingrese 2 para salir")
                 opcion = str(input("Digite su opcion: "));
                 try :#si ingresa un numero, lo ejecuta
                         opcion = int(opcion);
@@ -185,31 +183,30 @@ def diputados():
                         else :#en otro caso
                             if diputados == 0:#Si ya no hay diputados que puedan votar
                                  pass; #No agregara nada, y el for terminara
-                            if opcion == 1 and diputados != 0:#Si elige la opcion 1 y todavia se puede votar
+                            elif opcion == 1 and diputados != 0:#Si elige la opcion 1 y todavia se puede votar
                                 favor += 1; #Se le añadira 1 a favor
-                                diputados = diputados - 1; #Se restara 1 diputado que puede votar
                                 aumento.append(0);
                             elif opcion == 0 and diputados != 0: #En la opcion 0 y 1 se repite lo mismo que lo anterior
                                 contra += 1;
-                                diputados = diputados - 1;
-                                aumento.append(0);       
-                            elif opcion == 2 and diputados != 0:
-                                abst += 1;
-                                diputados = diputados - 1;
                                 aumento.append(0);
+                            elif opcion == 2 and diputados != 0: #sale
+                                pass;#no aumenta el limite, para salir
+                        
                                 
                                 
                 except :#en caso de que ingrese un caracter
                         print("\nDebes de ingresar solo numeros enteros para poder votar");
                         aumento.append(0);
-        total_votos = favor + contra + abst; #Sacara el total de votos
-        promfavor= (favor / total_votos) * 100; #Sacara el promedio de cada opcion
-        promcontra= (contra / total_votos) * 100;
-        promabst= (abst / total_votos) * 100;
+                        
+        total_votos = favor + contra; #Sacara el total de votos
+        #Sacara el promedio de cada opcion
+        promfavor= (favor / diputados) * 100; 
+        promcontra= (contra / diputados) * 100;
+        promabst = ((diputados - (favor+contra))/diputados)*100;
         #Y la mandara a imprimir
         print("El promedio de los votos a favor fue de %" , promfavor , "Con un total de votos de " , favor);
         print("El promedio de los votos en contra fue de %" , promcontra , "Con un total de votos de " , contra);
-        print("El promedio de los votos abstenidos fue de %" , promabst , "Con un total de votos de " , abst);
+        print("El promedio de los votos abstenidos fue de %" , promabst);
 
 
 def e4():#funcion para el ejercicio 4
