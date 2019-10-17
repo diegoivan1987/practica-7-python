@@ -467,8 +467,124 @@ def e6():#funcion para el ejercicio 6
     print("\nEjercicio 6");
     python();
 
+def cajero():#calcula el total de una venta mas iva y el total de dinero en caja
+    caja = 0;#el valor inicial de caja es uno
+    subtotal = 0;
+    iva = 0;
+    total = 0;
+    pago = 0;
+    cambio = float(0);
+    opcion = 0;
+    aumento = [0];#lista para el for infinito
+    #costo de algunos productos
+    huevo = 10;
+    leche = 15;
+    frijol = 7;
+    cheetos = 13;
+    galletas = 10;
+    producto = 0;#guardara la opcion de producto elegida
+    for i in aumento:
+        opcion = str(input("Ingresa 1 para ingresar un producto, 2 para terminar la venta, 3 para imprimir el total en caja y 4 para salir  "));
+        try:#entra si ingreso un numero
+            opcion = int(opcion);
+            if opcion < 1 or opcion > 4 :#si ingreso un numero no valido
+                print("Las opciones solo son numeros positivos");
+                aumento.append(0);
+            if opcion == 1:#ingresa un producto y se calcula el subtotal
+                print("\n1.-kg huevo $",huevo);
+                print("2.-lt leche $",leche);
+                print("3.-kg frijol $",frijol);
+                print("4.-paquete cheetos $",cheetos);
+                print("5.-paquete galletas $",galletas);
+                producto = str(input("Ingresa el numero de opcion del producto vendido "));
+                try:#si ingreso un numero
+                    producto = int(producto);
+                    if producto < 1 or producto > 5:#si no esta dentro del rango
+                        print("Se deben ingresar numeros dentro de las opciones");
+                        aumento.append(0);
+                    else :
+                        if producto == 1:
+                            subtotal += huevo;
+                            aumento.append(0);
+                        if producto == 2:
+                            subtotal += leche;
+                            aumento.append(0);
+                        if producto == 3:
+                            subtotal += frijol;
+                            aumento.append(0);
+                        if producto == 4:
+                            subtotal += cheetos;
+                            aumento.append(0);
+                        if producto == 5:
+                            subtotal += galletas;
+                            aumento.append(0);
+                except:# si no ingreso un numero
+                    print("No elejiste un numero");
+                    aumento.append(0);
+            if opcion == 2:#imprime el total de la venta
+                iva = subtotal * 0.16;
+                total = subtotal + iva;
+                print("Subtotal $",subtotal);
+                print("IVA $", iva);
+                print("Total $",total);
+                pago = str(input("Ingresa la cantidad recibida del cliente "));
+                try:#si ingreso un numero
+                    pago = float(pago);
+                    if pago < 1 :#si ingresa negativos
+                        pago = str(input("La cantidad recibida debe ser un numero positivo"));
+                        pago = float(pago);
+                        cambio = pago - total;
+                        print("Cambio $",cambio);
+                        caja += total;
+                        #las siguientes tres variables se reinician a 0
+                        subtotal = 0;
+                        iva = 0;
+                        total = 0;
+                        aumento.append(0);
+                    else:
+                        cambio = pago - total;
+                        print("Cambio $",cambio);
+                        caja += total;
+                        #las siguientes tres variables se reinician a 0
+                        subtotal = 0;
+                        iva = 0;
+                        total = 0;
+                        aumento.append(0);
+                except:#si no ingreso un numero
+                    pago = str(input("La cantidad recibida debe ser un numero "));
+                    pago = float(pago);
+                    if pago < 1 :#si ingresa negativos
+                        pago = str(input("La cantidad recibida debe ser un numero positivo"));
+                        pago = float(pago);
+                        cambio = pago - total;
+                        print("Cambio $",cambio);
+                        caja += total;
+                        #las siguientes tres variables se reinician a 0
+                        subtotal = 0;
+                        iva = 0;
+                        total = 0;
+                        aumento.append(0);
+                    else:
+                        cambio = pago - total;
+                        print("Cambio $",cambio);
+                        caja += total;
+                        #las siguientes tres variables se reinician a 0
+                        subtotal = 0;
+                        iva = 0;
+                        total = 0;
+                        aumento.append(0);
+            if opcion == 3:#imprime el total en caja
+                print("El dinero en caja es $",caja);
+            if opcion == 4:#sale del for
+                pass;
+                
+        except:#si ingreso un caracter
+            print("Deberia de haber ingresado un numero");
+            aumento.append(0);
+            
 def e7():#funcion para el ejercicio 7
     print("\nEjercicio 7");
+    cajero();
 
 def menu():#muestra un menu para ejecutar los ejercicios
         aumento = [0] ;#sera la variable que hace infinito el ciclo
