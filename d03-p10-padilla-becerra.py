@@ -4,7 +4,6 @@
 
 from colorama import Cursor,Fore,Back,init,Style; #Llama a colorama
 from time import sleep; #Llama la funcion para pausar
-import gc; 
 import os; #Llamo funciones del sistema operativo para poder borrar pantalla
 init(autoreset=True); #Se inicia el colorama, que se autoresetee para evitar basura en la consola
 
@@ -38,9 +37,12 @@ def dibujo(errorcatch): #Esta funcion creara la ventana siempre que se necesite 
         x=3;
         y+=1;
     #En la esquina mandara a imprimir los errores con parametros
-    errorcatch=str(errorcatch);
-    print(Fore.BLACK+Cursor.POS(3,12)+Back.LIGHTRED_EX+Style.DIM+"Errores Except: "+errorcatch, end="");
-    print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Style.DIM+"", end="");
+    if errorcatch == -1: 
+        pass;
+    else:
+        errorcatch=str(errorcatch);
+        print(Fore.BLACK+Cursor.POS(3,12)+Back.LIGHTRED_EX+Style.DIM+"Errores Except: "+errorcatch, end="");
+        print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Style.DIM+"", end="");
     
 def estacionamiento(errorcatch): #Se hara una funcion que calcule el costo del estacionamiento
     aumento=[0]; #Inicializa las variables
@@ -242,10 +244,87 @@ def e3(errorcatch):
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
 
-def e4(errorcatch):
+def repetidos(errorcatch): #Se hara una funcion que cambie todos los numero repetidos en una lista
+    aumento=[0]; #Se inicializan las variables de listas para los for, y las listas a imprimir al final
+    aumentob=[0];
+    lista=[];
+    lista_n=[];
+    numero=0;
+    contador=0;
+    cambios=0;
+    for i in aumento: #El for sera para seguir preguntando si quiere ingresar un numero
+        dibujo(errorcatch);
+        print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Style.DIM+"Ingrese 1 para ingresar numero y 0 para salir: ", end="");
+        opcion=str(input(Fore.BLACK+Back.WHITE));
+        print("",end="");
+        try:
+            opcion=int(opcion);
+            if opcion < 0 or opcion > 1: #Si la opcion no es 0 ni 1
+                dibujo(errorcatch);
+                print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Cursor.POS(3,4)+"Ingrese 1 ó 0!", end="");
+                aumento.append(0);
+                sleep(1);
+            elif opcion == 0: #Si es 0 acaba el for
+                pass;
+            elif opcion == 1: #Si es 1 pide el valor a ingresar y comprueba que no sea negativo ni un caracter
+                for x in aumentob:
+                    dibujo(errorcatch);
+                    aumento.append(0);
+                    print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Style.DIM+"Ingrese un numero entero positivo: ", end="");
+                    numero=str(input(Fore.BLACK+Back.WHITE));
+                    print("",end="");
+                    try:
+                        numero=int(numero);
+                        if numero < 0 : #En caso de que sea negativo
+                            dibujo(errorcatch);
+                            print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Cursor.POS(3,4)+"Tiene que ser positivo!", end="");
+                            aumentob.append(0);
+                            sleep(1);
+                        else: #En otro caso lo agregara a la lista
+                            lista.append(numero);
+                            contador+=1;
+                            
+                    except: #Si ingresa un dato incorrecto, manda error, y el ciclo se repite
+                        errorcatch+=1;
+                        dibujo(errorcatch);
+                        print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Cursor.POS(3,4)+"ERROR! Ingrese un numero entero!", end="");
+                        aumentob.append(0);
+                        sleep(1);
+
+        except: #Si ingresa un dato incorrecto, manda error, y el ciclo se repite
+            errorcatch+=1;
+            dibujo(errorcatch);
+            print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Cursor.POS(3,4)+"ERROR! Ingrese un numero entero!", end="");
+            aumento.append(0);
+            sleep(1);
+
+    lista_n.extend(lista); #Se creara una copia de la lista para imprimir las diferencias
+    for y in range(contador): #Estos compararan cada dato con cada uno de los otros para verificar los que se repiten
+        for x in range(contador):
+            if lista[y] == lista[x] and y!=x and lista[x] != -1: #En caso de que se repita, no sea el mismo de la posicion, y no sea -1
+                lista[x]=-1; #Hara el cambio a -1
+                cambios+=1;
+
     dibujo(errorcatch);
-    print(Fore.BLACK+Back.LIGHTMAGENTA_EX+Cursor.POS(3,10)+"Ejercicio 4", end="");
-    input(Fore.BLACK+Cursor.POS(3,11)+Back.WHITE+"");
+    if contador == 0: #Si no ingreso nada a la lista
+        print(Fore.BLACK+Back.WHITE+Cursor.POS(3,4)+"No se ingreso nada en la lista", end="");
+    else: 
+        aux=str(lista_n);
+        print(Fore.BLACK+Back.WHITE+Cursor.POS(3,4)+"Lista original   : ", end="");
+        print(Fore.BLACK+Back.WHITE+aux, end="");
+        aux=str(lista);
+        print(Fore.BLACK+Back.WHITE+Cursor.POS(3,5)+"Lista actualizada: ", end="");
+        print(Fore.BLACK+Back.WHITE+aux, end="");
+        aux=str(cambios);
+        print(Fore.BLACK+Back.WHITE+Cursor.POS(3,6)+"NO. de cambios: ", end="");
+        print(Fore.BLACK+Back.WHITE+aux, end="");
+
+    return errorcatch; #Regresara el total de except al ejercicio
+
+def e4(errorcatch):
+    errorcatch=repetidos(errorcatch);
+    print(Fore.BLACK+Back.LIGHTMAGENTA_EX+Cursor.POS(3,8)+"Ejercicio 4", end="");
+    input(Fore.BLACK+Cursor.POS(3,9)+Back.WHITE+"");
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
 
@@ -285,12 +364,11 @@ def menu():
             print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Cursor.POS(3,4)+"ERROR! Ingrese un numero entero!", end="");
             sleep(1);
 
-    os.system("cls"); 
-    pass;
-
 
 menu();
-print("\npractica 10");
-print("padilla valdez gustavo");
-print("becerra gonzalez diego ivan");
-
+dibujo(-1);
+print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Cursor.POS(3,4)+"practica 10", end="");
+print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Cursor.POS(3,5)+"padilla valdez gustavo", end="");
+print(Fore.BLACK+Cursor.POS(3,4)+Back.WHITE+Cursor.POS(3,6)+"becerra gonzalez diego ivan", end="");
+input();
+os.system("cls");
