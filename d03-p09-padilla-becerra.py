@@ -1,6 +1,6 @@
 #practica 09
-#becerra gonzalez diego ivan
 #padilla valdez gustavo
+#becerra gonzalez diego ivan
 
 def descuento():#calcula el descuento total que se hace en un teatro
     boletos = [-2];#arreglo donde se guardara el descuento del boleto
@@ -661,7 +661,6 @@ def menu():#muestra un menu para ejecutar los ejercicios
 menu();
 
 print("\npractica 09");
-print("becerra gonzalez diego ivan");
 print("padilla valdez gustavo");
-
+print("becerra gonzalez diego ivan");
 
