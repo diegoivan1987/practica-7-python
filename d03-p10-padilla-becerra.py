@@ -151,8 +151,136 @@ def e1(errorcatch):
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
 
+def caja(errorcatch):#programa de caja registradora para n productos
+    
+    Sub_total = 0;#declaracion de variables
+    Total = 0;
+    indice = 0;#servira como indice en el while
+    limite = 0;#servira como tope en el while
+    codigo = 0;#guardara 1 codigo por vez
+    precio = 0;#guardara un precio  por vez
+    codigos = [];#guardara los codigos
+    precios = [];#guardara los precios
+    opcion = 1;#sera la opcion para registrar productos
+    codigo = (input(str("Ingrese el codigo del producto ")));#se ingresa el codigo del producto
+    try:#si ingreso un codigo correcto
+        codigo = int(codigo);
+        if codigo < 0:#si el codigo es un numero negativo
+            codigo = input("El codigo debe ser un numero positivo ");
+            errorcatch += 1;#se aumenta el contador de error
+        codigos.append(codigo);#se almacena el codigo
+    except:#si ingreso un caracter
+        codigo = (input(str("Debe ingresar un numero en el codigo ")));#se ingresa el codigo del producto
+        codigo = int(codigo);
+        if codigo < 0:#si el codigo es un numero negativo
+            codigo = input("El codigo debe ser un numero positivo ");
+            errorcatch += 1;#se aumenta el contador de error
+        codigos.append(codigo);#se almacena el codigo
+        errorcatch += 1;#se aumenta el contador de error
+    precio = (input(str("Ingrese el precio del producto ")));#se ingresa el precio del producto
+    try:#si ingreso un precio correcto
+        precio = int(precio);
+        if precio < 0:#si el precio es un numero negativo
+            precio = input("El precio debe ser un numero positivo ");
+            errorcatch += 1;#se aumenta el contador de error
+        precios.append(precio);#se almacena el precio
+    except:#si ingreso un caracter
+        precio = (input(str("Debe ingresar un numero en el precio ")));#se ingresa el precio del producto
+        precio = int(precio);
+        if precio < 0:#si el precio es un numero negativo
+            precio = input("El precio debe ser un numero positivo ");
+            errorcatch += 1;#se aumenta el contador de error
+        precios.append(precio);#se almacena el precio
+        errorcatch += 1;#se aumenta el contador de error
+    
+    while opcion == 1:
+        opcion = str(input("Ingresa 1 para ingresar mas productos,cualquier otro numero para salir "));
+        try:
+            opcion = int(opcion);
+            if opcion == 1 :
+                codigo = (input(str("Ingrese el codigo del producto ")));#se ingresa el codigo del producto
+                try:#si ingreso un codigo correcto
+                    codigo = int(codigo);
+                    if codigo < 0:#si el codigo es un numero negativo
+                        codigo = input("El codigo debe ser un numero positivo ");
+                        errorcatch += 1;#se aumenta el contador de error
+                    codigos.append(codigo);#se almacena el codigo
+                except:#si ingreso un caracter
+                    codigo = (input(str("Debe ingresar un numero en el codigo ")));#se ingresa el codigo del producto
+                    codigo = int(codigo);
+                    if codigo < 0:#si el codigo es un numero negativo
+                        codigo = input("El codigo debe ser un numero positivo ");
+                        errorcatch += 1;#se aumenta el contador de error
+                    codigos.append(codigo);#se almacena el codigo
+                    errorcatch += 1;#se aumenta el contador de error
+                precio = (input(str("Ingrese el precio del producto ")));#se ingresa el precio del producto
+                try:#si ingreso un precio correcto
+                    precio = int(precio);
+                    if precio < 0:#si el precio es un numero negativo
+                        precio = input("El precio debe ser un numero positivo ");
+                        errorcatch += 1;#se aumenta el contador de error
+                    precios.append(precio);#se almacena el precio
+                except:#si ingreso un caracter
+                   precio = (input(str("Debe ingresar un numero en el precio ")));#se ingresa el precio del producto
+                    precio = int(precio);
+                    if precio < 0:#si el precio es un numero negativo
+                        precio = input("El precio debe ser un numero positivo ");
+                        errorcatch += 1;#se aumenta el contador de error
+                    precios.append(precio);#se almacena el precio
+                    errorcatch += 1;#se aumenta el contador de error
+        except:#si no ingresa un numero
+            opcion = str(input("Debe ingresar 1 o cualquier numero como opcion valida para poder continuar "));
+            opcion = int(opcion);
+            if opcion == 1 :
+                codigo = (input(str("Ingrese el codigo del producto ")));#se ingresa el codigo del producto
+                try:#si ingreso un codigo correcto
+                    codigo = int(codigo);
+                    if codigo < 0:#si el codigo es un numero negativo
+                        codigo = input("El codigo debe ser un numero positivo ");
+                        errorcatch += 1;#se aumenta el contador de error
+                    codigos.append(codigo);#se almacena el codigo
+                except:#si ingreso un caracter
+                    codigo = (input(str("Debe ingresar un numero en el codigo ")));#se ingresa el codigo del producto
+                    codigo = int(codigo);
+                    if codigo < 0:#si el codigo es un numero negativo
+                        codigo = input("El codigo debe ser un numero positivo ");
+                        errorcatch += 1;#se aumenta el contador de error
+                    codigos.append(codigo);#se almacena el codigo
+                    errorcatch += 1;#se aumenta el contador de error
+                precio = (input(str("Ingrese el precio del producto ")));#se ingresa el precio del producto
+                try:#si ingreso un precio correcto
+                    precio = int(precio);
+                    if precio < 0:#si el precio es un numero negativo
+                        precio = input("El precio debe ser un numero positivo ");
+                        errorcatch += 1;#se aumenta el contador de error
+                    precios.append(precio);#se almacena el precio
+                except:#si ingreso un caracter
+                    precio = (input(str("Debe ingresar un numero en el precio ")));#se ingresa el precio del producto
+                    precio = int(precio);
+                    if precio < 0:#si el precio es un numero negativo
+                        precio = input("El precio debe ser un numero positivo ");
+                        errorcatch += 1;#se aumenta el contador de error
+                    precios.append(precio);#se almacena el precio
+                    errorcatch += 1;#se aumenta el contador de error
+    
+    
+    print("Super Lagunitas S.A de C.V, Gomez de Mendiola #555");#Se imprime la linea de titulo del recibo
+    limite = len(codigos);#se indica el numero de productos
+    while limite > 0 :# se imprimen todos los productos y precios
+        print("codigo",codigos[indice],"         $",precios[indice]);
+        Sub_total += precios[indice];#se calcula el subtotal
+        indice += 1;
+        limite -= 1;
+    iva = Sub_total*0.15;#se calcula el iva
+    Total = Sub_total + iva;#se calcula el total
+    #se imprime el subtotal, iva y total
+    print("Subtotal $",Sub_total);
+    print("IVA $",iva);
+    print("Total $",Total);
+    return errorcatch;#retorna el numero de errores
+        
 def e2(errorcatch):
-    dibujo(errorcatch);
+    errorcatch = caja(errorcatch);
     print(Fore.BLACK+Back.LIGHTMAGENTA_EX+Cursor.POS(3,10)+"Ejercicio 2", end="");
     input(Fore.BLACK+Cursor.POS(3,11)+Back.WHITE+"");
     print("",end="");
