@@ -27,7 +27,7 @@ def dibujomenu(em,e1,e2,e3,e4): #Esta funcion creara la ventana siempre que se n
     for i in range(80):
         print(Cursor.POS(x,y)+Back.LIGHTRED_EX+" ");
         x+=1;
-    #Este for sera para rellenar la ventana
+    #Este for sera para rellenar la ventana de errores
     x=3;
     y=14;
     for i in range(3):
@@ -85,9 +85,39 @@ def dibujoej(errorcatch): #Esta funcion creara la ventana siempre que se necesit
         errorcatch=str(errorcatch);
         print(Fore.BLACK+Style.BRIGHT+Cursor.POS(3,15)+Back.LIGHTBLUE_EX+Style.DIM+"Errores del Ejercicio : "+errorcatch, end="");
        
-           
+def nombres():#guarda nombres y devuelve los nombres que terminen con cierta letra
+    #declarar las variables
+    nombre = "";#guardara el nombre a agregar
+    letra = "";#guardara la letra a buscar
+    opcion = 1;#guardara la opcion elegida, se inicializa en 1 para que entre al while al principio
+    nombresL = set();#conjunto que guardara los nombres
+    while opcion != 3:#mientras opcion sea != 3
+        opcion = str(input("Ingresa 1 para agregar un nombre, 2 para buscar nombres que terminen con cierta letra y 3 para ir al menu: "));
+        try:
+            opcion = int(opcion);
+            if opcion < 0 and opcion > 3:#si no esta dentro del rango
+                print("Debes de ingresar una opcion dentro del rango");
+            if opcion == 1:#si opcion = 1
+                nombre = str(input("Ingresa un nombre: "));#ingresa un nombre
+                #se busca el nombre
+                if nombre in nombresL: #si el nombre existe
+                    print("El nombre ya existe");
+                else:#en otro caso
+                    nombresL.add(nombre);#se guarda el nombre
+            if opcion == 2:#si opcion = 2
+                letra = str(input("Ingresa la letra a buscar al final: "));#ingresa una letra a buscar
+                for i in nombresL:
+                    if i[-1] == letra:#si la ultima letra es igual a la letra a buscar
+                        print(i);#imprimir el nombre        
+            if opcion == 3:#si opcion = 3
+                pass;#sale
+        except:
+            print("1.-Debes de ingresar numeros como opcion");
+            #errore1 += 1;#se suma 1 al contador de errores
+
     
 def e1(errorcatch):
+    nombres();
     dibujoej(errorcatch);
     print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,6)+"Ejercicio 1", end="");
     input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,7)+"");
