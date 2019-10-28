@@ -131,7 +131,35 @@ def e2(errorcatch):
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
 
+def prefijo():#permite ingresar varias cadenas de texto e imprime el prefijo comun mas corto
+    #declarar las variables
+    nombre1 = "";#guardara el nombre a agregar
+    prefijo = "";#guardara el prefijo
+    opcion = 1;#guardara la opcion elegida, se inicializa en 1 para que entre al while al principio
+    nombres = set();#conjunto que guardara los nombres
+    while opcion != 3:#mientras opcion sea != 3
+        opcion = str(input("Ingresa 1 para agregar un nombre, 2 para imprimir el prefijo comun mas corto y 3 para ir al menu: "));
+        try:
+            opcion = int(opcion);
+            if opcion < 0 and opcion > 3:#si no esta dentro del rango
+                print("Debes de ingresar una opcion dentro del rango");
+            if opcion == 1:#si opcion = 1
+                nombre1 = str(input("Ingresa un nombre: "));#ingresa un nombre
+                #se busca el nombre
+                if nombre1 in nombres: #si el nombre existe
+                    print("El nombre ya existe");
+                else:#en otro caso
+                    nombres.add(nombre1);#se guarda el nombre
+            if opcion == 2:#si opcion = 2
+                
+                print("prefijo comun: ",prefijo);#se imprime el prefijo comun               
+            if opcion == 3:#si opcion = 3
+                pass;#sale
+        except:
+            print("3.-Debes de ingresar numeros como opcion");
+
 def e3(errorcatch):
+    prefijo();
     dibujoej(errorcatch);
     print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,10)+"Ejercicio 3", end="");
     input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,11)+"");
