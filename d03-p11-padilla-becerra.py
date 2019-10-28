@@ -39,15 +39,15 @@ def dibujomenu(em,e1,e2,e3,e4): #Esta funcion creara la ventana siempre que se n
     #En la esquina mandara a imprimir los errores con parametros
     else:
         errorcatch=str(em);
-        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(3,16)+Back.LIGHTBLUE_EX+Style.DIM+"Errores Menu: "+errorcatch, end="");
+        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(3,16)+Back.LIGHTBLUE_EX+Style.BRIGHT+"Errores Menu: "+errorcatch, end="");
         errorcatch=str(e1);
-        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(3,14)+Back.LIGHTBLUE_EX+Style.DIM+"Errores en Ej. 1: "+errorcatch, end="");
+        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(3,14)+Back.LIGHTBLUE_EX+Style.BRIGHT+"Errores en Ej. 1: "+errorcatch, end="");
         errorcatch=str(e2);
-        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(35,14)+Back.LIGHTBLUE_EX+Style.DIM+"Errores en Ej. 2: "+errorcatch, end="");
+        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(35,14)+Back.LIGHTBLUE_EX+Style.BRIGHT+"Errores en Ej. 2: "+errorcatch, end="");
         errorcatch=str(e3);
-        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(3,15)+Back.LIGHTBLUE_EX+Style.DIM+"Errores en Ej. 3: "+errorcatch, end="");
+        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(3,15)+Back.LIGHTBLUE_EX+Style.BRIGHT+"Errores en Ej. 3: "+errorcatch, end="");
         errorcatch=str(e4);
-        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(35,15)+Back.LIGHTBLUE_EX+Style.DIM+"Errores en Ej. 4: "+errorcatch, end="");
+        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(35,15)+Back.LIGHTBLUE_EX+Style.BRIGHT+"Errores en Ej. 4: "+errorcatch, end="");
 
 def dibujoej(errorcatch): #Esta funcion creara la ventana siempre que se necesite con colores
     os.system("cls"); #Borrara la ventana
@@ -83,7 +83,7 @@ def dibujoej(errorcatch): #Esta funcion creara la ventana siempre que se necesit
         pass;
     else:
         errorcatch=str(errorcatch);
-        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(3,15)+Back.LIGHTBLUE_EX+Style.DIM+"Errores del Ejercicio : "+errorcatch, end="");
+        print(Fore.BLACK+Style.BRIGHT+Cursor.POS(3,15)+Back.LIGHTBLUE_EX+Style.BRIGHT+"Errores del Ejercicio : "+errorcatch, end="");
        
 def nombres(errorcatch):#guarda nombres y devuelve los nombres que terminen con cierta letra
     #declarar las variables
@@ -146,44 +146,89 @@ def cadena_corta(errorcatch):
     #declarar las variables
     nombre = "";#guardara el nombre a agregar
     opcion = 1;#guardara la opcion elegida, se inicializa en 1 para que entre al while al principio
-    cadenas = set();
+    cadenas = []; #Se inicializara las cadenas como tabla
     contador=0;
     menor="";
     while opcion != 2:#mientras opcion sea != 3
         dibujoej(errorcatch);
-        
         print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Ingresa 1 para agregar una cadena",end="");
         print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,5)+"Ingresa 2 para terminar e imprimir la cadena corta: ",end="");
         opcion = str(input());
-        try:
+        try: #Para evitar que ingrese caracteres
             opcion = int(opcion);
-            if opcion < 0 and opcion > 2:#si no esta dentro del rango
+            if opcion < 1 and opcion > 2:#si no esta dentro del rango 
                 dibujoej(errorcatch);
                 print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Debes de ingresar una opcion dentro del rango",end="");
                 sleep(1);
-            if opcion == 1:#si opcion = 1
+            if opcion == 1:#si elige meter otra cadena
                 dibujoej(errorcatch);
                 nombre = str(input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Ingresa un cadena: "));#ingresa un nombre
                 print("",end="");
                 contador+=1;
-                cadenas.add(nombre);#se guarda el nombre
-            if opcion == 2:#si opcion = 2
-                cadenasT=set(cadenas);
+                cadenas.append(nombre);#se guarda el nombre
+            if opcion == 2:#si opcion ya quiere ver el resultado
+                cadenasC=set(cadenas); #Cambia la lista a conjunto para evitar repetidos
+                cadenas=[];
                 if contador==0:
-                    print("xd");
-                    
+                    dibujoej(errorcatch);
+                    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"No se ingreso ninguna cadena",end="");
                 else:
-                    comparador=cadenas[0];
-                    xd=len(comparador);
-                    print(xd);
-                    
-      
+                    for i in cadenasC:
+                        cadenas.append(i);
+                    comparador=len(cadenas[0]);
+                    menor=cadenas[0];
+                    for i in range(contador): #Compara si la longitud de la cadena es menor y la cambia si es asi
+                        if len(cadenas[i]) < comparador:
+                            menor=cadenas[i];
+                        comparador=len(cadenas[i]);
+                    #Se imprime el conjunto en orden, y la cadena mas corta
+                    dibujoej(errorcatch);
+                    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"De las cadenas en orden: ",end="");
+                    print(cadenas,end="");
+                    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,5)+"La cadena primera mas corta fue: "+menor,end="");
+        
         except:
             errorcatch+=1;
             dibujoej(errorcatch);
-            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"1.-Debes de ingresar numeros como opcion",end="");
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"-Debes de ingresar numeros como opcion-",end="");
             sleep(1);
-            #errore1 += 1;#se suma 1 al contador de errores
+            
+    return errorcatch;
+
+def longitud(errorcatch): #Se hara una funcion donde se impriman subcadenas de longitud dada por el usuario
+    dibujoej(errorcatch);
+    
+    aumento=[0];
+    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Dame una cadena:");
+    cadena = str(input(Cursor.POS(3,5)));
+    subs=set(); #Declarara el set que guardara las subcadenas
+    for i in aumento: #For para evitar que el usuario ingrese caracteres junto al try, except
+        dibujoej(errorcatch);
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Dame la longitud de las subcadenas:");
+        lon = str(input(Cursor.POS(3,5)));
+        try:
+            lon=int(lon);
+            i=0;
+            while i <= len(cadena): 
+                #Hara un while para que mientras este dentro de la longitud de la cadena, cree subcadenas y las añada al conjunto
+                aux=cadena[i:i+lon];
+                if len(aux)==lon: #Si no alcanza a tener la longitud que pidio el usuario, no lo añadira
+                    subs.add(aux);     
+                i+=lon;
+                
+            #Imprimira las subcadenas
+            dibujoej(errorcatch);
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"-Subcadenas resultantes-");
+            print(Cursor.POS(3,5),end="");
+            for i in subs:
+                print(Fore.WHITE+Style.BRIGHT+" '"+i+"' ",end="");
+            
+        except: #En caso de que ingrese caracteres
+            errorcatch+=1;
+            dibujoej(errorcatch);
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"-Debes de ingresar numeros como longitud-",end="");
+            sleep(1);
+            aumento.append(0);
     return errorcatch;
 
 def e1(errorcatch):
@@ -268,9 +313,9 @@ def e3(errorcatch):
 
 
 def e4(errorcatch):
-    dibujoej(errorcatch);
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,8)+"Ejercicio 4 Terminado", end="");
-    input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,9)+"");
+    errorcatch=longitud(errorcatch);
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,11)+"Ejercicio 4 Terminado", end="");
+    input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,12)+"");
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
 
@@ -284,11 +329,11 @@ def menu():
     opcion=1;
     while opcion != 0: #Mientras la opcion no sea 0 para salir, seguira en el menu
         dibujomenu(errorm,errore1,errore2,errore3,errore4);
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+Style.DIM+"---Bienvenido a la Practica 11---", end="");
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,5)+Style.DIM+"-Ingrese 1 para el ejercicio 1", end="");
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,6)+Style.DIM+"-Ingrese 2 para el ejercicio 2", end="");
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,7)+Style.DIM+"-Ingrese 3 para el ejercicio 3", end="");
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,8)+Style.DIM+"-Ingrese 4 para el ejercicio 4:  ", end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+Style.BRIGHT+"---Bienvenido a la Practica 11---", end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,5)+Style.BRIGHT+"-Ingrese 1 para el ejercicio 1", end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,6)+Style.BRIGHT+"-Ingrese 2 para el ejercicio 2", end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,7)+Style.BRIGHT+"-Ingrese 3 para el ejercicio 3", end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,8)+Style.BRIGHT+"-Ingrese 4 para el ejercicio 4:  ", end="");
 
         opcion=str(input(Fore.WHITE+Style.BRIGHT));
         print("",end="");
