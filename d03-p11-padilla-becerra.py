@@ -85,58 +85,158 @@ def dibujoej(errorcatch): #Esta funcion creara la ventana siempre que se necesit
         errorcatch=str(errorcatch);
         print(Fore.BLACK+Style.BRIGHT+Cursor.POS(3,15)+Back.LIGHTBLUE_EX+Style.DIM+"Errores del Ejercicio : "+errorcatch, end="");
        
-def nombres():#guarda nombres y devuelve los nombres que terminen con cierta letra
+def nombres(errorcatch):#guarda nombres y devuelve los nombres que terminen con cierta letra
     #declarar las variables
     nombre = "";#guardara el nombre a agregar
     letra = "";#guardara la letra a buscar
     opcion = 1;#guardara la opcion elegida, se inicializa en 1 para que entre al while al principio
     nombresL = set();#conjunto que guardara los nombres
     while opcion != 3:#mientras opcion sea != 3
-        opcion = str(input("Ingresa 1 para agregar un nombre, 2 para buscar nombres que terminen con cierta letra y 3 para ir al menu: "));
+        dibujoej(errorcatch);
+        
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Ingresa 1 para agregar un nombre",end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,5)+"Ingresa 2 para buscar nombres que terminen con cierta letra",end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,6)+"Ingresa 3 para ir al menu: ",end="");
+        opcion = str(input());
         try:
             opcion = int(opcion);
             if opcion < 0 and opcion > 3:#si no esta dentro del rango
-                print("Debes de ingresar una opcion dentro del rango");
+                dibujoej(errorcatch);
+                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Debes de ingresar una opcion dentro del rango",end="");
+                sleep(1);
             if opcion == 1:#si opcion = 1
-                nombre = str(input("Ingresa un nombre: "));#ingresa un nombre
+                dibujoej(errorcatch);
+                nombre = str(input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Ingresa un nombre: "));#ingresa un nombre
+                print("",end="");
                 #se busca el nombre
                 if nombre in nombresL: #si el nombre existe
-                    print("El nombre ya existe");
+                    dibujoej(errorcatch);
+                    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"El nombre ya existe",end="");
+                    sleep(1);
                 else:#en otro caso
                     nombresL.add(nombre);#se guarda el nombre
             if opcion == 2:#si opcion = 2
-                letra = str(input("Ingresa la letra a buscar al final: "));#ingresa una letra a buscar
+                contador=0;
+                dibujoej(errorcatch);
+                letra = str(input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Ingresa la letra a buscar al final: "));#ingresa una letra a buscar
+                print("",end="");
+                dibujoej(errorcatch);
                 for i in nombresL:
                     if i[-1] == letra:#si la ultima letra es igual a la letra a buscar
-                        print(i);#imprimir el nombre        
+                        contador+=1;
+                        dibujoej(errorcatch);
+                        aux=str(contador);
+                        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+aux+"# Nombre en coincidencia: "+i,end="");#imprimir el nombre    
+                        input(); 
+                if contador==0:
+                    dibujoej(errorcatch);
+                    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"No hubo ningun nombre",end="");#imprimir el nombre 
+                    sleep(1);   
             if opcion == 3:#si opcion = 3
                 pass;#sale
         except:
-            print("1.-Debes de ingresar numeros como opcion");
+            errorcatch+=1;
+            dibujoej(errorcatch);
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"1.-Debes de ingresar numeros como opcion",end="");
+            sleep(1);
             #errore1 += 1;#se suma 1 al contador de errores
+    return errorcatch;
 
-    
+def cadena_corta(errorcatch):
+    #declarar las variables
+    nombre = "";#guardara el nombre a agregar
+    opcion = 1;#guardara la opcion elegida, se inicializa en 1 para que entre al while al principio
+    cadenas = set();
+    contador=0;
+    menor="";
+    while opcion != 2:#mientras opcion sea != 3
+        dibujoej(errorcatch);
+        
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Ingresa 1 para agregar una cadena",end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,5)+"Ingresa 2 para terminar e imprimir la cadena corta: ",end="");
+        opcion = str(input());
+        try:
+            opcion = int(opcion);
+            if opcion < 0 and opcion > 2:#si no esta dentro del rango
+                dibujoej(errorcatch);
+                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Debes de ingresar una opcion dentro del rango",end="");
+                sleep(1);
+            if opcion == 1:#si opcion = 1
+                dibujoej(errorcatch);
+                nombre = str(input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Ingresa un cadena: "));#ingresa un nombre
+                print("",end="");
+                contador+=1;
+                cadenas.add(nombre);#se guarda el nombre
+            if opcion == 2:#si opcion = 2
+                cadenasT=set(cadenas);
+                if contador==0:
+                    print("xd");
+                    
+                else:
+                    comparador=cadenas[0];
+                    xd=len(comparador);
+                    print(xd);
+                    
+      
+        except:
+            errorcatch+=1;
+            dibujoej(errorcatch);
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"1.-Debes de ingresar numeros como opcion",end="");
+            sleep(1);
+            #errore1 += 1;#se suma 1 al contador de errores
+    return errorcatch;
+
 def e1(errorcatch):
-    nombres();
-    dibujoej(errorcatch);
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,6)+"Ejercicio 1", end="");
-    input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,7)+"");
+    errorcatch=nombres(errorcatch);
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,9)+"Ejercicio 1 Terminado", end="");
+    input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,10)+"");
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
 
 def e2(errorcatch):
-    dibujoej(errorcatch);
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,10)+"Ejercicio 2", end="");
+    errorcatch=cadena_corta(errorcatch);
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,10)+"Ejercicio 2 Terminado", end="");
     input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,11)+"");
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
 
+def pasa_a_lista(nombres):#pasa el conjunto a una lista
+    nombresList = [];#lista que guardara el conjunto
+    for i in nombres:#recorre el conjunto
+        nombresList.append(i);#agrega el elemento del conjunto a la lista
+    return nombresList;
+
+def min_prefijo(nombresList):#devuelve el min comun prefijo
+    tam_min = 0;#guardara el tamaño de la palabra mas corta, porque no puede haber un prefijo mas grande
+    #que la palabra mas corta, servira como limite para comparar carecteres
+    mcp = "";#guardara el minimo comun prefijo
+    aux = "";#servira para comparar cada elemento de la cadena con la siguiente cadena
+    if len(nombresList) == 0:#si la lista esta vacia
+        return "no tiene ";
+    
+    tam_min = len(nombresList[0]);#se asigna el tamaño del primer nombre de la lista
+
+    for i in range(len(nombresList)):#se recorre la lista
+        tam_min = min(len(nombresList[i]), tam_min);#guarda el tamaño de la palabra mas pequeña
+
+    i = 0;#servira para determinar el tamaño del mcp
+    while i < tam_min:#mientras el prefijo sea menor a la palabra mas corta
+        aux = nombresList[0][i];#tomara como referencia el caracter de la posicion i de la primer cadena
+        for j in range(1,len(nombresList)):#recorrera la lista a partir de la segunda cadena
+            if strs[j][i] != aux:#si la primer letra de la cadena con posicion j no es igual
+                #a la primer letra de la primera cadena, significa que no hay mcp
+                return "no tiene ";
+        mcp = mpc + aux;#se agrega la letra que se tiene en comun al mcp
+        i += 1;#se aumenta i en 1 para comparar la siguiente letra
+    return mpc;#se retorna el mcp
+     
 def prefijo():#permite ingresar varias cadenas de texto e imprime el prefijo comun mas corto
     #declarar las variables
     nombre1 = "";#guardara el nombre a agregar
     prefijo = "";#guardara el prefijo
     opcion = 1;#guardara la opcion elegida, se inicializa en 1 para que entre al while al principio
     nombres = set();#conjunto que guardara los nombres
+    nombresList = [];#lista que guardara el conjunto
     while opcion != 3:#mientras opcion sea != 3
         opcion = str(input("Ingresa 1 para agregar un nombre, 2 para imprimir el prefijo comun mas corto y 3 para ir al menu: "));
         try:
@@ -151,8 +251,8 @@ def prefijo():#permite ingresar varias cadenas de texto e imprime el prefijo com
                 else:#en otro caso
                     nombres.add(nombre1);#se guarda el nombre
             if opcion == 2:#si opcion = 2
-                
-                print("prefijo comun: ",prefijo);#se imprime el prefijo comun               
+                nombresList = pasa_a_lista(nombres);
+                print(min_prefijo(nombresList)," prefijo comun");#se imprime el prefijo comun               
             if opcion == 3:#si opcion = 3
                 pass;#sale
         except:
@@ -161,7 +261,7 @@ def prefijo():#permite ingresar varias cadenas de texto e imprime el prefijo com
 def e3(errorcatch):
     prefijo();
     dibujoej(errorcatch);
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,10)+"Ejercicio 3", end="");
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,10)+"Ejercicio 3 Terminado", end="");
     input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,11)+"");
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
@@ -169,7 +269,7 @@ def e3(errorcatch):
 
 def e4(errorcatch):
     dibujoej(errorcatch);
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,8)+"Ejercicio 4", end="");
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,8)+"Ejercicio 4 Terminado", end="");
     input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,9)+"");
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
@@ -204,7 +304,7 @@ def menu():
                     errore1=e1(errore1);
                    
                 if opcion == 2:
-                    errore3=e2(errore2);
+                    errore2=e2(errore2);
                     
                 if opcion == 3:
                     errore3=e3(errore3);
