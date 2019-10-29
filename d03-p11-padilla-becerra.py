@@ -256,11 +256,11 @@ def min_prefijo(nombresList):#devuelve el min comun prefijo
     #que la palabra mas corta, servira como limite para comparar carecteres
     mcp = "";#guardara el minimo comun prefijo
     aux = "";#servira para comparar cada elemento de la cadena con la siguiente cadena
+    primer_vuelta = 1;
     if len(nombresList) == 0:#si la lista esta vacia
         return "no tiene ";
     
     tam_min = len(nombresList[0]);#se asigna el tamaño del primer nombre de la lista
-
     for i in range(len(nombresList)):#se recorre la lista
         tam_min = min(len(nombresList[i]), tam_min);#guarda el tamaño de la palabra mas pequeña
 
@@ -268,12 +268,15 @@ def min_prefijo(nombresList):#devuelve el min comun prefijo
     while i < tam_min:#mientras el prefijo sea menor a la palabra mas corta
         aux = nombresList[0][i];#tomara como referencia el caracter de la posicion i de la primer cadena
         for j in range(1,len(nombresList)):#recorrera la lista a partir de la segunda cadena
-            if strs[j][i] != aux:#si la primer letra de la cadena con posicion j no es igual
+            if nombresList[j][i] != aux:#si la primer letra de la cadena con posicion j no es igual
                 #a la primer letra de la primera cadena, significa que no hay mcp
-                return "no tiene ";
-        mcp = mpc + aux;#se agrega la letra que se tiene en comun al mcp
+                aux = "";#se agrega nada al mcp para no afectarlo
+        mcp = mcp + aux;#se agrega la letra que se tiene en comun al mcp
         i += 1;#se aumenta i en 1 para comparar la siguiente letra
-    return mpc;#se retorna el mcp
+    if len(mcp) == 0:#si no hay mcp
+        return "no tiene ";
+    else:
+        return mcp;#se retorna el mcp
      
 def prefijo():#permite ingresar varias cadenas de texto e imprime el prefijo comun mas corto
     #declarar las variables
@@ -297,7 +300,8 @@ def prefijo():#permite ingresar varias cadenas de texto e imprime el prefijo com
                     nombres.add(nombre1);#se guarda el nombre
             if opcion == 2:#si opcion = 2
                 nombresList = pasa_a_lista(nombres);
-                print(min_prefijo(nombresList)," prefijo comun");#se imprime el prefijo comun               
+                prefijo = min_prefijo(nombresList);
+                print(prefijo," prefijo comun");#se imprime el prefijo comun               
             if opcion == 3:#si opcion = 3
                 pass;#sale
         except:
