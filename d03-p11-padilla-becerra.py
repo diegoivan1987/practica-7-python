@@ -310,7 +310,8 @@ def prefijo(errorcatch):#permite ingresar varias cadenas de texto e imprime el p
                 nombresList = pasa_a_lista(nombres);
                 prefijo = min_prefijo(nombresList);
                 dibujoej(errorcatch);
-                print(prefijo," prefijo comun");#se imprime el prefijo comun  
+                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+prefijo,end="");
+                print(Fore.WHITE+Style.BRIGHT+" prefijo comun");#se imprime el prefijo comun  
                 sleep(2);             
             if opcion == 3:#si opcion = 3
                 pass;#sale
