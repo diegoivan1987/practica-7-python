@@ -278,7 +278,7 @@ def min_prefijo(nombresList):#devuelve el min comun prefijo
     else:
         return mcp;#se retorna el mcp
      
-def prefijo():#permite ingresar varias cadenas de texto e imprime el prefijo comun mas corto
+def prefijo(errorcatch):#permite ingresar varias cadenas de texto e imprime el prefijo comun mas corto
     #declarar las variables
     nombre1 = "";#guardara el nombre a agregar
     prefijo = "";#guardara el prefijo
@@ -286,30 +286,43 @@ def prefijo():#permite ingresar varias cadenas de texto e imprime el prefijo com
     nombres = set();#conjunto que guardara los nombres
     nombresList = [];#lista que guardara el conjunto
     while opcion != 3:#mientras opcion sea != 3
-        opcion = str(input("Ingresa 1 para agregar un nombre, 2 para imprimir el prefijo comun mas corto y 3 para ir al menu: "));
+        dibujoej(errorcatch);
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Ingresa 1 para agregar un nombre, 2 para imprimir el prefijo comun mas corto");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,5)+"y 3 para ir al menu:");
+        opcion = str(input(Cursor.POS(3,6)));
         try:
             opcion = int(opcion);
             if opcion < 0 and opcion > 3:#si no esta dentro del rango
-                print("Debes de ingresar una opcion dentro del rango");
+                dibujoej(errorcatch);
+                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Debes de ingresar una opcion dentro del rango");
+                sleep(1);
             if opcion == 1:#si opcion = 1
-                nombre1 = str(input("Ingresa un nombre: "));#ingresa un nombre
+                dibujoej(errorcatch);
+                nombre1 = str(input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"Ingresa un nombre: "));#ingresa un nombre
                 #se busca el nombre
                 if nombre1 in nombres: #si el nombre existe
-                    print("El nombre ya existe");
+                    dibujoej(errorcatch);
+                    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"El nombre ya existe");
+                    sleep(1);
                 else:#en otro caso
                     nombres.add(nombre1);#se guarda el nombre
             if opcion == 2:#si opcion = 2
                 nombresList = pasa_a_lista(nombres);
                 prefijo = min_prefijo(nombresList);
-                print(prefijo," prefijo comun");#se imprime el prefijo comun               
+                dibujoej(errorcatch);
+                print(prefijo," prefijo comun");#se imprime el prefijo comun  
+                sleep(2);             
             if opcion == 3:#si opcion = 3
                 pass;#sale
         except:
-            print("3.-Debes de ingresar numeros como opcion");
+            errorcatch += 1;
+            dibujoej(errorcatch);
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+"3.-Debes de ingresar numeros como opcion");
+            sleep(1);
+    return errorcatch;
 
 def e3(errorcatch):
-    prefijo();
-    dibujoej(errorcatch);
+    errorcatch = prefijo(errorcatch);
     print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,10)+"Ejercicio 3 Terminado", end="");
     input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,11)+"");
     print("",end="");
