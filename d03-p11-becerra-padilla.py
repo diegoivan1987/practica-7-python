@@ -1,6 +1,6 @@
 #practica 11
-#padilla valdez gustavo
 #becerra gonzalez diego ivan
+#padilla valdez gustavo
 
 from colorama import Cursor,Fore,Back,init,Style; #Llama a colorama
 from time import sleep; #Llama la funcion para pausar
@@ -387,7 +387,7 @@ def menu():
 menu();
 dibujoej(-1);
 print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+Cursor.POS(3,4)+"practica 11", end="");
-print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+Cursor.POS(3,5)+"padilla valdez gustavo", end="");
-print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+Cursor.POS(3,6)+"becerra gonzalez diego ivan", end="");
+print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+Cursor.POS(3,5)+"becerra gonzalez diego ivan", end="");
+print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+Cursor.POS(3,6)+"padilla valdez gustavo", end="");
 input();
 os.system("cls");
