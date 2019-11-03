@@ -5,6 +5,7 @@
 from colorama import Cursor,Fore,Back,init,Style; #Llama a colorama
 from time import sleep; #Llama la funcion para pausar
 import os; #Llamo funciones del sistema operativo para poder borrar pantalla
+import msvcrt; #Llama funcion para poder leer lo que se presiona en el teclado
 init(autoreset=True); #Se inicia el colorama, que se autoresetee para evitar basura en la consola
 
 def dibujomenu(em,e1,e2,e3): #Esta funcion creara la ventana siempre que se necesite con colores
@@ -27,6 +28,7 @@ def dibujomenu(em,e1,e2,e3): #Esta funcion creara la ventana siempre que se nece
     for i in range(102):
         print(Cursor.POS(x,y)+Back.RED+" ");
         x+=1;
+    #Los siguientes crearan el mini adornado tambien en el marco
     x=3;
     y=4;
     for i in range(96):
@@ -150,17 +152,34 @@ def menu():
     while opcion != 0: #Mientras la opcion no sea 0 para salir, seguira en el menu
         dibujomenu(errorm,errore1,errore2,errore3);
         print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(35,4)+"---Bienvenido a la Practica 12---", end="");
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(35,6)+Style.BRIGHT+"-Ingrese 1 para el ejercicio 1-", end="");
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(35,7)+Style.BRIGHT+"-Ingrese 2 para el ejercicio 2-", end="");
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(35,8)+Style.BRIGHT+"-Ingrese 3 para el ejercicio 3-", end="");
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(35,9)+Style.BRIGHT+"  Presione ESC para terminar   ", end="");
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(35,11)+Style.BRIGHT+"     DIGITE SU OPCION:  ", end="");
-
-        opcion=str(input(Fore.WHITE+Style.BRIGHT));
-        print("",end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(35,6)+Style.BRIGHT+"-Presione 1 para el ejercicio 1-", end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(35,7)+Style.BRIGHT+"-Presione 2 para el ejercicio 2-", end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(35,8)+Style.BRIGHT+"-Presione 3 para el ejercicio 3-", end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(35,9)+Style.BRIGHT+"   Presione ESC para terminar   ", end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(35,11)+Style.BRIGHT+"     ESCRIBA SU OPCION:  ", end="");
+     
+        caracter=0;
+        while caracter==0: #Leera todas las teclas que se presionen hasta que presione una valida
+            aux=str(msvcrt.getch());
+            if "1b" in aux: #1b es el hexadecimal para ESC, si esta eso en lo leido, significa que presiono esc
+                opcion=0;
+                caracter+=1;
+            elif "b'1'" == aux: #Lo mismo con b'1' b'2' b'3', y en vez de input este cambiara la opcion al presionar su tecla
+                opcion=1;
+                caracter+=1;
+            elif "b'2'" == aux:
+                opcion=2;
+                caracter+=1;
+            elif "b'3'" == aux:
+                opcion=3;
+                caracter+=1;
+            else:
+                pass;
+            
+        
         try:
             opcion=int(opcion);
-            if opcion < 0 or opcion > 4: #Si esta fuera de rango
+            if opcion < 0 or opcion > 3: #Si esta fuera de rango
                 dibujomenu(errorm,errore1,errore2,errore3);
                 print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+Cursor.POS(3,4)+"Ingresa un numero valido!",end ="");
                 sleep(1);   
