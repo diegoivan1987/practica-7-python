@@ -176,34 +176,15 @@ def menu():
             else:
                 pass;
             
-        
-        try:
-            opcion=int(opcion);
-            if opcion < 0 or opcion > 3: #Si esta fuera de rango
-                dibujomenu(errorm,errore1,errore2,errore3);
-                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+Cursor.POS(3,4)+"Ingresa un numero valido!",end ="");
-                sleep(1);   
+        if opcion == 1:
+            errore1=e1(errore1);
+                   
+        if opcion == 2:
+            errore2=e2(errore2);
+                    
+        if opcion == 3:
+            errore3=e3(errore3);
             
-            else: #En otro caso realizara la opcion pedida
-                if opcion == 1:
-                    errore1=e1(errore1);
-                   
-                if opcion == 2:
-                    errore2=e2(errore2);
-                    
-                if opcion == 3:
-                    errore3=e3(errore3);
-                    
-              
-                   
-                
-        except: #Si ingresa caracteres
-            errorm+=1;
-            dibujomenu(errorm,errore1,errore2,errore3);
-            print(Fore.LIGHTRED_EX+Style.BRIGHT+Cursor.POS(35,6)+"ERROR! Ingrese un numero entero!", end="");
-            sleep(1);
-
-
 menu();
 dibujoej(-1);
 print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"practica 12", end="");
