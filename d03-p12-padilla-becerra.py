@@ -67,7 +67,7 @@ def dibujomenu(em,e1,e2,e3): #Esta funcion creara la ventana siempre que se nece
     errorcatch=str(e3);
     print(Fore.WHITE+Style.BRIGHT+Cursor.POS(83,10)+Back.LIGHTBLUE_EX+Style.BRIGHT+"  Ej. 3: "+errorcatch, end="");
 
-def dibujoej(errorcatch): #Esta funcion creara la ventana siempre que se necesite con colores
+def dibujoej(errorcatch,ej): #Esta funcion creara la ventana siempre que se necesite con colores
     os.system("cls"); #Borrara la ventana
     #Los siguiente 4 for sera para hacer el marco de la ventana
     x=1;
@@ -117,28 +117,108 @@ def dibujoej(errorcatch): #Esta funcion creara la ventana siempre que se necesit
     if errorcatch== -1: 
         pass;
     else:
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(83,5)+Back.LIGHTBLUE_EX+Style.BRIGHT+" ERRORES DEL", end="");
+        ej=str(ej);
+        print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(35,4)+"--- Ejercicio "+ej+"---", end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(83,6)+Back.LIGHTBLUE_EX+Style.BRIGHT+" ERRORES DEL", end="");
         errorcatch=str(errorcatch);
         print(Fore.WHITE+Style.BRIGHT+Cursor.POS(83,7)+Back.LIGHTBLUE_EX+Style.BRIGHT+"  EJERCICIO:  "+errorcatch, end="");
 
 def e1(errorcatch):
-   
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,9)+"Ejercicio 1 Terminado", end="");
-    input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,10)+"");
+    errorcatch=repeticiones(errorcatch);
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,16)+"Ejercicio 1 Terminado", end="");
+    input();
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
 
+def repeticiones(errorcatch): #Se hara un diccionario donde muestre que tantas palabras se repitieron y el mayor sera impreso al final
+    dibujoej(errorcatch,1);
+    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Ingresa una cadena: ", end=""); 
+    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,8)+"", end="");
+    cadena=str(input());
+
+    cadena=cadena.lower(); #Transforma lo que puso el usuario a todo minusculas primero
+    lista=cadena.split(); #Luego lo separa por los espacios
+    listaF={}; #Se crea el diccionario donde se guardaran
+
+    print("",end="");
+    for y in lista: #Estos compararan cada dato con cada uno de los otros para verificar los que se repiten
+        aux=0;
+        for x in lista:
+            if y == x : #En caso de que se repita, se le sumara 1 al auxiliar para las repeticiones
+                aux+=1;
+        listaF[y]=[aux]; #Añadira la palabra y sus repeticiones al diccionario
+
+    mayor=1;
+    contador=0;
+    valores=list(listaF.values());
+    for i in valores: #Este for sera para ver cual fue la palabra que mas se repitio
+        x=i;
+        x=x[0];
+        x=int(x);
+        if x > mayor:
+            mayor=x;
+            
+    final=list(listaF.items());        
+    for i in final: #Este for sera para evitar un bucle infinito, sabiendo cuantas palabras fueron tuvieron la mayor repeticion
+        x=str(mayor);
+        y=str(i);
+        if x in y and mayor > 1:
+            contador+=1;
+    inf=0;
+    it=0;
+    posiciones=[];
+    for i in final: #Este for movera de cierta manera los datos al final, si este tiene el valor mas alto de repeticiones
+        x=str(mayor);
+        y=str(i);
+        if x in y and inf < contador and mayor != 1:
+            inf+=1;
+            var=y;
+            posiciones.append(it);
+            final.append(var);
+        it+=1;
+    it=0;
+    for i in posiciones: #Este for eliminara los datos que se reinserte
+        x=int(i);
+        del(final[x-it]);
+        it+=1;
+    it=0;
+    case=2;
+
+    #Se imprimira en minusculas o mayusculas dependiendo de que dato se
+    dibujoej(errorcatch,1);
+    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(5,5)+"El diccionario final fue:", end="");
+    cord=6;
+    for i in final:
+        x=str(i);
+        y=str(mayor);
+        it+=1;
+        if y in x: #Si se imprimiran el o los valores mayores, este cambiara al ultimo ingresado con las variables case
+            if case==1:
+                x=x.lower();
+            else:
+                x=x.upper();
+        else: 
+            if it % 2 == 0: #Los ifs por medio de division definen su posicion
+                x=x.lower();
+                case=1;
+            else:
+                x=x.upper();
+                case=2;         
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(5,cord)+x, end="");
+        cord+=1;
+    return errorcatch;
+
 def e2(errorcatch):
     
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,10)+"Ejercicio 2 Terminado", end="");
-    input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,11)+"");
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,13)+"Ejercicio 2 Terminado", end="");
+    input();
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
 
 def e3(errorcatch):
     
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(3,10)+"Ejercicio 3 Terminado", end="");
-    input(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,11)+"");
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,13)+"Ejercicio 3 Terminado", end="");
+    input();
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
 
@@ -176,34 +256,15 @@ def menu():
             else:
                 pass;
             
-        
-        try:
-            opcion=int(opcion);
-            if opcion < 0 or opcion > 3: #Si esta fuera de rango
-                dibujomenu(errorm,errore1,errore2,errore3);
-                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(3,4)+Cursor.POS(3,4)+"Ingresa un numero valido!",end ="");
-                sleep(1);   
+        if opcion == 1:
+            errore1=e1(errore1);
+                   
+        if opcion == 2:
+            errore2=e2(errore2);
+                    
+        if opcion == 3:
+            errore3=e3(errore3);
             
-            else: #En otro caso realizara la opcion pedida
-                if opcion == 1:
-                    errore1=e1(errore1);
-                   
-                if opcion == 2:
-                    errore2=e2(errore2);
-                    
-                if opcion == 3:
-                    errore3=e3(errore3);
-                    
-              
-                   
-                
-        except: #Si ingresa caracteres
-            errorm+=1;
-            dibujomenu(errorm,errore1,errore2,errore3);
-            print(Fore.LIGHTRED_EX+Style.BRIGHT+Cursor.POS(35,6)+"ERROR! Ingrese un numero entero!", end="");
-            sleep(1);
-
-
 menu();
 dibujoej(-1);
 print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"practica 12", end="");
