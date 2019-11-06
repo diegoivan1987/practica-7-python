@@ -125,7 +125,7 @@ def dibujoej(errorcatch,ej): #Esta funcion creara la ventana siempre que se nece
 
 def e1(errorcatch):
     errorcatch=repeticiones(errorcatch);
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,16)+"Ejercicio 1 Terminado", end="");
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,15)+"Ejercicio 1 Terminado", end="");
     input();
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
@@ -320,13 +320,64 @@ def agendaej(errorcatch): #Se hara un diccionario donde se cree una agenda donde
         sleep(1);
     return errorcatch;
 
-def e3(errorcatch):
-    
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,13)+"Ejercicio 3 Terminado", end="");
-    input();
+def pregunta_cadena():#pregunta la cadena a analizar en el ejercicio 3
+    cadena = input(str(Fore.WHITE+Style.BRIGHT+Cursor.POS(5,5)+"Ingresa una cadena: "));
+    return cadena;
+
+def separar_letras(cadena):#separa la cadena en letras y las ingresa a un diccionario
+    diccionario_letras = set();#diccionario que guardara las letras sin repetirse
+    for letra in cadena :
+        diccionario_letras.add(letra);
+    try:#tratamos de quitar los espacios
+        diccionario_letras.remove(" ");
+    except:
+        pass;
+        
+    return diccionario_letras;
+
+def encuentra_letra(letras,palabras,diccionario,errorcatch):#encuentra la palabra mas larga donde esta cierta letra e imprime el diccionario
+    for letra in letras:#recorre cada letra
+        for palabra in palabras:#recorre cada palabra
+            if letra in palabra:#si la letra esta en la palabra
+                if letra in diccionario:#si ya hay una entrada de esa letra en el diccionario
+                    if len(diccionario[letra][0]) < len(palabra):#si la entrada del diccionario es menor a la palabra actual
+                        diccionario[letra]=[palabra];#guarda la palabra actual en el diccionario, ya que es la mas larga
+                    elif len(diccionario[letra][0]) == len(palabra):#si la palabra actual y la del dicionario tienen el mismo largo
+                        diccionario[letra].append(palabra);#guarda las dos en el diccionario
+                else:#si no, la agrega al diccionario con la correspondiente palabra actual
+                    diccionario[letra]=[palabra];
+    if len(letras) > 0:#si existe alguna letra, lo que significa que hay palabra(s)
+        dibujoej(errorcatch,3);
+        abajo = 5;
+        for letra in letras:#imprimimos el diccionario
+            if abajo == 15:
+                abajo = 5;
+                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(45,abajo)+"Letra ",letra,"palabra(s): ",diccionario[letra]);
+            else:
+                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(5,abajo)+"Letra ",letra,"palabra(s): ",diccionario[letra]);
+                abajo += 1;
+    else:
+        dibujoej(errorcatch,3);
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(5,5)+"Diccionario vacio");
+
+    return errorcatch;
+
+def agrupacion_3(errorcatch):#agrupa todas las funciones que se usaran en el ejercicio 3
+    letras_palabras = {};#diccionario que guardara cada letra y la palabra mas grande donde esta
+    dibujoej(errorcatch,3);
+    cadena = pregunta_cadena();#preguntar cadena
+    letras = separar_letras(cadena);#ver cuales caracteres sin repetir componen la cadena
+    palabras = cadena.split();#separar cadena en palabras y guardarla en una lista
+    errorcatch = encuentra_letra(letras,palabras,letras_palabras,errorcatch);#encontrar la palabra mas larga donde
+    #esta cada caracter
+    return errorcatch;
+
+def e3(errorcatch):#recibe un texto y para cada caracter imprime la palabra mas larga donde se encuentra
+    errorcatch = agrupacion_3(errorcatch);
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,15)+"Ejercicio 3 Terminado", end="");
+    input(Fore.WHITE+Style.BRIGHT+Cursor.POS(5,14)+"");
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
-
 
 def menu():
     errorm=0;
