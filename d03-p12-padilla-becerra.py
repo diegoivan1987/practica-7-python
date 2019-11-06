@@ -131,81 +131,91 @@ def e1(errorcatch):
     return errorcatch; #Regresara el total de except al menu
 
 def repeticiones(errorcatch): #Se hara un diccionario donde muestre que tantas palabras se repitieron y el mayor sera impreso al final
-    dibujoej(errorcatch,1);
-    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Ingresa una cadena: ", end=""); 
-    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,8)+"", end="");
-    cadena=str(input());
+    try:
+        dibujoej(errorcatch,1);
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Ingresa una cadena: ", end=""); 
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,8)+"", end="");
+        cadena=str(input());
 
-    cadena=cadena.lower(); #Transforma lo que puso el usuario a todo minusculas primero
-    lista=cadena.split(); #Luego lo separa por los espacios
-    listaF={}; #Se crea el diccionario donde se guardaran
+        cadena=cadena.lower(); #Transforma lo que puso el usuario a todo minusculas primero
+        lista=cadena.split(); #Luego lo separa por los espacios
+        listaF={}; #Se crea el diccionario donde se guardaran
 
-    print("",end="");
-    for y in lista: #Estos compararan cada dato con cada uno de los otros para verificar los que se repiten
-        aux=0;
-        for x in lista:
-            if y == x : #En caso de que se repita, se le sumara 1 al auxiliar para las repeticiones
-                aux+=1;
-        listaF[y]=[aux]; #Añadira la palabra y sus repeticiones al diccionario
+        print("",end="");
+        for y in lista: #Estos compararan cada dato con cada uno de los otros para verificar los que se repiten
+            aux=0;
+            for x in lista:
+                if y == x : #En caso de que se repita, se le sumara 1 al auxiliar para las repeticiones
+                    aux+=1;
+            listaF[y]=[aux]; #Añadira la palabra y sus repeticiones al diccionario
 
-    mayor=1;
-    contador=0;
-    valores=list(listaF.values());
-    for i in valores: #Este for sera para ver cual fue la palabra que mas se repitio
-        x=i;
-        x=x[0];
-        x=int(x);
-        if x > mayor:
-            mayor=x;
-            
-    final=list(listaF.items());        
-    for i in final: #Este for sera para evitar un bucle infinito, sabiendo cuantas palabras fueron tuvieron la mayor repeticion
-        x=str(mayor);
-        y=str(i);
-        if x in y and mayor > 1:
-            contador+=1;
-    inf=0;
-    it=0;
-    posiciones=[];
-    for i in final: #Este for movera de cierta manera los datos al final, si este tiene el valor mas alto de repeticiones
-        x=str(mayor);
-        y=str(i);
-        if x in y and inf < contador and mayor != 1:
-            inf+=1;
-            var=y;
-            posiciones.append(it);
-            final.append(var);
-        it+=1;
-    it=0;
-    for i in posiciones: #Este for eliminara los datos que se reinserte
-        x=int(i);
-        del(final[x-it]);
-        it+=1;
-    it=0;
-    case=2;
+        mayor=1;
+        contador=0;
+        valores=list(listaF.values());
+        for i in valores: #Este for sera para ver cual fue la palabra que mas se repitio
+            x=i;
+            x=x[0];
+            x=int(x);
+            if x > mayor:
+                mayor=x;
+                
+        final=list(listaF.items());        
+        for i in final: #Este for sera para evitar un bucle infinito, sabiendo cuantas palabras fueron tuvieron la mayor repeticion
+            x=str(mayor);
+            y=str(i);
+            if x in y and mayor > 1:
+                contador+=1;
+        inf=0;
+        it=0;
+        posiciones=[];
+        for i in final: #Este for movera de cierta manera los datos al final, si este tiene el valor mas alto de repeticiones
+            x=str(mayor);
+            y=str(i);
+            if x in y and inf < contador and mayor != 1:
+                inf+=1;
+                var=y;
+                posiciones.append(it);
+                final.append(var);
+            it+=1;
+        it=0;
+        for i in posiciones: #Este for eliminara los datos que se reinserte
+            x=int(i);
+            del(final[x-it]);
+            it+=1;
+        it=0;
+        case=2;
 
-    #Se imprimira en minusculas o mayusculas dependiendo de que dato se
-    dibujoej(errorcatch,1);
-    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(5,5)+"El diccionario final fue:", end="");
-    cord=6;
-    for i in final:
-        x=str(i);
-        y=str(mayor);
-        it+=1;
-        if y in x: #Si se imprimiran el o los valores mayores, este cambiara al ultimo ingresado con las variables case
-            if case==1:
-                x=x.lower();
-            else:
-                x=x.upper();
-        else: 
-            if it % 2 == 0: #Los ifs por medio de division definen su posicion
-                x=x.lower();
-                case=1;
-            else:
-                x=x.upper();
-                case=2;         
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(5,cord)+x, end="");
-        cord+=1;
+        #Se imprimira en minusculas o mayusculas dependiendo de que dato se
+        dibujoej(errorcatch,1);
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(5,5)+"El diccionario final fue:", end="");
+        cord=6;
+        prim=0;
+        for i in final:
+            x=str(i);
+            y=str(mayor);
+            it+=1;
+            if y in x and prim==0: #Si se imprimiran el o los valores mayores, este cambiara al ultimo ingresado con las variables case
+                it-=1;
+                if case==1:
+                    x=x.lower();
+                    prim=1;
+                else:
+                    x=x.upper();
+                    prim=1;
+            else: 
+                if it % 2 == 0: #Los ifs por medio de division definen su posicion
+                    x=x.lower();
+                    case=1;
+                else:
+                    x=x.upper();
+                    case=2;         
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(5,cord)+x, end="");
+            cord+=1;
+    except:
+        errorcatch+=1;
+        dibujoej(errorcatch,1);
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Algo salio mal...", end=""); 
+        sleep(1);
     return errorcatch;
 
 def e2(errorcatch):
@@ -422,7 +432,7 @@ def menu():
             errore3=e3(errore3);
             
 menu();
-dibujoej(-1);
+dibujoej(-1,1);
 print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"practica 12", end="");
 print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,8)+"padilla valdez gustavo", end="");
 print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,9)+"becerra gonzalez diego ivan", end="");
