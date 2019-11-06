@@ -121,7 +121,7 @@ def dibujoej(errorcatch,ej): #Esta funcion creara la ventana siempre que se nece
         print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(35,4)+"--- Ejercicio "+ej+"---", end="");
         print(Fore.WHITE+Style.BRIGHT+Cursor.POS(83,6)+Back.LIGHTBLUE_EX+Style.BRIGHT+" ERRORES DEL", end="");
         errorcatch=str(errorcatch);
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(83,7)+Back.LIGHTBLUE_EX+Style.BRIGHT+"  EJERCICIO:  "+errorcatch, end="");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(83,7)+Back.LIGHTBLUE_EX+Style.BRIGHT+" EJERCICIO:  "+errorcatch, end="");
 
 def e1(errorcatch):
     errorcatch=repeticiones(errorcatch);
@@ -209,11 +209,116 @@ def repeticiones(errorcatch): #Se hara un diccionario donde muestre que tantas p
     return errorcatch;
 
 def e2(errorcatch):
-    
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,13)+"Ejercicio 2 Terminado", end="");
+    errorcatch=agendaej(errorcatch);
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,16)+"Ejercicio 2 Terminado", end="");
     input();
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
+
+def agendaej(errorcatch): #Se hara un diccionario donde se cree una agenda donde se agregen numero y puedan ser modificados
+    try:
+        opcion=1;
+        agenda={};
+        while opcion != 0:
+            dibujoej(errorcatch,2);
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Presione 1 para buscar nombre", end=""); 
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,8)+"Presione ESC para salir      ", end="");
+            caracter=0;
+            while caracter==0: #Leera todas las teclas que se presionen hasta que presione una valida
+                aux=str(msvcrt.getch());
+                if "1b" in aux: #1b es el hexadecimal para ESC, si esta eso en lo leido, significa que presiono esc
+                    opcion=0;
+                    caracter+=1;
+                elif "b'1'" == aux: #Lo mismo con b'1'
+                    opcion=1;
+                    caracter+=1;
+                else:
+                    pass;
+            if opcion==1: #Si eligio buscar nombre
+                dibujoej(errorcatch,2);
+                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Dame el nombre a buscar: ", end="");  #Lo pide
+                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,8)+"", end=""); 
+                nombre=str(input());
+                nombres=list(agenda.values()); #Divide los datos actuales de la agenda para la busqueda
+                numeros=list(agenda.keys());
+                agregar=0;
+                cont=0;
+                pos=0;
+                for i in nombres: #Busca en todos los nombres para ver si se encuentra en la agenda, de ser asi, añade un valor para saber que se encontro
+                    if nombre in i: 
+                        agregar+=1;
+                        pos=cont;
+                    cont+=1;
+                
+                cambiar="";
+                if agregar > 0: #Si se encontro el nombre
+                    conta=0;
+                    for i in numeros: #Buscara por todas las keys, y tomara el valor de la posicion donde se encontro el nombre
+                        if conta==pos:
+                            cambiar=i;
+                        conta+=1;
+                    dibujoej(errorcatch,2);
+                    saux=str(cambiar);
+                    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Su numero es: ",saux, end=""); 
+                    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,8)+"Presione 1 para cambiar el numero", end="");
+                    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,9)+"Presione 2 para no hacer nada y regresar: ", end=""); 
+                    caracter2=0;
+                    opcion2=0;
+                    while caracter2==0: #Leera todas las teclas que se presionen hasta que presione una valida
+                        aux2=str(msvcrt.getch());
+                        if "b'1'" in aux2: #1b es el hexadecimal para ESC, si esta eso en lo leido, significa que presiono esc
+                            opcion2=1;
+                            caracter2+=1;
+                        elif "b'2'" == aux2: #Lo mismo con b'1'
+                            opcion2=2;
+                            caracter2+=1;
+                        else:
+                            pass;
+                    if opcion2==1: #Si elige actualizar el nombre
+                        aumento2=[0];
+                        for i in aumento2:
+                            dibujoej(errorcatch,2);
+                            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Ingrese el nuevo numero", end="");
+                            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,8)+"", end=""); 
+                            aux3=str(input());
+                            try:
+                                errores=int(aux3); 
+
+                                agenda.pop(cambiar); #Borrara el dato de la agenda
+                                agenda[aux3]=[nombre]; #Y añadira el nuevo numero
+                            except:
+                                aumento2.append(0);
+                                errorcatch+=1;
+                                dibujoej(errorcatch,2);
+                                print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"No ingrese caracteres!", end=""); 
+                                sleep(1);
+    
+                if agregar == 0: #Si no se encontro el nombre, pedira el numero para registrarlo
+                    dibujoej(errorcatch,2);
+                    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"No se encontro el nombre!", end=""); 
+                    sleep(1);
+                    aumento=[0];
+                    for i in aumento:
+                        dibujoej(errorcatch,2);
+                        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Ingrese el numero de ese nombre", end="");
+                        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,8)+"", end=""); 
+                        aux=str(input());
+                        try:
+                            errores=int(aux);
+                            agenda[aux]=[nombre];
+                        
+                        except:
+                            aumento.append(0);
+                            errorcatch+=1;
+                            dibujoej(errorcatch,2);
+                            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"No ingrese caracteres!", end=""); 
+                            sleep(1);
+    except:
+        errorcatch+=1;
+        dibujoej(errorcatch,2);
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Algo salio mal...", end=""); 
+        sleep(1);
+    return errorcatch;
 
 def e3(errorcatch):
     
