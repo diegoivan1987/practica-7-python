@@ -220,7 +220,7 @@ def repeticiones(errorcatch): #Se hara un diccionario donde muestre que tantas p
 
 def e2(errorcatch):
     errorcatch=agendaej(errorcatch);
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,16)+"Ejercicio 2 Terminado", end="");
+    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,15)+"Ejercicio 2 Terminado", end="");
     input();
     print("",end="");
     return errorcatch; #Regresara el total de except al menu
