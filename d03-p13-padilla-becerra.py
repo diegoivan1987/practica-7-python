@@ -6,6 +6,7 @@ from colorama import Cursor,Fore,Back,init,Style; #Llama a colorama
 from time import sleep; #Llama la funcion para pausar
 import os; #Llamo funciones del sistema operativo para poder borrar pantalla
 import msvcrt; #Llama funcion para poder leer lo que se presiona en el teclado
+from random import randint;#para generar numeros enteros random dentro de un rango
 init(autoreset=True); #Se inicia el colorama, que se autoresetee para evitar basura en la consola
 
 def dibujomenu(em,e1,e2,e3): #Esta funcion creara la ventana siempre que se necesite con colores
@@ -220,13 +221,13 @@ def buscar_archivo(errorcatch):#busca un archivo
             repeticiones = buscar_repeticiones(errorcatch,nombre)#si existe, contar el numero de archivos con el mismo nombre antes de ()
             copia_creada = crea_copia(errorcatch, nombre,repeticiones)#crear un nuevo archivo con mismo nombre terminacion (n)
             da_formato(errorcatch,copia_creada,repeticiones);#copiar el contenido del archivo (n-1), alternando las palabras en mayuscula y minuscula y cambiandolas de color
+            mostrar_colores(errorcatch,copia_creada);#mostrar el contenido del archivo con colores
             input();
-            #mostrar el nombre del archivo creado
         except:#si no existe, avisar y permitir ingresar un nombre que exista
             nombre = str(input(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"El archivo no existe, ingresa otro nombre: "));
             errorcatch += 1;
     if len(nombre) == 0:#si no ingreso nada
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Debe ingresar el nombre del archivo");
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Debe ingresar un nombre de archivo");
         sleep(1);
     return errorcatch;
 
@@ -288,6 +289,8 @@ def da_formato(errorcatch, nombre,numero_copia):#da el formato de mayusculas y m
     archivo_a_leer = open(nombre_anterior,mode = "r",encoding="utf-8");
     archivo_a_modificar = open(nombre,mode = "w",encoding="utf-8");
 
+    bandera = False;#ayudara a convertir mayusculas y minusculas, ademas de la terminacion de la linea
+    #si es true, termino en mayuscula,y si no, en minuscula
     while True:#recorremos por lineas el archivo anterior
         linea = archivo_a_leer.readline();
         if not linea:#si ya no hay lineas se acaba
@@ -296,38 +299,64 @@ def da_formato(errorcatch, nombre,numero_copia):#da el formato de mayusculas y m
             palabras = linea.split();#dividimos la linea en palabras
 
         nueva_linea = [];#modificacion de la linea leida
-        
-        bandera = False;
+       
         for palabra in palabras:#recorremos la linea
-            if numero_copia%2 != 0:#si es una copia impar, convierte la linea a mayuscula minuscula
-                
+            if numero_copia == 1:#si es la primer copia
                 if bandera == False:
                     palabra = palabra.upper();
                     bandera = True;
                 elif bandera == True:
                     palabra = palabra.lower();
                     bandera = False;
-            elif numero_copia%2 == 0:#si es una copia par, convierte la linea a  minuscula mayuscula
-                
-                if bandera == True:
+            else:#si es otra copia, solo intercambia los tamaños, ya que el cambio se hizo desde la primer copia
+                if palabra.islower():
                     palabra = palabra.upper();
-                    bandera = False;
-                elif bandera == False:
+                elif palabra.isupper():
                     palabra = palabra.lower();
-                    bandera = True;
                 
             nueva_linea.append(palabra);#se añade cada palabra a la linea
 
         insertar = "";#lo que se insertara en la nueva copia
         for palabra in nueva_linea:#se forma de nuevo la linea
             insertar = insertar + palabra + " ";
-        insertar = insertar[:-1];
+        insertar = insertar[:-1] + "\n";
         archivo_a_modificar.write(insertar);#se inserta en el documento
     #se cierran los dos documentos
     archivo_a_leer.close();
     archivo_a_modificar.close();
 
+def mostrar_colores(errorcatch, nombre_copia):#muestra el contenido del archivo en colores,tiene
+    #un limite de archivos de hasta 39 lineas
+    dibujoej(errorcatch,2);
+    archivo = open(nombre_copia,mode = "r",encoding="utf-8");
+    abajo = 5;#que tan abajo se imprimira
+    derecha = 6;#que tan a la derecha se imprimira
+    mover_derecha = False;#indicara si debe de mover la columna a la derecha
+    while True:#recorremos por lineas el archivo
+        linea = archivo.readline();
+        if not linea:#si ya no hay lineas se acaba
+            break;
+        else:
+            palabras = linea.split();#dividimos la linea en palabras
+        
+        if abajo <= 27 and mover_derecha == False:#si la impresion no ha llegado hasta el fondo
+            print(Cursor.POS(derecha,abajo)+"",end="");#posicionamos el donde empezara a imprimir las palabras
+            for palabra in palabras:#recorremos la linea
+                codigo_color = "\033["+str(randint(31,37))+"m";#generamos un codigo de color aleatorio para cada palabra
+                print(codigo_color+palabra,end=" ");#imprimimos cada palabra en la misma linea
+        elif abajo == 28:#si llego hasta el fondo, mueve el donde empezara a imprimir
+            abajo = 5;
+            derecha = 50;
+            mover_derecha = True;
 
+        if abajo <= 20 and mover_derecha == True:#si la impresion no ha llegado hasta el cuadro de errores
+            print(Cursor.POS(derecha,abajo)+"",end="");#posicionamos el donde empezara a imprimir las palabras
+            for palabra in palabras:#recorremos la linea
+                codigo_color = "\033["+str(randint(31,37))+"m";#generamos un codigo de color aleatorio para cada palabra
+                print(codigo_color+palabra,end=" ");#imprimimos cada palabra en la misma linea
+        
+        abajo += 1;#indicamos que baje a la siguientes linea
+        
 
 def e3(errorcatch):#recibe un texto y para cada caracter imprime la palabra mas larga donde se encuentra
   
