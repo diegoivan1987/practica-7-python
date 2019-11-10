@@ -194,12 +194,140 @@ def inverso(errorcatch):
     return errorcatch;
 
 
-def e2(errorcatch):
-    
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,27)+"Ejercicio 2 Terminado", end="");
-    input();
-    print("",end="");
+def e2(errorcatch):#crea copias de un archivo, alterando su contenido
+    #mientras no presione esc
+    dibujoej(errorcatch,2);
+    entrar = True;
+    while entrar:#mientras no presione esc, sigue ejecutandose
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Ingresa 1 para buscar un archivo o esc para salir: ",end="");
+        tecla = str(msvcrt.getch());#capturamos la tecla
+        if "1b" in tecla:#sale del while
+            entrar = False;
+        elif "b'1'" == tecla: #Lo mismo con b'1'
+            errorcatch = buscar_archivo(errorcatch);#obtener nombre del archivo
+        else:
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Debes ingresar una opcion correcta: ",end="");
+            sleep(1);
     return errorcatch; #Regresara el total de except al menu
+
+def buscar_archivo(errorcatch):#busca un archivo
+    dibujoej(errorcatch,2);
+    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Ingresa el nombre del archivo: ",end="");
+    nombre = str(input());
+    while len(nombre) > 0:#si ingreso algo
+        try:#tratar de abrir archivo
+            archivo = open(nombre,mode = "r",encoding="utf-8");
+            repeticiones = buscar_repeticiones(errorcatch,nombre)#si existe, contar el numero de archivos con el mismo nombre antes de ()
+            copia_creada = crea_copia(errorcatch, nombre,repeticiones)#crear un nuevo archivo con mismo nombre terminacion (n)
+            da_formato(errorcatch,copia_creada,repeticiones);#copiar el contenido del archivo (n-1), alternando las palabras en mayuscula y minuscula y cambiandolas de color
+            input();
+            #mostrar el nombre del archivo creado
+        except:#si no existe, avisar y permitir ingresar un nombre que exista
+            nombre = str(input(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"El archivo no existe, ingresa otro nombre: "));
+            errorcatch += 1;
+    if len(nombre) == 0:#si no ingreso nada
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Debe ingresar el nombre del archivo");
+        sleep(1);
+    return errorcatch;
+
+def buscar_repeticiones(errorcatch,nombre):#busca que tantas veces se ha repetido un archivo
+    repeticiones = 0;#numero de repeticiones de un archivo
+    sin_extension = "";#guardara el nombre del archivo sin extension
+    for letra in nombre:#recorremos el nombre del archivo
+        if (letra == "(") or (letra=="."):#si llega al parentesis o al punto, sale
+            break;
+        else :#si no, va guardando el nombre del archivo por letras
+            sin_extension = sin_extension + letra;
+
+    ruta = os.path.dirname(os.path.abspath(__file__));#Variable para la ruta al directorio
+    
+    lstDir = os.walk(ruta);  #Lista directorios y ficheros
+    #recorrer la lista
+    for root, dirs, files in lstDir:
+        for fichero in files:#compara cada fichero
+            (nombreFichero, extension) = os.path.splitext(fichero);#obtiene el nombre y extension de cada fichero
+            nombreFichero_sin_par = "";#guardara el nombre del fichero evaluado sin parentesis
+            for letra in nombreFichero:#recorremos el nombre del fichero evaluado
+                if (letra == "("):#si llega al parentesis, sale
+                    break;
+                else :#si no, va guardando el nombre del archivo por letras
+                    nombreFichero_sin_par = nombreFichero_sin_par + letra;
+            if (nombreFichero_sin_par == sin_extension) and (extension == ".txt"):#si tienen el mismo nombe y extension
+               repeticiones += 1;
+    repeticiones = repeticiones - 1;#le restamos uno porque se cuenta el archivo original, el que no tiene parentesis
+    return repeticiones;
+
+def crea_copia(errorcatch, nombre,numero_copia):#crea una copia de un archivo existente, agregando el numero de copia al archivo
+    sin_extension = "";#guardara el nombre del archivo sin extension
+    numero_copia += 1;
+    nombre_nuevo = "";#guardara el nuevo nombre del archivo
+    for letra in nombre:#recorremos el nombre del archivo
+        if (letra == "(") or (letra=="."):#si llega al parentesis o al punto, sale
+            break;
+        else :#si no, va guardando el nombre del archivo por letras
+            sin_extension = sin_extension + letra;
+
+    nombre_nuevo = sin_extension;
+    nombre_nuevo = nombre_nuevo + "(";
+    nombre_nuevo = nombre_nuevo + str(numero_copia);
+    nombre_nuevo = nombre_nuevo + ").txt";
+    nuevo = open(nombre_nuevo,mode = "w",encoding="utf-8");
+    nuevo.close();
+
+    return nombre_nuevo;
+
+def da_formato(errorcatch, nombre,numero_copia):#da el formato de mayusculas y minusculas al contenido del archivo
+    numero_copia += 1;
+    nombre_anterior = "";#el es nombre del antecesos del archivo a modificar
+    if numero_copia == 1:#si es la primer copia
+        nombre_anterior = nombre.replace("(1)","");#se obtiene el nombre del archivo original
+    else:#si es de la segunda copia en adelante
+        aux = "("+str(numero_copia)+")";#guarda lo que esta entre parentesis de la copia a modificar
+        aux2 = "("+str(numero_copia-1)+")";#guarda lo que esta entre parentesis del archivo anterior
+        nombre_anterior = nombre.replace(aux,aux2);#se obtiene el nombre del archivo anterior
+    archivo_a_leer = open(nombre_anterior,mode = "r",encoding="utf-8");
+    archivo_a_modificar = open(nombre,mode = "w",encoding="utf-8");
+
+    while True:#recorremos por lineas el archivo anterior
+        linea = archivo_a_leer.readline();
+        if not linea:#si ya no hay lineas se acaba
+            break;
+        else:
+            palabras = linea.split();#dividimos la linea en palabras
+
+        nueva_linea = [];#modificacion de la linea leida
+        
+        bandera = False;
+        for palabra in palabras:#recorremos la linea
+            if numero_copia%2 != 0:#si es una copia impar, convierte la linea a mayuscula minuscula
+                
+                if bandera == False:
+                    palabra = palabra.upper();
+                    bandera = True;
+                elif bandera == True:
+                    palabra = palabra.lower();
+                    bandera = False;
+            elif numero_copia%2 == 0:#si es una copia par, convierte la linea a  minuscula mayuscula
+                
+                if bandera == True:
+                    palabra = palabra.upper();
+                    bandera = False;
+                elif bandera == False:
+                    palabra = palabra.lower();
+                    bandera = True;
+                
+            nueva_linea.append(palabra);#se añade cada palabra a la linea
+
+        insertar = "";#lo que se insertara en la nueva copia
+        for palabra in nueva_linea:#se forma de nuevo la linea
+            insertar = insertar + palabra + " ";
+        insertar = insertar[:-1];
+        archivo_a_modificar.write(insertar);#se inserta en el documento
+    #se cierran los dos documentos
+    archivo_a_leer.close();
+    archivo_a_modificar.close();
+
+
 
 def e3(errorcatch):#recibe un texto y para cada caracter imprime la palabra mas larga donde se encuentra
   
