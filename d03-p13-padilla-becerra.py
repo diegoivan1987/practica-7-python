@@ -197,18 +197,16 @@ def inverso(errorcatch):
 
 def e2(errorcatch):#crea copias de un archivo, alterando su contenido
     #mientras no presione esc
-    dibujoej(errorcatch,2);
     entrar = True;
     while entrar:#mientras no presione esc, sigue ejecutandose
+        dibujoej(errorcatch,2);
         print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Ingresa 1 para buscar un archivo o esc para salir: ",end="");
         tecla = str(msvcrt.getch());#capturamos la tecla
         if "1b" in tecla:#sale del while
             entrar = False;
         elif "b'1'" == tecla: #Lo mismo con b'1'
             errorcatch = buscar_archivo(errorcatch);#obtener nombre del archivo
-        else:
-            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Debes ingresar una opcion correcta: ",end="");
-            sleep(1);
+
     return errorcatch; #Regresara el total de except al menu
 
 def buscar_archivo(errorcatch):#busca un archivo
@@ -223,9 +221,11 @@ def buscar_archivo(errorcatch):#busca un archivo
             da_formato(errorcatch,copia_creada,repeticiones);#copiar el contenido del archivo (n-1), alternando las palabras en mayuscula y minuscula y cambiandolas de color
             mostrar_colores(errorcatch,copia_creada);#mostrar el contenido del archivo con colores
             input();
+            break;
         except:#si no existe, avisar y permitir ingresar un nombre que exista
-            nombre = str(input(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"El archivo no existe, ingresa otro nombre: "));
             errorcatch += 1;
+            dibujoej(errorcatch,2);
+            nombre = str(input(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"El archivo no existe, ingresa otro nombre: "));
     if len(nombre) == 0:#si no ingreso nada
         print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Debe ingresar un nombre de archivo");
         sleep(1);
@@ -358,8 +358,28 @@ def mostrar_colores(errorcatch, nombre_copia):#muestra el contenido del archivo 
         abajo += 1;#indicamos que baje a la siguientes linea
         
 
-def e3(errorcatch):#recibe un texto y para cada caracter imprime la palabra mas larga donde se encuentra
-  
+def e3(errorcatch):#recibe una o varias palabras separadas por ',', el nombre de un archivo, y busca esas
+    #palabras en el archivo, imprimiendolas en color y las veces que se repite
+    #mientras no presione esc
+    dibujoej(errorcatch,3);
+    entrar = True;
+    while entrar:#mientras no presione esc, sigue ejecutandose
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Ingresa 1 para ingresar una cadena o esc para salir: ",end="");
+        tecla = str(msvcrt.getch());#capturamos la tecla
+        if "1b" in tecla:#sale del while
+            entrar = False;
+        elif "b'1'" == tecla: #Lo mismo con b'1'
+            errorcatch = buscar_archivo(errorcatch);#obtener nombre del archivo
+        else:
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Debes ingresar una opcion correcta: ",end="");
+            sleep(1);
+    return errorcatch; #Regresara el total de except al menu
+    #recibir cadena
+    #recibir nombre de archivo
+    #separar cadena
+    #buscar expresiones en el archivo
+    #contar las veces que se repiten
+    #imprimirlas en colores y el numero de veces que se repiten
     print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,27)+"Ejercicio 3 Terminado", end="");
     input();
     print("",end="");
