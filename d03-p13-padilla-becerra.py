@@ -371,10 +371,9 @@ def e3(errorcatch):#recibe una o varias palabras separadas por ',', el nombre de
         elif "b'1'" == tecla: #Lo mismo con b'1'
             pass;
             cadena = recibir_cadena(errorcatch);#recibir cadena
-            #recibir nombre de archivo
-            #separar cadena
-            #buscar expresiones en el archivo
-            #contar las veces que se repiten
+            archivo = recibir_archivo(errorcatch);#recibir nombre de archivo
+            separadas_por_coma = separa_por_coma(cadena);#separar cadena
+            repeticiones = busca_y_cuenta(archivo,separa_por_coma);#buscar expresiones en el archivo y contar las veces que se repiten
             #imprimirlas en colores y el numero de veces que se repiten
             input();
     return errorcatch; #Regresara el total de except al menu
@@ -390,6 +389,53 @@ def recibir_cadena(errorcatch):#recibe una cadena y hace las validaciones corres
         print(Cursor.POS(7,6)+"",end="");#reposiciona el cursor
         cadena =str(input());#obtiene la cadena
     return cadena;
+
+def recibir_archivo(errorcatch):#recibe el nombre del archivo y hace las validaciones correspondientes
+    dibujoej(errorcatch,3);
+    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Ingresa el nombre del archivo: ");
+    print(Cursor.POS(7,6)+"",end="");#reposiciona el cursor
+    archivo =str(input());#obtiene la cadena
+    while len(archivo) < 0:#mientras no ingrese una cadena, se la va a pedir
+        dibujoej(errorcatch,3);
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Debes ingresar un nombre forzosamente: ");
+        print(Cursor.POS(7,6)+"",end="");#reposiciona el cursor
+        archivo =str(input());#obtiene la cadena
+    
+    while True:#mientras no ingrese un archivo existente no sale
+        try:#tratamos de abrir el archivo
+            abrir = open(archivo,mode = "r",encoding="utf-8");#si logro abrir pasa a lo siguiente
+            abrir.close();
+            return archivo;#retornamos el nombre
+            break;#salimos del while
+        except:#si no existe, vuelve a pedir el nombre
+            dibujoej(errorcatch,3);
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"El archivo no existe, ingresa un nombre existente: ");
+            print(Cursor.POS(7,6)+"",end="");#reposiciona el cursor
+            archivo =str(input());#obtiene la cadena
+
+def separa_por_coma(cadena):#separa la cadena en expresiones o palabras cada que encuentra una coma
+    cadena_separada = [];#lista que guardara las expresiones cada que hay coma
+    expresion = "";#guardara la palabra o expresion temporalmente
+    for letra in cadena:#recorremos la cadena por letras
+        if letra != ",":#si aun no se topa con una coma va formando la expresion
+            expresion = expresion + letra;
+        elif letra == ",":#si llego a una coma, guarda la expresion en una lista y reinicia la expresion
+            cadena_separada.append(expresion);
+            expresion = "";
+    #aun se puede hacer otro proceso para quitar expresiones repetidas
+    return cadena_separada;
+
+def busca_y_cuenta(archivo,separadas_por_coma):#busca las expresiones en el archivo y cuanta las veces que se repiten
+    leer = open(archivo,mode = "r",encoding="utf-8");#abre el archivo
+    diccionario_repeticiones={}; #Se crea el diccionario donde se guardaran
+    for expresion in separadas_por_coma: #Recorremos las expresiones
+        if expresion in leer:#si la expresion esta en el archivo
+            #buscar que tanto se repite
+            pass;
+        else:#si no esta, sus repeticiones seran 0
+            diccionario_repeticiones[expresion]=[0];
+    
+    return diccionario_repeticiones;
 
 def menu():
     errorm=0;
