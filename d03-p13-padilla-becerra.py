@@ -370,7 +370,7 @@ def e3(errorcatch):#recibe una o varias palabras separadas por ',', el nombre de
             entrar = False;
         elif "b'1'" == tecla: #Lo mismo con b'1'
             pass;
-            #cadena = recibir_cadena(errorcatch);#recibir cadena
+            cadena = recibir_cadena(errorcatch);#recibir cadena
             #recibir nombre de archivo
             #separar cadena
             #buscar expresiones en el archivo
@@ -379,6 +379,17 @@ def e3(errorcatch):#recibe una o varias palabras separadas por ',', el nombre de
             input();
     return errorcatch; #Regresara el total de except al menu
 
+def recibir_cadena(errorcatch):#recibe una cadena y hace las validaciones correspondientes
+    dibujoej(errorcatch,3);
+    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Ingresa la palabra(s) separadas por coma: ");
+    print(Cursor.POS(7,6)+"",end="");#reposiciona el cursor
+    cadena =str(input());#obtiene la cadena
+    while len(cadena) < 0:#mientras no ingrese una cadena, se la va a pedir
+        dibujoej(errorcatch,3);
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Debes ingresar una cadena forzosamente: ");
+        print(Cursor.POS(7,6)+"",end="");#reposiciona el cursor
+        cadena =str(input());#obtiene la cadena
+    return cadena;
 
 def menu():
     errorm=0;
