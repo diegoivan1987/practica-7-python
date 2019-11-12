@@ -213,7 +213,7 @@ def buscar_archivo(errorcatch):#busca un archivo
     dibujoej(errorcatch,2);
     print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Ingresa el nombre del archivo: ",end="");
     nombre = str(input());
-    while len(nombre) > 0:#si ingreso algo
+    if len(nombre) > 0:#si ingreso algo
         try:#tratar de abrir archivo
             archivo = open(nombre,mode = "r",encoding="utf-8");
             repeticiones = buscar_repeticiones(errorcatch,nombre)#si existe, contar el numero de archivos con el mismo nombre antes de ()
@@ -221,13 +221,14 @@ def buscar_archivo(errorcatch):#busca un archivo
             da_formato(errorcatch,copia_creada,repeticiones);#copiar el contenido del archivo (n-1), alternando las palabras en mayuscula y minuscula y cambiandolas de color
             mostrar_colores(errorcatch,copia_creada);#mostrar el contenido del archivo con colores
             input();
-            break;
         except:#si no existe, avisar y permitir ingresar un nombre que exista
             errorcatch += 1;
             dibujoej(errorcatch,2);
-            nombre = str(input(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"El archivo no existe, ingresa otro nombre: "));
+            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"El archivo no existe",end="");
+            sleep(1);
     if len(nombre) == 0:#si no ingreso nada
-        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,7)+"Debe ingresar un nombre de archivo");
+        dibujoej(errorcatch,2);
+        print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Debe ingresar un nombre de archivo",end="");
         sleep(1);
     return errorcatch;
 
