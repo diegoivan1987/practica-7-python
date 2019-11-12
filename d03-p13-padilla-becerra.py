@@ -165,7 +165,6 @@ def inverso(errorcatch):
                 if not linea: #Si ya no hay lineas
                     break;
                 imprimir=str(reverse(linea)); #Hace al reves las lineas
-                imprimir=imprimir[1:];
                 print(Fore.WHITE+Style.BRIGHT+Cursor.POS(x,y)+" ",imprimir, end=""); 
             archivo.close;
 
@@ -362,29 +361,24 @@ def mostrar_colores(errorcatch, nombre_copia):#muestra el contenido del archivo 
 def e3(errorcatch):#recibe una o varias palabras separadas por ',', el nombre de un archivo, y busca esas
     #palabras en el archivo, imprimiendolas en color y las veces que se repite
     #mientras no presione esc
-    dibujoej(errorcatch,3);
     entrar = True;
     while entrar:#mientras no presione esc, sigue ejecutandose
+        dibujoej(errorcatch,3);
         print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Ingresa 1 para ingresar una cadena o esc para salir: ",end="");
         tecla = str(msvcrt.getch());#capturamos la tecla
         if "1b" in tecla:#sale del while
             entrar = False;
         elif "b'1'" == tecla: #Lo mismo con b'1'
-            errorcatch = buscar_archivo(errorcatch);#obtener nombre del archivo
-        else:
-            print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Debes ingresar una opcion correcta: ",end="");
-            sleep(1);
+            pass;
+            #cadena = recibir_cadena(errorcatch);#recibir cadena
+            #recibir nombre de archivo
+            #separar cadena
+            #buscar expresiones en el archivo
+            #contar las veces que se repiten
+            #imprimirlas en colores y el numero de veces que se repiten
+            input();
     return errorcatch; #Regresara el total de except al menu
-    #recibir cadena
-    #recibir nombre de archivo
-    #separar cadena
-    #buscar expresiones en el archivo
-    #contar las veces que se repiten
-    #imprimirlas en colores y el numero de veces que se repiten
-    print(Fore.WHITE+Style.BRIGHT+Back.LIGHTMAGENTA_EX+Cursor.POS(6,27)+"Ejercicio 3 Terminado", end="");
-    input();
-    print("",end="");
-    return errorcatch; #Regresara el total de except al menu
+
 
 def menu():
     errorm=0;
