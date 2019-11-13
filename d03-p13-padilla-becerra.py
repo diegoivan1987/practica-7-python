@@ -376,13 +376,13 @@ def e3(errorcatch):#recibe una o varias palabras separadas por ',', el nombre de
             archivo = recibir_archivo(errorcatch);#recibir nombre de archivo
             separadas_por_coma = separa_por_coma(cadena);#separar cadena
             repeticiones = busca_y_cuenta(archivo,separadas_por_coma);#buscar expresiones en el archivo y contar las veces que se repiten
-            #imprimirlas en colores y el numero de veces que se repiten
+            mostrar_colores_Ejercicio3(errorcatch,repeticiones);#imprimirlas en colores y el numero de veces que se repiten
             input();
     return errorcatch; #Regresara el total de except al menu
 
 def recibir_cadena(errorcatch):#recibe una cadena y hace las validaciones correspondientes
     dibujoej(errorcatch,3);
-    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Ingresa la palabra(s) separadas por coma: ");
+    print(Fore.WHITE+Style.BRIGHT+Cursor.POS(6,6)+"Ingresa la palabra(s) separadas por coma (respeta las mayusculas): ");
     print(Cursor.POS(6,7)+"",end="");#reposiciona el cursor
     cadena =str(input());#obtiene la cadena
     while len(cadena) < 0:#mientras no ingrese una cadena, se la va a pedir
@@ -418,6 +418,7 @@ def recibir_archivo(errorcatch):#recibe el nombre del archivo y hace las validac
 def separa_por_coma(cadena):#separa la cadena en expresiones o palabras cada que encuentra una coma
     cadena_separada = cadena.split(",");#lista que guardara las expresiones cada que hay coma
     cadena_separada = set(cadena_separada); #Lo convierte a conjunto, para evitar repeticiones
+    cadena_separada.remove("");#removemos una cadena vacia que se guarda en el conjunto
     return cadena_separada;
 
 def busca_y_cuenta(archivo,separadas_por_coma):#busca las expresiones en el archivo y cuanta las veces que se repiten
@@ -444,11 +445,46 @@ def busca_y_cuenta(archivo,separadas_por_coma):#busca las expresiones en el arch
             else:
                 pass;
         abrir.close();
-        if cont == 0:
-            pass;
+        if cont == 0:#si no se repitio ninguna vez
+            diccionario_repeticiones[expresion]=[0];
         else:
             diccionario_repeticiones[expresion]=[cont];
     return diccionario_repeticiones;
+
+def mostrar_colores_Ejercicio3(errorcatch, diccionario_repeticiones):#muestra las expresiones con sus repeticiones en colores,tiene
+    #un limite de archivos de hasta 39 lineas
+    dibujoej(errorcatch,3);
+    abajo = 5;#que tan abajo se imprimira
+    derecha = 6;#que tan a la derecha se imprimira
+    mover_derecha = False;#indicara si debe de mover la columna a la derecha
+    for llave in diccionario_repeticiones:#recorremos el diccionario
+        if abajo <= 27 and mover_derecha == False:#si la impresion no ha llegado hasta el fondo
+            print(Cursor.POS(derecha,abajo)+"",end="");#posicionamos el donde empezara a imprimir las palabras
+            codigo_color = "\033["+str(randint(31,37))+"m";#generamos un codigo de color aleatorio para cada palabra
+            print(codigo_color+llave,end="");#imprimimos la expresion
+            abajo += 1;#indicamos que la impresion sera abajo de la expresion
+            print(Cursor.POS(derecha,abajo)+"",end="");#posicionamos el donde empezara a imprimir las palabras
+            numero_repeticiones = diccionario_repeticiones[llave];#le asignamos el valor del diccionario a un string porque no 
+            #podemos concatenar directamente
+            numero_repeticiones_str = str(numero_repeticiones[0]);
+            print("N. repeticiones:"+numero_repeticiones_str,end="");#imprimimos el numero de repeticiones
+        elif abajo == 28:#si llego hasta el fondo, mueve el donde empezara a imprimir
+            abajo = 5;
+            derecha = 50;
+            mover_derecha = True;
+
+        if abajo <= 20 and mover_derecha == True:#si la impresion no ha llegado hasta el cuadro de errores
+            print(Cursor.POS(derecha,abajo)+"",end="");#posicionamos el donde empezara a imprimir las palabras
+            codigo_color = "\033["+str(randint(31,37))+"m";#generamos un codigo de color aleatorio para cada palabra
+            print(codigo_color+llave,end="");#imprimimos la expresion
+            abajo += 1;#indicamos que la impresion sera abajo de la expresion
+            print(Cursor.POS(derecha,abajo)+"",end="");#posicionamos el donde empezara a imprimir las palabras
+            numero_repeticiones = diccionario_repeticiones[llave];#le asignamos el valor del diccionario a un string porque no 
+            #podemos concatenar directamente
+            numero_repeticiones_str = str(numero_repeticiones[0]);
+            print("N. repeticiones:"+numero_repeticiones_str,end="");#imprimimos el numero de repeticiones
+        
+        abajo += 1;#indicamos que baje a la siguientes linea
 
 def menu():
     errorm=0;
