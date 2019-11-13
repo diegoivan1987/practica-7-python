@@ -431,6 +431,16 @@ def busca_y_cuenta(archivo,separadas_por_coma):#busca las expresiones en el arch
                 break;
             if expresion in linea: #Si la expresion esta en la linea
                 cont+=1;
+                inc=0;
+                aux=linea.split();
+                for i in aux:
+                    if i == expresion:
+                        cont+=1;
+                        inc=1;
+                if inc == 1:
+                    cont-=1;
+                else:
+                    pass;
             else:
                 pass;
         abrir.close();
