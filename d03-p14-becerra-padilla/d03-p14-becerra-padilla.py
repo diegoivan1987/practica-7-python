@@ -1,4 +1,4 @@
-#practica 13
+#practica 14
 #becerra gonzalez diego ivan
 #padilla valdez gustavo
 
@@ -70,10 +70,10 @@ def opmenu1(xM,yM):
     cX=int(len(hosp));
     cX=xM-cX;
     cX=cX//2;
-    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2,cY)+pac, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+1)+med, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+2)+hosp, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+3)+sal, end="");
+    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2,cY)+pac+" <--", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+1)+med+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+2)+hosp+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+3)+sal+"    ", end="");
 #Crea las diferencias de menu, dependiendo de donde se encuentre la opcion 
 def opmenu2(xM,yM):
     pac="1.-Alta de Pacientes"
@@ -86,10 +86,10 @@ def opmenu2(xM,yM):
     cX=int(len(hosp));
     cX=xM-cX;
     cX=cX//2;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY)+pac, end="");
-    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2,cY+1)+med, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+2)+hosp, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+3)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY)+pac+"    ", end="");
+    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2,cY+1)+med+" <--", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+2)+hosp+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+3)+sal+"    ", end="");
 #Crea las diferencias de menu, dependiendo de donde se encuentre la opcion 
 def opmenu3(xM,yM):
     pac="1.-Alta de Pacientes"
@@ -102,10 +102,10 @@ def opmenu3(xM,yM):
     cX=int(len(hosp));
     cX=xM-cX;
     cX=cX//2;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY)+pac, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+1)+med, end="");
-    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2,cY+2)+hosp, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+3)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY)+pac+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+1)+med+"    ", end="");
+    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2,cY+2)+hosp+" <--", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+3)+sal+"    ", end="");
 #Crea las diferencias de menu, dependiendo de donde se encuentre la opcion 
 def opmenu4(xM,yM):
     pac="1.-Alta de Pacientes"
@@ -118,10 +118,10 @@ def opmenu4(xM,yM):
     cX=int(len(hosp));
     cX=xM-cX;
     cX=cX//2;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY)+pac, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+1)+med, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+2)+hosp, end="");
-    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2,cY+3)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY)+pac+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+1)+med+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+2)+hosp+"    ", end="");
+    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2,cY+3)+sal+" <--", end="");
     
 
 def iniciar(): #Pide los datos para crear la ventana
@@ -172,12 +172,13 @@ def menu(xM,yM,hosp,dom): #Este sera el menu del hospital principal
     ventana(xM,yM,hosp,dom);
     opmenu1(xM,yM);
     while True: #Leera todas las teclas que se presionen hasta que presione una valida
-            aux=str(msvcrt.getch());   
-            if "b'1'" in aux and mover>0:  #Si presiona 1 se mueve para arriba
-                mover-=1;           
-            elif "b'2'" in aux and mover<3: #Si presiona 2 se mueve para abajo
-                mover+=1;
-            elif "r"==aux[3]: #Si presiona enter, elegira dependiendo la funcion que quiera y entrara
+            aux=str(msvcrt.getch());  
+            for i in aux: #Buscara en la tecla presionada
+                if "H" in i and mover>0: #Si esta la H, significara que presiono la tecla de arriba(No afecta la H normal)
+                    mover-=1;  
+                elif "P" in i and mover<3:#Si esta la P, significara que presiono la tecla de arriba(No afecta la P normal)
+                    mover+=1;                          
+            if "r"==aux[3]: #Si presiona enter, elegira dependiendo la funcion que quiera y entrara
                 if mover==0:
                     paciente(xM,yM,hosp,dom);
                 elif mover==1:
@@ -189,6 +190,7 @@ def menu(xM,yM,hosp,dom): #Este sera el menu del hospital principal
             else:
                 pass;
             #Estos if dibujaran lo de adentro del menu dependiendo en que opcion se encuentre
+
             if mover==0:
                 opmenu1(xM,yM);
             elif mover==1:
