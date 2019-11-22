@@ -8,7 +8,7 @@ import os; #Llamo funciones del sistema operativo para poder borrar pantalla
 import msvcrt; #Llama funcion para poder leer lo que se presiona en el teclado
 init(autoreset=True); #Se inicia el colorama, que se autoresetee para evitar basura en la consola
 
-def ventana(xM,yM,hosp,dom): #Esta funcion creara la ventana siempre que se necesite con colores
+def ventana(xM,yM,seccion): #Esta funcion creara la ventana siempre que se necesite con colores
     os.system("cls"); #Borrara la ventana
     #Los siguiente 4 for sera para hacer el marco de la ventana
     x=1;
@@ -48,15 +48,40 @@ def ventana(xM,yM,hosp,dom): #Esta funcion creara la ventana siempre que se nece
     for i in range(xM-4):
         print(Cursor.POS(x,y)+Back.LIGHTBLUE_EX+Fore.BLACK+"*");
         x+=1;
+
+    #Estos for crean la "sombra" de la ventana
+    x=5;
+    y=2;
+    for i in range(xM+1):
+        print(Cursor.POS(x,y)+Back.LIGHTBLACK_EX+" ");
+        x += 1;
+    x=xM+3;
+    for i in range(yM):
+        print(Cursor.POS(x,y)+Back.LIGHTBLACK_EX+"   ");
+        y += 1;
+
+
+
+    archivo = open("d03-p14-becerra-padilla-H.txt",mode = "r",encoding="utf-8"); #Abrira el archivo del hospital
+    hosp=archivo.readline(); #Leera el nombre
+    dom=archivo.readline(); #Leera la direccion
+    hosp=str(hosp);
+    dom=str(dom);
+    archivo.close();
+
     aux=int(len(hosp)); #Encuentra la mitad de la ventana para imprimir los datos del hospital
     aux=xM-aux;
     aux=aux//2;
     #Los imprime
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(aux+2,4)+hosp, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(aux+2,3)+hosp, end="");
+    aux=int(len(seccion)); #Encuentra la mitad de la ventana para imprimir los datos del hospital
+    aux=xM-aux;
+    aux=aux//2;
+    print(Fore.LIGHTYELLOW_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(aux+2,6)+seccion, end="");
     print(Fore.LIGHTBLACK_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(xM-len(dom)-1,5)+dom, end="");
-    print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,27)+"->PoliProgramming®<-", end="");
-    print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,28)+"->Becerra Gonzalez Diego Ivan<-", end="");
-    print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,29)+"->Padilla Valdez Gustavo<-", end="");
+    print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,28)+"->PoliProgramming®<-", end="");
+    print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,29)+"->Becerra Gonzalez Diego Ivan<-", end="");
+    print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,30)+"->Padilla Valdez Gustavo<-", end="");
 
 #Crea las diferencias de menu, dependiendo de donde se encuentre la opcion 
 def opmenu1(xM,yM):
@@ -131,8 +156,8 @@ def iniciar(): #Pide los datos para crear la ventana
         xM=str(input("Dame la medida horizontal: "));
         try:
             xM=int(xM);
-            if xM > 115 or xM < 50:
-                print("El tamaño debe ser entre 50 y 115");
+            if xM > 105 or xM < 60:
+                print("El tamaño debe ser entre 60 y 105");
             else:
                 a=2;
         except:
@@ -142,34 +167,80 @@ def iniciar(): #Pide los datos para crear la ventana
         yM=str(input("Dame la medida Vertical: "));
         try:
             yM=int(yM);
-            if yM > 23 or yM < 12:
-                print("El tamaño debe ser entre 11 y 23");
+            if yM > 23 or yM < 14:
+                print("El tamaño debe ser entre 14 y 23");
             else:
                 a=2;
         except:
             print("Error!, ingrese numeros enteros");
-    archivo = open("d03-p14-becerra-padilla-H.txt",mode = "r",encoding="utf-8"); #Abrira el archivo del hospital
-    hosp=archivo.readline(); #Leera el nombre
-    dom=archivo.readline(); #Leera la direccion
-    hosp=str(hosp);
-    dom=str(dom);
-    archivo.close();
-    menu(xM,yM,hosp,dom);
+    menu(xM,yM);
 
-def paciente(xM,yM,hosp,dom):
+def paciente(xM,yM):
     pass;
 
-def medico(xM,yM,hosp,dom):
+def medico(xM,yM):
     pass;
 
-def hospital(xM,yM,hosp,dom):
-    pass;
+def hospital(xM,yM): #Funcion de cambios del hospital
+    seccion="Cambios al Hospital"
+    ventana(xM,yM,seccion);
+    nom="1.-Modificar Nombre de Hospital"
+    dire="2.-Modificar Direccion del Hospital"
+    sal="3.-Salir"
+    #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
+    cY=yM+2;
+    cY=cY//2;
+    cX=int(len(nom));
+    cX=xM-cX;
+    cX=cX//2;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY)+nom, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+1)+dire, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+2)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+4)+"Presione su opcion: ", end="");
+    while True:
+        aux=str(msvcrt.getch());
+        if "b'1'" == aux:
+            nom_hos(xM,yM,cX,seccion);
+            break;
+        elif "b'2'" == aux:
+            dire_hos(xM,yM,cX,seccion);
+            break;
+        elif "b'3'" == aux:
+            break;
+        else:
+            pass;
 
-def menu(xM,yM,hosp,dom): #Este sera el menu del hospital principal
+def nom_hos(xM,yM,cX,seccion): #Funcion para cambiar el nombre del hospital
+    ventana(xM,yM,seccion);
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese el nuevo nombre del hospital", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
+    nom=str(input());
+    nom=nom+"\n"; #Se añade un salto de lineas, para evitar que el texto se pegue
+    reemplazar_linea("d03-p14-becerra-padilla-H.txt", 0,nom);
+
+def dire_hos(xM,yM,cX,seccion): #Funcion para cambiar la direccion del hospital
+    ventana(xM,yM,seccion);
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese la nueva direccion del hospital", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
+    nom=str(input());
+    nom=nom+"\n"; #Se añade un salto de lineas, para evitar que el texto se pegue
+    reemplazar_linea("d03-p14-becerra-padilla-H.txt", 1,nom);
+
+def reemplazar_linea(archivo, linea, texto): #Funcion para reemplazar una linea especifica en un txt
+    lines = open(archivo, 'r').readlines();
+    lines[linea] = texto;
+    out = open(archivo, 'w');
+    out.writelines(lines);
+    out.close();
+
+
+def menu(xM,yM): #Este sera el menu del hospital principal
     caracter=0;
     opcion=0;
     mover=0;
-    ventana(xM,yM,hosp,dom);
+    dib=0;
+    seccion="Menú Principal"
+    ventana(xM,yM,seccion);
     opmenu1(xM,yM);
     while True: #Leera todas las teclas que se presionen hasta que presione una valida
             aux=str(msvcrt.getch());  
@@ -180,17 +251,22 @@ def menu(xM,yM,hosp,dom): #Este sera el menu del hospital principal
                     mover+=1;                          
             if "r"==aux[3]: #Si presiona enter, elegira dependiendo la funcion que quiera y entrara
                 if mover==0:
-                    paciente(xM,yM,hosp,dom);
+                    paciente(xM,yM);
+                    dib=1;
                 elif mover==1:
-                    medico(xM,yM,hosp,dom);
+                    medico(xM,yM);
+                    dib=1;
                 elif mover==2:
-                    hospital(xM,yM,hosp,dom);
+                    hospital(xM,yM);
+                    dib=1;
                 elif mover==3: #Si elige salir, hara un break del menu y acabara
                     break;
             else:
                 pass;
             #Estos if dibujaran lo de adentro del menu dependiendo en que opcion se encuentre
-
+            if dib==1:
+                ventana(xM,yM,seccion);
+                dib=0;
             if mover==0:
                 opmenu1(xM,yM);
             elif mover==1:
