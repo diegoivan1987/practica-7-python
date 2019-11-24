@@ -59,9 +59,7 @@ def ventana(xM,yM,seccion): #Esta funcion creara la ventana siempre que se neces
     for i in range(yM):
         print(Cursor.POS(x,y)+Back.LIGHTBLACK_EX+"   ");
         y += 1;
-
-
-
+    
     archivo = open("d03-p14-becerra-padilla-H.txt",mode = "r",encoding="utf-8"); #Abrira el archivo del hospital
     hosp=archivo.readline(); #Leera el nombre
     dom=archivo.readline(); #Leera la direccion
@@ -178,15 +176,87 @@ def iniciar(): #Pide los datos para crear la ventana
 def paciente(xM,yM):
     pass;
 
-def medico(xM,yM):
-    pass;
+def medico(xM,yM): #Funcion de cambios del hospital
+    seccion="Alta de Medico";
+    ventana(xM,yM,seccion);
+    nmed="1.-Añadir un nuevo medico";
+    alta="2.-Dar de alta un paciente";
+    analis="3.-Crear resultados de analisis";
+    sal="4.-Salir";
+    #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
+    cY=yM+2;
+    cY=cY//2;
+    cX=int(len(analis));
+    cX=xM-cX;
+    cX=cX//2;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY)+nmed, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+1)+alta, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+2)+analis, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+3)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+5)+"Presione su opcion: ", end="");
+    while True:
+        aux=str(msvcrt.getch());
+        if "b'1'" == aux:
+            alta_med(xM,yM,cX,seccion);
+            break;
+        elif "b'2'" == aux:
+            
+            break;
+        elif "b'3'" == aux:
+            break;
+        elif "b'4'" == aux:
+            break;
+        else:
+            pass;
+
+def alta_med(xM,yM,cX,seccion):
+    ventana(xM,yM,seccion);
+    er=1;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese el nombre del medico", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
+    nom=str(input());
+    while er==1:
+        cont=0;
+        ventana(xM,yM,seccion);
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese su Cedula", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
+        ced=str(input());
+        verificar=open("d03-p14-becerra-padilla-M.txt", mode = "r",encoding="utf-8");
+        while(True):
+            cont+=1;
+            linea=verificar.readline();
+            linea=str(linea);
+            linea=linea.split();
+            if not linea:
+                break;
+            if linea[0]==ced and cont % 2 == 0:
+                er=1;
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,10)+"Cedula ya existente, Verifiquela", end=""); 
+                sleep(1);
+                break;
+            else:
+                er=0;
+    verificar.close();
+    ventana(xM,yM,seccion);
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese el su especialidad", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
+    esp=str(input());
+
+    nom=nom+"\n";
+    ced=ced+"\n";
+    esp=esp+"\n"+",";
+    archivo=open("d03-p14-becerra-padilla-M.txt", mode = "a",encoding="utf-8");
+    archivo.write(nom);
+    archivo.write(ced);
+    archivo.write(esp);
+    archivo.close();
 
 def hospital(xM,yM): #Funcion de cambios del hospital
-    seccion="Cambios al Hospital"
+    seccion="Cambios al Hospital";
     ventana(xM,yM,seccion);
-    nom="1.-Modificar Nombre de Hospital"
-    dire="2.-Modificar Direccion del Hospital"
-    sal="3.-Salir"
+    nom="1.-Modificar Nombre de Hospital";
+    dire="2.-Modificar Direccion del Hospital";
+    sal="3.-Salir";
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
     cY=yM+2;
     cY=cY//2;

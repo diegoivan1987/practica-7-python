@@ -1,7 +1,14 @@
 Jorge Gutierrez
 402vedw102
-Cirujano
+Dentista
+,
+Juan Rulfo
+2020
+Partero
+,
 
-Juan Pablo
-30464wQWQ
-Nutriologo
+Carl Johnson
+2021
+Ambulante
+
+,
