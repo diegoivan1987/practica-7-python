@@ -1,0 +1,6 @@
+x=(120-xM)//2+4;
+y=(30-yM)+5;
+cY=(y+yM)//2;
+cX=(x+xM)//2;
+aux = len(nom)//2;
+cX = cX - aux;

@@ -79,7 +79,8 @@ def ventana(xM,yM,seccion): #Esta funcion creara la ventana siempre que se neces
     dom=str(dom);
     archivo.close();
 
-    centro_ventana = limiteX //2;
+    x=(120-xM)//2;
+    centro_ventana = (limiteX - x)//2+x;
     y=(30-yM);
 
     aux=int(len(seccion)); #Encuentra la mitad de la ventana para imprimir la seccion
@@ -106,8 +107,9 @@ def opmenu1(xM,yM):
     hosp="3.-Alta de datos de Hospital"
     sal="4.-Salir"
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=(y+yM)//2;
-    cX=(x+xM)//2;
+    cY=yM//2+y;
+    cY = cY -4;
+    cX=xM//2+x;
     aux = len(hosp)//2;
     cX = cX - aux;
     print(Fore.BLACK+Back.WHITE+Cursor.POS(cX,cY)+pac+" <--", end="");
@@ -124,8 +126,9 @@ def opmenu2(xM,yM):
     hosp="3.-Alta de datos de Hospital"
     sal="4.-Salir"
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=(y+yM)//2;
-    cX=(x+xM)//2;
+    cY=yM//2+y;
+    cY = cY -4;
+    cX=xM//2+x;
     aux = len(hosp)//2;
     cX = cX - aux;
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+pac+"    ", end="");
@@ -142,8 +145,9 @@ def opmenu3(xM,yM):
     hosp="3.-Alta de datos de Hospital"
     sal="4.-Salir"
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=(y+yM)//2;
-    cX=(x+xM)//2;
+    cY=yM//2+y;
+    cY = cY -4;
+    cX=xM//2+x;
     aux = len(hosp)//2;
     cX = cX - aux;
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+pac+"    ", end="");
@@ -160,8 +164,9 @@ def opmenu4(xM,yM):
     hosp="3.-Alta de datos de Hospital"
     sal="4.-Salir"
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=(y+yM)//2;
-    cX=(x+xM)//2;
+    cY=yM//2+y;
+    cY = cY -4;
+    cX=xM//2+x;
     aux = len(hosp)//2;
     cX = cX - aux;
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+pac+"    ", end="");
@@ -188,8 +193,8 @@ def iniciar(): #Pide los datos para crear la ventana
         yM=str(input("Dame la medida Vertical: "));
         try:
             yM=int(yM);
-            if yM < 0 or yM > 27:
-                print("El tamaño debe ser entre 0 y 27");
+            if yM < 0 or yM > 26:
+                print("El tamaño debe ser entre 0 y 26");
             else:
                 a=2;
         except:
@@ -209,8 +214,9 @@ def medico(xM,yM): #Funcion de cambios que tengan que ver con el medico
     analis="3.-Crear resultados de analisis";
     sal="4.-Salir";
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=(y+yM)//2;
-    cX=(x+xM)//2;
+    cY=yM//2+y;
+    cY = cY -4;
+    cX=xM//2+x;
     aux = len(analis)//2;
     cX = cX - aux;
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+nmed, end="");
@@ -306,8 +312,9 @@ def hospital(xM,yM): #Funcion de cambios del hospital
     dire="2.-Modificar Direccion del Hospital";
     sal="3.-Salir";
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=(y+yM)//2;
-    cX=(x+xM)//2;
+    cY=yM//2+y;
+    cY = cY -6;
+    cX=xM//2+x;
     aux = len(nom)//2;
     cX = cX - aux;
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+nom, end="");
