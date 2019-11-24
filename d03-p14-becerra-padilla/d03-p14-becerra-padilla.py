@@ -202,21 +202,22 @@ def paciente(xM,yM):
 def medico(xM,yM): #Funcion de cambios que tengan que ver con el medico
     seccion="Alta de Medico";
     ventana(xM,yM,seccion);
+    x=(120-xM)//2+4;
+    y=(30-yM)+2;
     nmed="1.-Añadir un nuevo medico";
     alta="2.-Dar de alta un paciente";
     analis="3.-Crear resultados de analisis";
     sal="4.-Salir";
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=yM+2;
-    cY=cY//2;
-    cX=int(len(analis));
-    cX=xM-cX;
-    cX=cX//2;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY)+nmed, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+1)+alta, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+2)+analis, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+3)+sal, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+5)+"Presione su opcion: ", end="");
+    cY=(y+yM)//2;
+    cX=(x+xM)//2;
+    aux = len(analis)//2;
+    cX = cX - aux;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+nmed, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+1)+alta, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+2)+analis, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+3)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+5)+"Presione su opcion: ", end="");
     while True:
         aux=str(msvcrt.getch());
         if "b'1'" == aux:
@@ -234,15 +235,17 @@ def medico(xM,yM): #Funcion de cambios que tengan que ver con el medico
 
 def alta_med(xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
     ventana(xM,yM,seccion);
+    x=(120-xM)//2+4;
+    y=(30-yM)+5;
     er=1;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese el nombre del medico", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el nombre del medico", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
     nom=str(input());
     while er==1: #While para verificar que la cedula no se repita
         cont=0;
         ventana(xM,yM,seccion);
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese su Cedula", end="");
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese su Cedula", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
         ced=str(input());
         verificar=open("d03-p14-becerra-padilla-M.txt", mode = "r",encoding="utf-8");
         while(True): #Abrira el archivo y verificara que la cedula no coincida con otra
@@ -255,15 +258,15 @@ def alta_med(xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
                 break;
             elif linea[0]==ced and cont % 2 == 0:
                 er=1;
-                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,10)+"Cedula ya existente, Verifiquela", end=""); 
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+2)+"Cedula ya existente, Verifiquela", end=""); 
                 input();
                 break;
             else:
                 er=0;
     verificar.close();
     ventana(xM,yM,seccion);
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese el su especialidad", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el su especialidad", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
     esp=str(input());
     #Ahora verificara para poner en servicios del hospital, la especialidad del doctor
     verificar=open("d03-p14-becerra-padilla-H.txt", mode = "r",encoding="utf-8");
@@ -297,19 +300,20 @@ def alta_med(xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
 def hospital(xM,yM): #Funcion de cambios del hospital
     seccion="Cambios al Hospital";
     ventana(xM,yM,seccion);
+    x=(120-xM)//2+4;
+    y=(30-yM)+5;
     nom="1.-Modificar Nombre de Hospital";
     dire="2.-Modificar Direccion del Hospital";
     sal="3.-Salir";
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=yM+2;
-    cY=cY//2;
-    cX=int(len(nom));
-    cX=xM-cX;
-    cX=cX//2;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY)+nom, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+1)+dire, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+2)+sal, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2,cY+4)+"Presione su opcion: ", end="");
+    cY=(y+yM)//2;
+    cX=(x+xM)//2;
+    aux = len(nom)//2;
+    cX = cX - aux;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+nom, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+1)+dire, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+2)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+4)+"Presione su opcion: ", end="");
     while True:
         aux=str(msvcrt.getch());
         if "b'1'" == aux:
@@ -325,16 +329,20 @@ def hospital(xM,yM): #Funcion de cambios del hospital
 
 def nom_hos(xM,yM,cX,seccion): #Funcion para cambiar el nombre del hospital
     ventana(xM,yM,seccion);
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese el nuevo nombre del hospital", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
+    x=(120-xM)//2+4;
+    y=(30-yM)+5;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el nuevo nombre del hospital", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
     nom=str(input());
     nom=nom+"\n"; #Se añade un salto de lineas, para evitar que el texto se pegue
     reemplazar_linea("d03-p14-becerra-padilla-H.txt", 0,nom);
 
 def dire_hos(xM,yM,cX,seccion): #Funcion para cambiar la direccion del hospital
     ventana(xM,yM,seccion);
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese la nueva direccion del hospital", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
+    x=(120-xM)//2+4;
+    y=(30-yM)+5;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese la nueva direccion del hospital", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
     nom=str(input());
     nom=nom+"\n"; #Se añade un salto de lineas, para evitar que el texto se pegue
     reemplazar_linea("d03-p14-becerra-padilla-H.txt", 1,nom);
