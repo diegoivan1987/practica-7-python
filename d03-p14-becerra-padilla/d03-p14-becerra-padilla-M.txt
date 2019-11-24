@@ -1,14 +1,20 @@
-Jorge Gutierrez
-402vedw102
+Jorge Humberto
+2020
 Dentista
 ,
-Juan Rulfo
-2020
-Partero
+Juan Ramirez
+2020OLO
+Cirujano
 ,
-
-Carl Johnson
-2021
-Ambulante
-
+Hugo Lombardi
+WFT240
+Pediatra
+,
+Jair Orozco
+202446ge
+Cirujano
+,
+Daniel Ortega
+2034fdelo2
+Oftalmologo
 ,
