@@ -71,12 +71,12 @@ def ventana(xM,yM,seccion): #Esta funcion creara la ventana siempre que se neces
     aux=xM-aux;
     aux=aux//2;
     #Los imprime
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(aux+2,3)+hosp, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(aux+2,3)+hosp[:-2], end="");
     aux=int(len(seccion)); #Encuentra la mitad de la ventana para imprimir los datos del hospital
     aux=xM-aux;
     aux=aux//2;
     print(Fore.LIGHTYELLOW_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(aux+2,6)+seccion, end="");
-    print(Fore.LIGHTBLACK_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(xM-len(dom)-1,5)+dom, end="");
+    print(Fore.LIGHTBLACK_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(xM-len(dom)-1,5)+dom[:-1], end="");
     print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,28)+"->PoliProgramming®<-", end="");
     print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,29)+"->Becerra Gonzalez Diego Ivan<-", end="");
     print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,30)+"->Padilla Valdez Gustavo<-", end="");
@@ -176,7 +176,7 @@ def iniciar(): #Pide los datos para crear la ventana
 def paciente(xM,yM):
     pass;
 
-def medico(xM,yM): #Funcion de cambios del hospital
+def medico(xM,yM): #Funcion de cambios que tengan que ver con el medico
     seccion="Alta de Medico";
     ventana(xM,yM,seccion);
     nmed="1.-Añadir un nuevo medico";
@@ -209,30 +209,31 @@ def medico(xM,yM): #Funcion de cambios del hospital
         else:
             pass;
 
-def alta_med(xM,yM,cX,seccion):
+def alta_med(xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
     ventana(xM,yM,seccion);
     er=1;
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese el nombre del medico", end="");
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
     nom=str(input());
-    while er==1:
+    while er==1: #While para verificar que la cedula no se repita
         cont=0;
         ventana(xM,yM,seccion);
         print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese su Cedula", end="");
         print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
         ced=str(input());
         verificar=open("d03-p14-becerra-padilla-M.txt", mode = "r",encoding="utf-8");
-        while(True):
+        while(True): #Abrira el archivo y verificara que la cedula no coincida con otra
             cont+=1;
             linea=verificar.readline();
             linea=str(linea);
             linea=linea.split();
             if not linea:
+                er=0;
                 break;
-            if linea[0]==ced and cont % 2 == 0:
+            elif linea[0]==ced and cont % 2 == 0:
                 er=1;
                 print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,10)+"Cedula ya existente, Verifiquela", end=""); 
-                sleep(1);
+                input();
                 break;
             else:
                 er=0;
@@ -241,15 +242,34 @@ def alta_med(xM,yM,cX,seccion):
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,7)+"Ingrese el su especialidad", end="");
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,8)+"", end="");
     esp=str(input());
-
+    #Ahora verificara para poner en servicios del hospital, la especialidad del doctor
+    verificar=open("d03-p14-becerra-padilla-H.txt", mode = "r",encoding="utf-8");
+    er=0;
+    linea=verificar.readline();
+    linea=verificar.readline();
+    linea=verificar.readline();
+    linea=linea.split(",");
+    verificar.close();
+    for i in linea:
+        if i == esp: #Si ya esta su especialidad, no la agrega
+            er=1;
+        else:
+            pass;
+    aux=esp+",";
+    if er==0: #Si es nueva, lo abre y lo agrega
+        archivo=open("d03-p14-becerra-padilla-H.txt", mode = "a",encoding="utf-8");
+        archivo.write(aux);
+        archivo.close();
     nom=nom+"\n";
     ced=ced+"\n";
-    esp=esp+"\n"+",";
+    esp=esp+"\n"+","+"\n";
+    #Agrega los datos del nuevo medico al documento
     archivo=open("d03-p14-becerra-padilla-M.txt", mode = "a",encoding="utf-8");
     archivo.write(nom);
     archivo.write(ced);
     archivo.write(esp);
     archivo.close();
+    
 
 def hospital(xM,yM): #Funcion de cambios del hospital
     seccion="Cambios al Hospital";
