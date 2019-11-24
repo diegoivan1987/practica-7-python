@@ -10,68 +10,75 @@ init(autoreset=True); #Se inicia el colorama, que se autoresetee para evitar bas
 
 def ventana(xM,yM,seccion): #Esta funcion creara la ventana siempre que se necesite con colores
     os.system("cls"); #Borrara la ventana
-    #Los siguiente 4 while sera para hacer el marco de la ventana
-    
+    #Los siguiente 4 for sera para hacer el marco de la ventana
+    x=(118-xM)//2;
+    y=(30-yM)//2;
+    i=0;
     aux=0;
-    
-    x=(120-xM)//2;
-    y=(30-yM)-1;
-
-    limiteX = x + xM;
-    limiteY = y +yM;
-
-    while x <= limiteX:
+    while i <= xM:
         print(Cursor.POS(x,y)+Back.BLUE+" ");
         x += 1;
-    
-    while y <= limiteY:
+        i+=1;
+    i=0;
+    while i <= yM:
         print(Cursor.POS(x,y)+Back.BLUE+"  ");
         y += 1;
-
-    x=(120-xM)//2;
-    y=(30-yM)-1;
-    while y <= limiteY-1:
+        i+=1;
+    x=(118-xM)//2;
+    y=(30-yM)//2;
+    i=0;
+    while i <= yM:
         print(Cursor.POS(x,y)+Back.BLUE+"  ");
         y += 1;
-
-    while x <= limiteX:
-        print(Cursor.POS(x,y)+Back.BLUE+" ",end="");
-        x += 1;
-
+        i+=1;
+    i=0;
+    while i <= xM+2:
+        print(Cursor.POS(x,y)+Back.BLUE+" ");
+        x+=1;
+        i+=1;
     #Los siguientes crearan el mini adornado tambien en el marco
-    x=(120-xM)//2+2;
-    y=(30-yM);
-
-    while x <= limiteX-2:
+    x=((118-xM)//2)+2;
+    y=((30-yM)//2)+1;
+    i=0;
+    while i <= xM-4:
         print(Cursor.POS(x,y)+Back.LIGHTBLUE_EX+Fore.BLACK+"*");
         x += 1;
-    
-    while y <= limiteY-1:
+        i+=1;
+    i=0;
+    while i <= yM-1:
+        print(Cursor.POS(x,y)+Back.LIGHTBLUE_EX+Fore.BLACK+"**");
+        y += 1;  
+        i+=1;
+
+    x=((118-xM)//2)+2;
+    y=((30-yM)//2)+1;
+    i=0;
+    while i <= yM-2:
         print(Cursor.POS(x,y)+Back.LIGHTBLUE_EX+Fore.BLACK+"**");
         y += 1;
-
-    x=(120-xM)//2+2;
-    y=(30-yM);
-    while y <= limiteY-2:
-        print(Cursor.POS(x,y)+Back.LIGHTBLUE_EX+Fore.BLACK+"**");
-        y += 1;
-
-    while x <= limiteX-2:
-        print(Cursor.POS(x,y)+Back.LIGHTBLUE_EX+Fore.BLACK+"*",end="");
+        i+=1;
+    i=0;
+    while i <= xM-4:
+        print(Cursor.POS(x,y)+Back.LIGHTBLUE_EX+Fore.BLACK+"*");
+        x+=1;
+        i+=1;
+    x=(118-xM)//2;
+    y=(30-yM)//2;
+    i=0;
+    while i <= xM+3:
+        print(Cursor.POS(x+2,y-1)+Back.LIGHTBLACK_EX+" ");
         x += 1;
-
-    #Estos for crean la "sombra" de la ventana
-    x=(120-xM)//2+2;
-    y=(30-yM)-2;
-    while x <= limiteX+3:
-        print(Cursor.POS(x,y)+Back.LIGHTBLACK_EX+" ");
-        x += 1;   
-    
-    while y <= limiteY-1:
-        print(Cursor.POS(x-1,y)+Back.LIGHTBLACK_EX+" ");
-        print(Cursor.POS(x,y)+Back.LIGHTBLACK_EX+" ");
+        i+=1;
+    x=x-1;
+    i=0;
+    while i <= yM-1:
+        print(Cursor.POS(x,y)+Back.LIGHTBLACK_EX+"   ");
         y += 1;
+        i+=1;
     
+
+    x=(118-xM)//2;
+    y=(30-yM)//2;
     archivo = open("d03-p14-becerra-padilla-H.txt",mode = "r",encoding="utf-8"); #Abrira el archivo del hospital
     hosp=archivo.readline(); #Leera el nombre
     dom=archivo.readline(); #Leera la direccion
@@ -79,100 +86,83 @@ def ventana(xM,yM,seccion): #Esta funcion creara la ventana siempre que se neces
     dom=str(dom);
     archivo.close();
 
-    x=(120-xM)//2;
-    centro_ventana = (limiteX - x)//2+x;
-    y=(30-yM);
-
-    aux=int(len(seccion)); #Encuentra la mitad de la ventana para imprimir la seccion
-    aux=aux//2;
-    print(Fore.LIGHTYELLOW_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(centro_ventana-aux,y)+seccion, end="");
-
     aux=int(len(hosp)); #Encuentra la mitad de la ventana para imprimir los datos del hospital
+    aux=xM-aux;
     aux=aux//2;
     #Los imprime
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(centro_ventana-aux,y+1)+hosp, end="");
-    print(Fore.LIGHTBLACK_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(centro_ventana-aux,y+2)+dom, end="");
-
-    x=(120-xM)//2;
-    limiteY = y +yM;
-    
-    print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(x+4,limiteY-3)+"->Padilla Valdez Gustavo, Becerra Gonzalez Diego Ivan, PoliProgramming®<-", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(aux+2+x,y+1)+hosp, end="");
+    aux=int(len(seccion)); #Encuentra la mitad de la ventana para imprimir los datos del hospital
+    aux=xM-aux;
+    aux=aux//2;
+    print(Fore.LIGHTYELLOW_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(aux+2+x,3+y)+seccion, end="");
+    print(Fore.LIGHTBLACK_EX+Back.BLACK+Style.BRIGHT+Cursor.POS((xM-len(dom)-1)+x,2+y)+dom, end="");
+    print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,29)+"->PoliProgramming®<-", end="");
+    print(Fore.LIGHTRED_EX+Back.BLACK+Style.BRIGHT+Cursor.POS(2,30)+"->Becerra Gonzalez Diego Ivan y Padilla Valdez Gustavo<-", end="");
 
 #Crea las diferencias de menu, dependiendo de donde se encuentre la opcion 
-def opmenu1(xM,yM):
-    x=(120-xM)//2+4;
-    y=(30-yM)+2;
+def opmenu1(x,y,xM,yM):
     pac="1.-Alta de Pacientes"
     med="2.-Alta de Medicos"
     hosp="3.-Alta de datos de Hospital"
     sal="4.-Salir"
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=yM//2+y;
-    cY = cY -4;
-    cX=xM//2+x;
-    aux = len(hosp)//2;
-    cX = cX - aux;
-    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX,cY)+pac+" <--", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+1)+med+"    ", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+2)+hosp+"    ", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+3)+sal+"    ", end="");
-
+    cY=yM+2;
+    cY=cY//2;
+    cX=int(len(hosp));
+    cX=xM-cX;
+    cX=cX//2;
+    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2+x,cY+y)+pac+" <--", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+1)+med+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+2)+hosp+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+3)+sal+"    ", end="");
 #Crea las diferencias de menu, dependiendo de donde se encuentre la opcion 
-def opmenu2(xM,yM):
-    x=(120-xM)//2+4;
-    y=(30-yM)+2;
+def opmenu2(x,y,xM,yM):
     pac="1.-Alta de Pacientes"
     med="2.-Alta de Medicos"
     hosp="3.-Alta de datos de Hospital"
     sal="4.-Salir"
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=yM//2+y;
-    cY = cY -4;
-    cX=xM//2+x;
-    aux = len(hosp)//2;
-    cX = cX - aux;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+pac+"    ", end="");
-    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX,cY+1)+med+" <--", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+2)+hosp+"    ", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+3)+sal+"    ", end="");
-
+    cY=yM+2;
+    cY=cY//2;
+    cX=int(len(hosp));
+    cX=xM-cX;
+    cX=cX//2;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y)+pac+"    ", end="");
+    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2+x,cY+y+1)+med+" <--", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+2)+hosp+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+3)+sal+"    ", end="");
 #Crea las diferencias de menu, dependiendo de donde se encuentre la opcion 
-def opmenu3(xM,yM):
-    x=(120-xM)//2+4;
-    y=(30-yM)+2;
+def opmenu3(x,y,xM,yM):
     pac="1.-Alta de Pacientes"
     med="2.-Alta de Medicos"
     hosp="3.-Alta de datos de Hospital"
     sal="4.-Salir"
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=yM//2+y;
-    cY = cY -4;
-    cX=xM//2+x;
-    aux = len(hosp)//2;
-    cX = cX - aux;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+pac+"    ", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+1)+med+"    ", end="");
-    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX,cY+2)+hosp+" <--", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+3)+sal+"    ", end="");
-
+    cY=yM+2;
+    cY=cY//2;
+    cX=int(len(hosp));
+    cX=xM-cX;
+    cX=cX//2;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y)+pac+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+1)+med+"    ", end="");
+    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2+x,cY+y+2)+hosp+" <--", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+3)+sal+"    ", end="");
 #Crea las diferencias de menu, dependiendo de donde se encuentre la opcion 
-def opmenu4(xM,yM):
-    x=(120-xM)//2+4;
-    y=(30-yM)+2;
+def opmenu4(x,y,xM,yM):
     pac="1.-Alta de Pacientes"
     med="2.-Alta de Medicos"
     hosp="3.-Alta de datos de Hospital"
     sal="4.-Salir"
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=yM//2+y;
-    cY = cY -4;
-    cX=xM//2+x;
-    aux = len(hosp)//2;
-    cX = cX - aux;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+pac+"    ", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+1)+med+"    ", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+2)+hosp+"    ", end="");
-    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX,cY+3)+sal+" <--", end="");
+    cY=yM+2;
+    cY=cY//2;
+    cX=int(len(hosp));
+    cX=xM-cX;
+    cX=cX//2;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y)+pac+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+1)+med+"    ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+2)+hosp+"    ", end="");
+    print(Fore.BLACK+Back.WHITE+Cursor.POS(cX+2+x,cY+y+3)+sal+" <--", end="");
     
 
 def iniciar(): #Pide los datos para crear la ventana
@@ -182,8 +172,8 @@ def iniciar(): #Pide los datos para crear la ventana
         xM=str(input("Dame la medida horizontal: "));
         try:
             xM=int(xM);
-            if xM < 0 or xM > 108:
-                print("El tamaño debe ser entre 0 y 108");
+            if xM > 115 or xM < 60:
+                print("El tamaño debe ser entre 60 y 105");
             else:
                 a=2;
         except:
@@ -193,41 +183,40 @@ def iniciar(): #Pide los datos para crear la ventana
         yM=str(input("Dame la medida Vertical: "));
         try:
             yM=int(yM);
-            if yM < 0 or yM > 26:
-                print("El tamaño debe ser entre 0 y 26");
+            if yM > 23 or yM < 14:
+                print("El tamaño debe ser entre 14 y 23");
             else:
                 a=2;
         except:
             print("Error!, ingrese numeros enteros");
     menu(xM,yM);
 
-def paciente(xM,yM):
+def paciente(x,y,xM,yM):
     pass;
 
-def medico(xM,yM): #Funcion de cambios que tengan que ver con el medico
+def medico(x,y,xM,yM): #Funcion de cambios que tengan que ver con el medico
     seccion="Alta de Medico";
     ventana(xM,yM,seccion);
-    x=(120-xM)//2+4;
-    y=(30-yM)+2;
     nmed="1.-Añadir un nuevo medico";
     alta="2.-Dar de alta un paciente";
     analis="3.-Crear resultados de analisis";
     sal="4.-Salir";
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=yM//2+y;
-    cY = cY -4;
-    cX=xM//2+x;
-    aux = len(analis)//2;
-    cX = cX - aux;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+nmed, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+1)+alta, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+2)+analis, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+3)+sal, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+5)+"Presione su opcion: ", end="");
+    cY=yM+2;
+    cY=cY//2;
+    cX=int(len(alta));
+    cX=xM-cX;
+    cX=cX//2;
+    y=y-1;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y)+nmed, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+1)+alta, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+2)+analis, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+3)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+5)+"Presione su opcion: ", end="");
     while True:
         aux=str(msvcrt.getch());
         if "b'1'" == aux:
-            alta_med(xM,yM,cX,seccion);
+            alta_med(x,y,xM,yM,cX,seccion);
             break;
         elif "b'2'" == aux:
             
@@ -239,19 +228,17 @@ def medico(xM,yM): #Funcion de cambios que tengan que ver con el medico
         else:
             pass;
 
-def alta_med(xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
+def alta_med(x,y,xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
     ventana(xM,yM,seccion);
-    x=(120-xM)//2+4;
-    y=(30-yM)+5;
     er=1;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el nombre del medico", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Ingrese el nombre del medico", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
     nom=str(input());
     while er==1: #While para verificar que la cedula no se repita
         cont=0;
         ventana(xM,yM,seccion);
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese su Cedula", end="");
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Ingrese su Cedula", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
         ced=str(input());
         verificar=open("d03-p14-becerra-padilla-M.txt", mode = "r",encoding="utf-8");
         while(True): #Abrira el archivo y verificara que la cedula no coincida con otra
@@ -264,15 +251,15 @@ def alta_med(xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
                 break;
             elif linea[0]==ced and cont % 2 == 0:
                 er=1;
-                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+2)+"Cedula ya existente, Verifiquela", end=""); 
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"Cedula ya existente, Verifiquela", end=""); 
                 input();
                 break;
             else:
                 er=0;
     verificar.close();
     ventana(xM,yM,seccion);
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el su especialidad", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Ingrese el su especialidad", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
     esp=str(input());
     #Ahora verificara para poner en servicios del hospital, la especialidad del doctor
     verificar=open("d03-p14-becerra-padilla-H.txt", mode = "r",encoding="utf-8");
@@ -303,53 +290,48 @@ def alta_med(xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
     archivo.close();
     
 
-def hospital(xM,yM): #Funcion de cambios del hospital
+def hospital(x,y,xM,yM): #Funcion de cambios del hospital
     seccion="Cambios al Hospital";
     ventana(xM,yM,seccion);
-    x=(120-xM)//2+4;
-    y=(30-yM)+5;
     nom="1.-Modificar Nombre de Hospital";
     dire="2.-Modificar Direccion del Hospital";
     sal="3.-Salir";
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=yM//2+y;
-    cY = cY -6;
-    cX=xM//2+x;
-    aux = len(nom)//2;
-    cX = cX - aux;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+nom, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+1)+dire, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+2)+sal, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+4)+"Presione su opcion: ", end="");
+    cY=yM+2;
+    cY=cY//2;
+    cX=int(len(nom));
+    cX=xM-cX;
+    cX=cX//2;
+    y=y-1;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y)+nom, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+1)+dire, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+2)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+4)+"Presione su opcion: ", end="");
     while True:
         aux=str(msvcrt.getch());
         if "b'1'" == aux:
-            nom_hos(xM,yM,cX,seccion);
+            nom_hos(x,y,xM,yM,cX,seccion);
             break;
         elif "b'2'" == aux:
-            dire_hos(xM,yM,cX,seccion);
+            dire_hos(x,y,xM,yM,cX,seccion);
             break;
         elif "b'3'" == aux:
             break;
         else:
             pass;
 
-def nom_hos(xM,yM,cX,seccion): #Funcion para cambiar el nombre del hospital
+def nom_hos(x,y,xM,yM,cX,seccion): #Funcion para cambiar el nombre del hospital
     ventana(xM,yM,seccion);
-    x=(120-xM)//2+4;
-    y=(30-yM)+5;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el nuevo nombre del hospital", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Ingrese el nuevo nombre del hospital", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
     nom=str(input());
     nom=nom+"\n"; #Se añade un salto de lineas, para evitar que el texto se pegue
     reemplazar_linea("d03-p14-becerra-padilla-H.txt", 0,nom);
 
-def dire_hos(xM,yM,cX,seccion): #Funcion para cambiar la direccion del hospital
+def dire_hos(x,y,xM,yM,cX,seccion): #Funcion para cambiar la direccion del hospital
     ventana(xM,yM,seccion);
-    x=(120-xM)//2+4;
-    y=(30-yM)+5;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese la nueva direccion del hospital", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,7+y)+"Ingrese la nueva direccion del hospital", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,8+y)+"", end="");
     nom=str(input());
     nom=nom+"\n"; #Se añade un salto de lineas, para evitar que el texto se pegue
     reemplazar_linea("d03-p14-becerra-padilla-H.txt", 1,nom);
@@ -363,13 +345,16 @@ def reemplazar_linea(archivo, linea, texto): #Funcion para reemplazar una linea 
 
 
 def menu(xM,yM): #Este sera el menu del hospital principal
+    x=(118-xM)//2;
+    y=(26-yM)//2;
     caracter=0;
     opcion=0;
     mover=0;
     dib=0;
     seccion="Menú Principal"
     ventana(xM,yM,seccion);
-    opmenu1(xM,yM);
+    opmenu1(x,y,xM,yM);
+    
     while True: #Leera todas las teclas que se presionen hasta que presione una valida
             aux=str(msvcrt.getch());  
             for i in aux: #Buscara en la tecla presionada
@@ -379,13 +364,13 @@ def menu(xM,yM): #Este sera el menu del hospital principal
                     mover+=1;                          
             if "r"==aux[3]: #Si presiona enter, elegira dependiendo la funcion que quiera y entrara
                 if mover==0:
-                    paciente(xM,yM);
+                    paciente(x,y,xM,yM);
                     dib=1;
                 elif mover==1:
-                    medico(xM,yM);
+                    medico(x,y,xM,yM);
                     dib=1;
                 elif mover==2:
-                    hospital(xM,yM);
+                    hospital(x,y,xM,yM);
                     dib=1;
                 elif mover==3: #Si elige salir, hara un break del menu y acabara
                     break;
@@ -396,12 +381,12 @@ def menu(xM,yM): #Este sera el menu del hospital principal
                 ventana(xM,yM,seccion);
                 dib=0;
             if mover==0:
-                opmenu1(xM,yM);
+                opmenu1(x,y,xM,yM);
             elif mover==1:
-                opmenu2(xM,yM);
+                opmenu2(x,y,xM,yM);
             elif mover==2:
-                opmenu3(xM,yM);
+                opmenu3(x,y,xM,yM);
             elif mover==3:
-                opmenu4(xM,yM);
+                opmenu4(x,y,xM,yM);
 
 iniciar();
