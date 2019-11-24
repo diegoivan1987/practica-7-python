@@ -247,11 +247,44 @@ def alta_pac(xM,yM):#funcion para registrar un nuevo paciente
             else:
                 er=0;
     verificar.close();
+    #se ingresa la especialidad a la que acudio
+    ventana(xM,yM,seccion);
+    aux = len("Elija la especialidad a la que acudió:");
+    x=(120-xM)//2+4;
+    y=(30-yM)+5;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Elija la especialidad a la que acudió:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"5.-Pediatría:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+2)+"6.-Geriatría:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+3)+"7.-Oftalmología:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+4)+"8.-Cardiología:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+5)+"9.-Cirujano:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+6)+"", end="");
+    while True:
+        op=str(msvcrt.getch());
+        if "b'5'" == op:
+            esp = "Pediatría";
+            break;
+        elif "b'6'" == op:
+            esp = "Geriatría";
+            break;
+        elif "b'7'" == op:
+            esp = "Oftalmología";
+            break;
+        elif "b'8'" == op:
+            esp = "Cardiología";
+            break;
+        elif "b'9'" == op:
+            esp = "Cirujano";
+            break;
+        else:
+            pass;
 
     #Agrega los datos del nuevo paciente al documento
-    archivo=open("d03-p14-becerra-padilla-P.txt", mode = "a",encoding="utf-8");
     nom = nom + "\n";
+    esp = esp + "\n"+ ","+"\n";
+    archivo=open("d03-p14-becerra-padilla-P.txt", mode = "a",encoding="utf-8");
     archivo.write(nom);
+    archivo.write(esp);
     archivo.close();
 
 
@@ -320,28 +353,34 @@ def alta_med(x,y,xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
             else:
                 er=0;
     verificar.close();
+    #se ingresa la especialidad
     ventana(xM,yM,seccion);
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Ingrese el su especialidad", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
-    esp=str(input());
-    #Ahora verificara para poner en servicios del hospital, la especialidad del doctor
-    verificar=open("d03-p14-becerra-padilla-H.txt", mode = "r",encoding="utf-8");
-    er=0;
-    linea=verificar.readline();
-    linea=verificar.readline();
-    linea=verificar.readline();
-    linea=linea.split(",");
-    verificar.close();
-    for i in linea:
-        if i == esp: #Si ya esta su especialidad, no la agrega
-            er=1;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Elija una especialidad:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"5.-Pediatría.", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"6.-Geriatría.", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"7.-Oftalmología.", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+11)+"8.-Cardiología.", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+12)+"9.-Cirujano.", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+13)+"", end="");
+    while True:
+        op=str(msvcrt.getch());
+        if "b'5'" == op:
+            esp = "Pediatría";
+            break;
+        elif "b'6'" == op:
+            esp = "Geriatría";
+            break;
+        elif "b'7'" == op:
+            esp = "Oftalmología";
+            break;
+        elif "b'8'" == op:
+            esp = "Cardiología";
+            break;
+        elif "b'9'" == op:
+            esp = "Cirujano";
+            break;
         else:
             pass;
-    aux=esp+",";
-    if er==0: #Si es nueva, lo abre y lo agrega
-        archivo=open("d03-p14-becerra-padilla-H.txt", mode = "a",encoding="utf-8");
-        archivo.write(aux);
-        archivo.close();
     nom=nom+"\n";
     ced=ced+"\n";
     esp=esp+"\n"+","+"\n";
@@ -358,7 +397,8 @@ def hospital(x,y,xM,yM): #Funcion de cambios del hospital
     ventana(xM,yM,seccion);
     nom="1.-Modificar Nombre de Hospital";
     dire="2.-Modificar Direccion del Hospital";
-    sal="3.-Salir";
+    ser = "3.-Mostrar servicios";
+    sal="4.-Salir";
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
     cY=yM+2;
     cY=cY//2;
@@ -368,8 +408,9 @@ def hospital(x,y,xM,yM): #Funcion de cambios del hospital
     y=y-1;
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y)+nom, end="");
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+1)+dire, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+2)+sal, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+4)+"Presione su opcion: ", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+2)+ser, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+3)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+2+x,cY+y+5)+"Presione su opcion: ", end="");
     while True:
         aux=str(msvcrt.getch());
         if "b'1'" == aux:
@@ -379,6 +420,9 @@ def hospital(x,y,xM,yM): #Funcion de cambios del hospital
             dire_hos(x,y,xM,yM,cX,seccion);
             break;
         elif "b'3'" == aux:
+            ser_hos(x,y,xM,yM,cX,seccion);
+            break;
+        elif "b'4'" == aux:
             break;
         else:
             pass;
@@ -405,6 +449,16 @@ def reemplazar_linea(archivo, linea, texto): #Funcion para reemplazar una linea 
     out = open(archivo, 'w');
     out.writelines(lines);
     out.close();
+
+def ser_hos(x,y,xM,yM,cX,seccion):#muestra los servicios del hospital
+    ventana(xM,yM,seccion);
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"Pediatría.", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"Geriatría.", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"Oftalmología.", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+11)+"Cardiología.", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+12)+"Cirujano.", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+13)+"", end="");
+    input();
 
 
 def menu(xM,yM): #Este sera el menu del hospital principal
