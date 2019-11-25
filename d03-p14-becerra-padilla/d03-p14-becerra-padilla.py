@@ -215,7 +215,7 @@ def paciente(x,y,xM,yM):#funcion que tiene que ver con los cambios del paciente
             alta_pac(xM,yM);
             break;
         elif "b'2'" == aux:
-            pass;
+            ver_resultados(xM,yM);
             break;
         elif "b'3'" == aux:
             break;
@@ -309,19 +309,56 @@ def alta_pac(xM,yM):#funcion para registrar un nuevo paciente
     #Agrega los datos del nuevo paciente al documento
     nom = nom + "\n";
     numero = str(numero)+ "\n";
-    edad = str(edad)+ "\n";
+    edad = str(edad)+ "\n"+ ","+"\n";
     analisis = "Sin ingresar aun \n"
-    esp = esp + "\n"+ ","+"\n";
+    esp = esp + "\n";
     archivo=open("d03-p14-becerra-padilla-P.txt", mode = "a",encoding="utf-8");
-    archivo.write(nom);
     archivo.write(numero);
-    archivo.write(edad);
-    archivo.write(analisis);
+    archivo.write(nom);
     archivo.write(esp);
+    archivo.write(analisis);
+    archivo.write(edad);
     archivo.close();
 
+def ver_resultados(xM,yM):#muestra los resultados de un paciente
+    seccion = "Resultados de analisis";
+    er=1;
+    while er==1: #While para verificar que el numero no se repita
+        ventana(xM,yM,seccion);
+        x=(120-xM)//2+4;
+        y=(30-yM)+5;
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el numero del paciente", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+        numero=str(input());
+        verificar=open("d03-p14-becerra-padilla-P.txt", mode = "r",encoding="utf-8");
+        while(True): #Abrira el archivo y verificara que el nombre no coincida con otro
+            linea=verificar.readline();
+            linea=str(linea);
+            if not linea:#si llego al final sin encontrar el numero de paciente
+                er=0;
+                ventana(xM,yM,seccion);
+                x=(120-xM)//2+4;
+                y=(30-yM)+5;
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"No existe el paciente", end="");
+                input();
+                break;
+            elif linea == (numero+"\n"):
+                er=0;
+                nombre = verificar.readline();
+                servicio = verificar.readline();
+                resultados = verificar.readline();
+                edad = verificar.readline();
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+2)+"Nombre: "+nombre, end="");
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+3)+"Edad: "+edad, end="");
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+4)+"Servicio usado: "+servicio, end=""); 
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+5)+"Resultados: "+resultados, end="");
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+6)+"", end="");
+                input();
+                break;
+            else:
+                er=0;
 
-    
+    verificar.close();
 
 def medico(x,y,xM,yM): #Funcion de cambios que tengan que ver con el medico
     seccion="Alta de Medico";
