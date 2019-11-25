@@ -388,6 +388,7 @@ def medico(x,y,xM,yM): #Funcion de cambios que tengan que ver con el medico
             
             break;
         elif "b'3'" == aux:
+            crea_resultados(xM,yM);
             break;
         elif "b'4'" == aux:
             break;
@@ -460,7 +461,36 @@ def alta_med(x,y,xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
     archivo.write(ced);
     archivo.write(esp);
     archivo.close();
-    
+
+def crea_resultados(xM,yM):#permite al medico guardar los analisis de un paciente
+    seccion = "Guardad resultados de analisis";
+    er=1;
+    while er==1: #While para verificar que el numero no se repita
+        ventana(xM,yM,seccion);
+        x=(120-xM)//2+4;
+        y=(30-yM)+5;
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese su cedula", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+        cedula=str(input());
+        verificar_cedula=open("d03-p14-becerra-padilla-M.txt", mode = "r",encoding="utf-8");
+        while(True): #Abrira el archivo y verificara que exista la cedula
+            linea=verificar_cedula.readline();
+            linea=str(linea);
+            if not linea:#si llego al final sin encontrar la cedula
+                er=0;
+                ventana(xM,yM,seccion);
+                x=(120-xM)//2+4;
+                y=(30-yM)+5;
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Cedula no encontrada, no puede continuar", end="");
+                input();
+                break;
+            elif linea == (cedula+"\n"):
+                #aqui se busca el paciente
+                break;
+            else:
+                er=0;
+
+    verificar_cedula.close();
 
 def hospital(x,y,xM,yM): #Funcion de cambios del hospital
     seccion="Cambios al Hospital";
