@@ -432,14 +432,40 @@ def ver_resultados(x,y,cX,xM,yM):#muestra los resultados de un paciente
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Nombre: "+nombre, end="");
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"Edad: "+edad, end="");
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"Servicio usado: "+servicio, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"Fecha: "+fecha, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"Ingreso: "+fecha, end="");
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+11)+"Alta: "+alta, end=""); 
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+12)+"Doctor(Cedula): "+doctor, end="");
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+13)+"Resultados: "+resultados, end="");
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+14)+"", end="");
     input();
     
-            
+def imprimir(x,y,cX,xM,yM,seccion,lugar):
+    cont=0;
+    verificari=open("d03-p14-becerra-padilla-P.txt", mode = "r",encoding="utf-8");
+    while(True):
+        linea=verificari.readline();
+        cont+=1;
+        if cont==lugar-7:
+            nombre = linea;
+            doctor = verificari.readline();
+            servicio = verificari.readline();
+            edad = verificari.readline();
+            resultados = verificari.readline();
+            fecha=verificari.readline();
+            alta=verificari.readline();
+            lugar=verificari.readline();
+            break;      
+    verificari.close();
+    ventana(xM,yM,seccion);
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Nombre: "+nombre, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"Edad: "+edad, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"Servicio usado: "+servicio, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"Ingreso: "+fecha, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+11)+"Alta: "+alta, end=""); 
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+12)+"Doctor(Cedula): "+doctor, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+13)+"Resultados: "+resultados, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+14)+"", end="");
+    input();            
 
 def medico(x,y,xM,yM): #Funcion de cambios que tengan que ver con el medico
     seccion="Alta de Medico";
@@ -596,6 +622,7 @@ def dar_alta(x,y,xM,yM,cX):
                 numero_que_editara = str(input());
                 er2=1;
                 buscar=0;
+                auxb=1;
                 for p in elegir_pac:
                     if numero_que_editara==p:
                         er2=0;
@@ -612,11 +639,26 @@ def dar_alta(x,y,xM,yM,cX):
                             elif buscar%8==0 and o == (numero_que_editara+"\n") and ayuda == "NO\n":
                                 ver_res=open("d03-p14-becerra-padilla-P.txt", mode = "r",encoding="utf-8");
                                 resul="";
+                                imprimir(x,y,cX,xM,yM,seccion,buscar);
+                                ventana(xM,yM,seccion);
+                                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"¿Quiere Continuar?", end="");
+                                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"1-.Si", end="");
+                                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"2-.No", end="");
+                                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"Presione su opcion:", end="");
+                                
+                                while True:
+                                    quiere=str(msvcrt.getch());
+                                    if "b'1'" == quiere:
+                                        auxb=1;
+                                        break;
+                                    elif "b'2'" == quiere:
+                                        auxb=0;
+                                        break;
+                                    else:
+                                        pass;
                                 for h in range(buscar-3):
                                     resul=ver_res.readline();
-                                print(resul);
-                                input();
-                                if "Sin ingresar aun" in resul:
+                                if "Sin ingresar aun" in resul or auxb==0:
                                     exito=0;
                                 else:
                                     exito=1;
@@ -629,6 +671,9 @@ def dar_alta(x,y,xM,yM,cX):
                         if exito==1:
                             reemplazar_linea("d03-p14-becerra-padilla-P.txt",buscar-2,al_n);
                             print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"       Alta con exito!", end="");
+                            print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
+                        elif auxb==0:
+                            print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"      No se hizo nada", end="");
                             print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
                         elif exito==0:
                             print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Paciente ya esta dado de alta", end="");
@@ -689,11 +734,6 @@ def crea_resultados(x,y,xM,yM,cX):#permite al medico guardar los analisis de un 
                     if numero_que_editara==p:
                         er2=0;
                         ver_pac=open("d03-p14-becerra-padilla-P.txt", mode = "r",encoding="utf-8");
-                        ventana(xM,yM,seccion);
-                        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Escriba los resultados", end="");
-                        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x-8,y+8)+"", end="");
-                        nuevos_r=str(input());
-                        nuevos_r=nuevos_r+"\n";
                         ayuda="";
                         exito=0;
                         while(True):
@@ -703,9 +743,15 @@ def crea_resultados(x,y,xM,yM,cX):#permite al medico guardar los analisis de un 
                                 exito=0;
                                 break;
                             elif buscar%8==0 and o == (numero_que_editara+"\n") and ayuda == "NO\n":
+                                imprimir(x,y,cX,xM,yM,seccion,buscar);
                                 exito=1;
                                 break;
                             ayuda=o;
+                        ventana(xM,yM,seccion);
+                        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Escriba los resultados", end="");
+                        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x-8,y+8)+"", end="");
+                        nuevos_r=str(input());
+                        nuevos_r=nuevos_r+"\n";
                        
                         ver_pac.close();
                         ventana(xM,yM,seccion);

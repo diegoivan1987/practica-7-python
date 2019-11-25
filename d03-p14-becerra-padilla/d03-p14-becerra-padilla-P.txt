@@ -2,15 +2,15 @@ Gus
 20
 Cirugia
 70
-Sin ingresar aun 
+Cirugia Renal Exitosa
 25/11/2019
-NO
+SI
 1
 gr
 20
 Cirugia
 23
-Sin ingresar aun 
+Esta bien
 25/11/2019
 NO
 2
