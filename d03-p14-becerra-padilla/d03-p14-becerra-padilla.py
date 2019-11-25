@@ -191,28 +191,27 @@ def iniciar(): #Pide los datos para crear la ventana
             print("Error!, ingrese numeros enteros");
     menu(xM,yM);
 
-def paciente(x,y,xM,yM):#funcion que tiene que ver con los cambios del paciente
+def paciente(x,y,xM,yM,numero):#funcion que tiene que ver con los cambios del paciente
     seccion="Alta de paciente";
     ventana(xM,yM,seccion);
-    x=(120-xM)//2+4;
-    y=(30-yM)+5;
     regi="1.-Registrar un paciente";
     resul="2.-Ver resultados de un paciente";
     sal="3.-Salir";
     #Los cY y cX son para encontrar el centro de la pantalla dependiendo y colocar cada linea donde es
-    cY=yM//2+y;
-    cY = cY -6;
-    cX=xM//2+x;
-    aux = len(resul)//2;
-    cX = cX - aux;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY)+regi, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+1)+resul, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+2)+sal, end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX,cY+4)+"Presione su opcion: ", end="");
+    cY=yM+2;
+    cY=cY//2;
+    cX=int(len(regi));
+    cX=xM-cX;
+    cX=cX//2;
+    y=y-1;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,cY+y)+regi, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,cY+y+1)+resul, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,cY+y+2)+sal, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,cY+y+4)+"Presione su opcion: ", end="");
     while True:
         aux=str(msvcrt.getch());
         if "b'1'" == aux:
-            alta_pac(xM,yM);
+            numero=alta_pac(x,y,cX,xM,yM,numero);
             break;
         elif "b'2'" == aux:
             ver_resultados(xM,yM);
@@ -221,86 +220,56 @@ def paciente(x,y,xM,yM):#funcion que tiene que ver con los cambios del paciente
             break;
         else:
             pass;
+    return numero;
 
-def alta_pac(xM,yM):#funcion para registrar un nuevo paciente
+def alta_pac(x,y,cX,xM,yM,numero):#funcion para registrar un nuevo paciente
     seccion = "Registro de paciente";
     ventana(xM,yM,seccion);
-    x=(120-xM)//2+4;
-    y=(30-yM)+5;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el nombre del paciente", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Ingrese el nombre del paciente", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
     nom=str(input());
-    
     er=1;
-    while er==1: #While para verificar que el numero no se repita
-        seccion = "Registro de paciente";
-        ventana(xM,yM,seccion);
-        x=(120-xM)//2+4;
-        y=(30-yM)+5;
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el numero del paciente", end="");
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
-        numero=str(input());
-        verificar=open("d03-p14-becerra-padilla-P.txt", mode = "r",encoding="utf-8");
-        while(True): #Abrira el archivo y verificara que el nombre no coincida con otro
-            linea=verificar.readline();
-            linea=str(linea);
-            if not linea:
-                er=0;
-                break;
-            elif linea == (numero+"\n"):
-                er=1;
-                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+2)+"Paciente ya existente, Verifiquela", end=""); 
-                input();
-                break;
-            else:
-                er=0;
-    verificar.close();
-
     er=1;
     while er==1: #While para verificar que la edad es un numero
         seccion = "Registro de paciente";
         ventana(xM,yM,seccion);
-        x=(120-xM)//2+4;
-        y=(30-yM)+5;
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese la edad del paciente", end="");
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Ingrese la edad del paciente", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
         edad=str(input());
         try:#si es numero
             edad = int(edad);
             er = 0;
         except:#si no
             ventana(xM,yM,seccion);
-            print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Debe ingresar un numero", end="");
+            print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Debe ingresar un numero", end="");
             er =1;
             sleep(2);
     
     #se ingresa la especialidad a la que acudio
     ventana(xM,yM,seccion);
     aux = len("Elija la especialidad a la que acudió:");
-    x=(120-xM)//2+4;
-    y=(30-yM)+5;
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Elija la especialidad a la que acudió:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"5.-Pediatría:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+2)+"6.-Geriatría:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+3)+"7.-Oftalmología:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+4)+"8.-Cardiología:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+5)+"9.-Cirujano:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+6)+"", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Elija la especialidad a la que acudió:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"1.-Alergologia:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"2.-Odontología:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"3.-Oftalmología:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+11)+"4.-Cardiología:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+12)+"5.-Cirugia:", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+13)+"", end="");
     while True:
         op=str(msvcrt.getch());
-        if "b'5'" == op:
-            esp = "Pediatría";
+        if "b'1'" == op:
+            esp = "Alergologo";
             break;
-        elif "b'6'" == op:
-            esp = "Geriatría";
+        elif "b'2'" == op:
+            esp = "Odontología";
             break;
-        elif "b'7'" == op:
+        elif "b'3'" == op:
             esp = "Oftalmología";
             break;
-        elif "b'8'" == op:
+        elif "b'4'" == op:
             esp = "Cardiología";
             break;
-        elif "b'9'" == op:
+        elif "b'5'" == op:
             esp = "Cirujano";
             break;
         else:
@@ -308,17 +277,21 @@ def alta_pac(xM,yM):#funcion para registrar un nuevo paciente
 
     #Agrega los datos del nuevo paciente al documento
     nom = nom + "\n";
-    numero = str(numero)+ "\n";
-    edad = str(edad)+ "\n"+ ","+"\n";
+    aux = str(numero)+ "\n";
+    edad = str(edad)+ "\n";
+    alta="NO"+"\n";
     analisis = "Sin ingresar aun \n"
     esp = esp + "\n";
     archivo=open("d03-p14-becerra-padilla-P.txt", mode = "a",encoding="utf-8");
-    archivo.write(numero);
     archivo.write(nom);
     archivo.write(esp);
-    archivo.write(analisis);
     archivo.write(edad);
+    archivo.write(analisis);
+    archivo.write(alta);
+    archivo.write(aux);
     archivo.close();
+    numero=numero+1;
+    return numero;
 
 def ver_resultados(xM,yM):#muestra los resultados de un paciente
     seccion = "Resultados de analisis";
@@ -568,10 +541,19 @@ def menu(xM,yM): #Este sera el menu del hospital principal
     opcion=0;
     mover=0;
     dib=0;
+    aux="";
+    #Este while buscara en que numero se quedo el ultimo paciente
+    archivo= open("d03-p14-becerra-padilla-P.txt",mode="r",encoding="utf-8");
+    while(True):
+        linea=str(archivo.readline());#Lee por linea los caracteres
+        if not linea: #Si ya no hay lineas
+            break;
+        aux=linea;
+    archivo.close();
+    numero=int(aux);
     seccion="Menú Principal"
     ventana(xM,yM,seccion);
     opmenu1(x,y,xM,yM);
-    
     while True: #Leera todas las teclas que se presionen hasta que presione una valida
             aux=str(msvcrt.getch());  
             for i in aux: #Buscara en la tecla presionada
@@ -581,7 +563,7 @@ def menu(xM,yM): #Este sera el menu del hospital principal
                     mover+=1;                          
             if "r"==aux[3]: #Si presiona enter, elegira dependiendo la funcion que quiera y entrara
                 if mover==0:
-                    paciente(x,y,xM,yM);
+                    numero=paciente(x,y,xM,yM,numero);
                     dib=1;
                 elif mover==1:
                     medico(x,y,xM,yM);
