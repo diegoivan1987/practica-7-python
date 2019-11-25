@@ -1,14 +1,32 @@
-Mayra Madeleine
-Oftalmología
-30
-Sin ingresar aun 
-2019/11/24
-NO
-1
-Juan
-Cirujano
+Jorge J
+2020
+Cirugia
 20
 Sin ingresar aun 
-24/11/2019
+25/11/2019
 NO
 1
+Fernando L
+2020
+Cirugia
+20
+Sin ingresar aun 
+25/11/2019
+NO
+2
+Emmanuel Roman
+2020
+Cirugia
+10
+Sin ingresar aun 
+25/11/2019
+NO
+3
+Kurt Cobain
+204v46
+Cirugia
+27
+Sin ingresar aun 
+25/11/2019
+NO
+4

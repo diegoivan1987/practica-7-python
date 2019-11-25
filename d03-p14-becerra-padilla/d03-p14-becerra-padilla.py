@@ -215,7 +215,7 @@ def paciente(x,y,xM,yM,numero):#funcion que tiene que ver con los cambios del pa
             numero=alta_pac(x,y,cX,xM,yM,numero);
             break;
         elif "b'2'" == aux:
-            ver_resultados(xM,yM);
+            ver_resultados(x,y,cX,xM,yM);
             break;
         elif "b'3'" == aux:
             break;
@@ -239,7 +239,14 @@ def alta_pac(x,y,cX,xM,yM,numero):#funcion para registrar un nuevo paciente
         edad=str(input());
         try:#si es numero
             edad = int(edad);
-            er = 0;
+            if edad < 0 or edad > 110:
+                ventana(xM,yM,seccion);
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Edad Imposible! Ingrese de nuevo", end="");
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
+                input();
+                er=1;
+            else:
+                er = 0;
         except:#si no
             ventana(xM,yM,seccion);
             print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Debe ingresar un numero", end="");
@@ -267,82 +274,159 @@ def alta_pac(x,y,cX,xM,yM,numero):#funcion para registrar un nuevo paciente
         op=str(msvcrt.getch());
         if "b'1'" == op:
             esp = "Alergologo";
+            doctor=elegir_med(x,y,cX,xM,yM,esp,numero);
             break;
         elif "b'2'" == op:
-            esp = "Odontología";
+            esp = "Odontologia";
+            doctor=elegir_med(x,y,cX,xM,yM,esp,numero);
             break;
         elif "b'3'" == op:
-            esp = "Oftalmología";
+            esp = "Oftalmologia";
+            doctor=elegir_med(x,y,cX,xM,yM,esp,numero);
             break;
         elif "b'4'" == op:
-            esp = "Cardiología";
+            esp = "Cardiologia";
+            doctor=elegir_med(x,y,cX,xM,yM,esp,numero);
             break;
         elif "b'5'" == op:
-            esp = "Cirujano";
+            esp = "Cirugia";
+            doctor=elegir_med(x,y,cX,xM,yM,esp,numero);
             break;
         else:
             pass;
-
-    #Agrega los datos del nuevo paciente al documento
-    now = datetime.now();
-    fecha=str(now.day)+"/"+str(now.month)+"/"+str(now.year)+ "\n";
-    nom = nom + "\n";
-    aux = str(numero)+ "\n";
-    edad = str(edad)+ "\n";
-    alta="NO"+"\n";
-    analisis = "Sin ingresar aun \n"
-    esp = esp + "\n";
-    archivo=open("d03-p14-becerra-padilla-P.txt", mode = "a",encoding="utf-8");
-    archivo.write(nom);
-    archivo.write(esp);
-    archivo.write(edad);
-    archivo.write(analisis);
-    archivo.write(fecha);
-    archivo.write(alta);
-    archivo.write(aux);
-    archivo.close();
-    numero=numero+1;
+    if doctor == "NOHAYDOCTOR":
+        pass;
+    else:
+        #Agrega los datos del nuevo paciente al documento
+        now = datetime.now();
+        fecha=str(now.day)+"/"+str(now.month)+"/"+str(now.year)+ "\n";
+        nom = nom + "\n";
+        aux = str(numero)+ "\n";
+        edad = str(edad)+ "\n";
+        alta="NO"+"\n";
+        analisis = "Sin ingresar aun \n"
+        esp = esp + "\n";
+        archivo=open("d03-p14-becerra-padilla-P.txt", mode = "a",encoding="utf-8");
+        archivo.write(nom);
+        archivo.write(doctor);
+        archivo.write(esp);
+        archivo.write(edad);
+        archivo.write(analisis);
+        archivo.write(fecha);
+        archivo.write(alta);
+        archivo.write(aux);
+        archivo.close();
+        
+        ventana(xM,yM,seccion);
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Tu numero de paciente es: ",numero, end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
+        input();
+        numero=numero+1;
     return numero;
 
-def ver_resultados(xM,yM):#muestra los resultados de un paciente
+def elegir_med(x,y,cX,xM,yM,esp,numero):
+    seccion = "Registro de paciente";
+    sal=0;
+    cont=0;
+    agregar=0;
+    aux="";
+    regreso="NOHAYDOCTOR";
+    while sal==0:
+        archivo=open("d03-p14-becerra-padilla-M.txt", mode = "r",encoding="utf-8");
+        while(True):
+            agregar+=1;
+            linea=archivo.readline();
+            if not linea:
+                break;
+            elif linea == (esp+"\n"):
+                ventana(xM,yM,seccion);
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"Presione 1 Si quiere a este Medico", end="");
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"Presione 2 en otro caso", end="");
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"Cedula del Medico: "+aux, end="");
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+11)+" ", end="");
+                while(True):
+                    car=str(msvcrt.getch());
+                    if "b'1'" == car:
+                        numero=str(numero);
+                        numero=numero+",";
+                        agregar_linea("d03-p14-becerra-padilla-M.txt",agregar,numero);
+                        regreso=aux;
+                        sal=1;
+                        break;
+                    elif "b'2'" == car:
+                        sal=0;
+                        break;
+                    else:
+                        pass;
+                cont+=1;
+            aux=linea;
+        archivo.close();
+        if cont == 0:
+            ventana(xM,yM,seccion);
+            print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"No disponibles, Vaya a otro hospital", end="");
+            print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"", end="");
+            input();
+            sal=1;
+    return regreso;
+
+def ver_resultados(x,y,cX,xM,yM):#muestra los resultados de un paciente
     seccion = "Resultados de analisis";
     er=1;
+    lugar=0;
     while er==1: #While para verificar que el numero no se repita
         ventana(xM,yM,seccion);
-        x=(120-xM)//2+4;
-        y=(30-yM)+5;
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el numero del paciente", end="");
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"Ingrese el numero del paciente", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"", end="");
         numero=str(input());
         verificar=open("d03-p14-becerra-padilla-P.txt", mode = "r",encoding="utf-8");
+        cont=0;
         while(True): #Abrira el archivo y verificara que el nombre no coincida con otro
+            cont+=1;
             linea=verificar.readline();
             linea=str(linea);
             if not linea:#si llego al final sin encontrar el numero de paciente
                 er=0;
                 ventana(xM,yM,seccion);
-                x=(120-xM)//2+4;
-                y=(30-yM)+5;
-                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"No existe el paciente", end="");
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"No existe el paciente", end="");
                 input();
+                er=1;
                 break;
+                
             elif linea == (numero+"\n"):
                 er=0;
-                nombre = verificar.readline();
-                servicio = verificar.readline();
-                resultados = verificar.readline();
-                edad = verificar.readline();
-                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+2)+"Nombre: "+nombre, end="");
-                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+3)+"Edad: "+edad, end="");
-                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+4)+"Servicio usado: "+servicio, end=""); 
-                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+5)+"Resultados: "+resultados, end="");
-                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+6)+"", end="");
-                input();
+                lugar=cont;
                 break;
             else:
                 er=0;
-
+    cont=0;
+    verificar=open("d03-p14-becerra-padilla-P.txt", mode = "r",encoding="utf-8");
+    while(True):
+        linea=verificar.readline();
+        cont+=1;
+        if cont==lugar-7:
+            nombre = linea;
+            doctor = verificar.readline();
+            servicio = verificar.readline();
+            edad = verificar.readline();
+            resultados = verificar.readline();
+            fecha=verificar.readline();
+            alta=verificar.readline();
+            lugar=verificar.readline();
+            break;
+        
+            
     verificar.close();
+    ventana(xM,yM,seccion);
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Nombre: "+nombre, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"Edad: "+edad, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"Servicio usado: "+servicio, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"Fecha: "+fecha, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+11)+"Alta: "+alta, end=""); 
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+12)+"Doctor(Cedula): "+doctor, end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+13)+"Resultados: "+resultados, end="");
+    input();
+    
+            
 
 def medico(x,y,xM,yM): #Funcion de cambios que tengan que ver con el medico
     seccion="Alta de Medico";
@@ -369,10 +453,10 @@ def medico(x,y,xM,yM): #Funcion de cambios que tengan que ver con el medico
             alta_med(x,y,xM,yM,cX,seccion);
             break;
         elif "b'2'" == aux:
-            
+            dar_alta(x,y,xM,yM,cX,seccion);
             break;
         elif "b'3'" == aux:
-            crea_resultados(xM,yM);
+            crea_resultados(x,y,xM,yM,cX);
             break;
         elif "b'4'" == aux:
             break;
@@ -410,51 +494,63 @@ def alta_med(x,y,xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
     verificar.close();
     #se ingresa la especialidad
     ventana(xM,yM,seccion);
+    abrir=open("d03-p14-becerra-padilla-H.txt", mode = "r",encoding="utf-8");
+    linea=abrir.readline();
+    linea=abrir.readline();
+    linea=abrir.readline();
+    linea=linea.split(",");
+    abrir.close();
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Elija una especialidad:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"5.-Pediatría.", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"6.-Geriatría.", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"7.-Oftalmología.", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+11)+"8.-Cardiología.", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+12)+"9.-Cirujano.", end="");
+    cont=1;
+    for i in linea:
+        aux=str(cont)+".-"+str(i);
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7+cont)+aux, end="");
+        cont+=1;
+    
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+13)+"", end="");
     while True:
         op=str(msvcrt.getch());
-        if "b'5'" == op:
-            esp = "Pediatría";
+        if "b'1'" == op:
+            esp = "Alergologo";
             break;
-        elif "b'6'" == op:
-            esp = "Geriatría";
+        elif "b'2'" == op:
+            esp = "Odontologia";
             break;
-        elif "b'7'" == op:
-            esp = "Oftalmología";
+        elif "b'3'" == op:
+            esp = "Oftalmologia";
             break;
-        elif "b'8'" == op:
-            esp = "Cardiología";
+        elif "b'4'" == op:
+            esp = "Cardiologia";
             break;
-        elif "b'9'" == op:
-            esp = "Cirujano";
+        elif "b'5'" == op:
+            esp = "Cirugia";
             break;
         else:
             pass;
-    nom=nom+"\n";
+    nom="\n"+nom+"\n";
     ced=ced+"\n";
-    esp=esp+"\n"+","+"\n";
+    esp=esp+"\n"+",";
     #Agrega los datos del nuevo medico al documento
     archivo=open("d03-p14-becerra-padilla-M.txt", mode = "a",encoding="utf-8");
     archivo.write(nom);
     archivo.write(ced);
     archivo.write(esp);
     archivo.close();
+    ventana(xM,yM,seccion);
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x+4,y+7)+"Registrado Con Exito!", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x+4,y+8)+"", end="");
+    input();
 
-def crea_resultados(xM,yM):#permite al medico guardar los analisis de un paciente
+def dar_alta(x,y,xM,yM,cX):
+    pass;
+
+def crea_resultados(x,y,xM,yM,cX):#permite al medico guardar los analisis de un paciente
     seccion = "Guardad resultados de analisis";
     er=1;
     while er==1: #While para verificar que el numero no se repita
         ventana(xM,yM,seccion);
-        x=(120-xM)//2+4;
-        y=(30-yM)+5;
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese su cedula", end="");
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Ingrese su cedula", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"", end="");
         cedula=str(input());
         verificar_cedula=open("d03-p14-becerra-padilla-M.txt", mode = "r",encoding="utf-8");
         while(True): #Abrira el archivo y verificara que exista la cedula
@@ -463,13 +559,15 @@ def crea_resultados(xM,yM):#permite al medico guardar los analisis de un pacient
             if not linea:#si llego al final sin encontrar la cedula
                 er=0;
                 ventana(xM,yM,seccion);
-                x=(120-xM)//2+4;
-                y=(30-yM)+5;
-                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Cedula no encontrada, no puede continuar", end="");
+    
+                print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Cedula no encontrada, no puede continuar", end="");
                 input();
                 break;
             elif linea == (cedula+"\n"):
                 #aqui se busca el paciente
+                elegir_pac=verificar_cedula.readline();
+                elegir_pac=verificar_cedula.readline();
+                elegir_pac=elegir_pac.split(",");
                 break;
             else:
                 er=0;
@@ -534,6 +632,13 @@ def reemplazar_linea(archivo, linea, texto): #Funcion para reemplazar una linea 
     out.writelines(lines);
     out.close();
 
+def agregar_linea(archivo, linea, texto): #Funcion para agregar en una linea especifica en un txt
+    lines = open(archivo, 'r').readlines();
+    lines[linea] += texto;
+    out = open(archivo, 'w');
+    out.writelines(lines);
+    out.close();
+
 def ser_hos(x,y,xM,yM,cX,seccion):#muestra los servicios del hospital
     ventana(xM,yM,seccion);
     cX=int(len(" Servicios: "));
@@ -562,7 +667,7 @@ def menu(xM,yM): #Este sera el menu del hospital principal
     opcion=0;
     mover=0;
     dib=0;
-    aux="";
+    aux=" ";
     #Este while buscara en que numero se quedo el ultimo paciente
     archivo= open("d03-p14-becerra-padilla-P.txt",mode="r",encoding="utf-8");
     while(True):
@@ -571,8 +676,8 @@ def menu(xM,yM): #Este sera el menu del hospital principal
             break;
         aux=linea;
     archivo.close();
-    if aux=="":
-        aux="1";
+    if aux==" ":
+        aux="0";
     numero=int(aux);
     numero=numero+1;
     seccion="Menú Principal"
