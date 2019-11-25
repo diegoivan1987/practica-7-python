@@ -223,15 +223,23 @@ def paciente(x,y,xM,yM):#funcion que tiene que ver con los cambios del paciente
             pass;
 
 def alta_pac(xM,yM):#funcion para registrar un nuevo paciente
+    seccion = "Registro de paciente";
+    ventana(xM,yM,seccion);
+    x=(120-xM)//2+4;
+    y=(30-yM)+5;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el nombre del paciente", end="");
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+    nom=str(input());
+    
     er=1;
-    while er==1: #While para verificar que el nomre no se repita
+    while er==1: #While para verificar que el numero no se repita
         seccion = "Registro de paciente";
         ventana(xM,yM,seccion);
         x=(120-xM)//2+4;
         y=(30-yM)+5;
-        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el nombre del paciente", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese el numero del paciente", end="");
         print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
-        nom=str(input());
+        numero=str(input());
         verificar=open("d03-p14-becerra-padilla-P.txt", mode = "r",encoding="utf-8");
         while(True): #Abrira el archivo y verificara que el nombre no coincida con otro
             linea=verificar.readline();
@@ -239,7 +247,7 @@ def alta_pac(xM,yM):#funcion para registrar un nuevo paciente
             if not linea:
                 er=0;
                 break;
-            elif linea == (nom+"\n"):
+            elif linea == (numero+"\n"):
                 er=1;
                 print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+2)+"Paciente ya existente, Verifiquela", end=""); 
                 input();
@@ -247,6 +255,25 @@ def alta_pac(xM,yM):#funcion para registrar un nuevo paciente
             else:
                 er=0;
     verificar.close();
+
+    er=1;
+    while er==1: #While para verificar que la edad es un numero
+        seccion = "Registro de paciente";
+        ventana(xM,yM,seccion);
+        x=(120-xM)//2+4;
+        y=(30-yM)+5;
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Ingrese la edad del paciente", end="");
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y+1)+"", end="");
+        edad=str(input());
+        try:#si es numero
+            edad = int(edad);
+            er = 0;
+        except:#si no
+            ventana(xM,yM,seccion);
+            print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(x,y)+"Debe ingresar un numero", end="");
+            er =1;
+            sleep(2);
+    
     #se ingresa la especialidad a la que acudio
     ventana(xM,yM,seccion);
     aux = len("Elija la especialidad a la que acudió:");
@@ -281,9 +308,15 @@ def alta_pac(xM,yM):#funcion para registrar un nuevo paciente
 
     #Agrega los datos del nuevo paciente al documento
     nom = nom + "\n";
+    numero = str(numero)+ "\n";
+    edad = str(edad)+ "\n";
+    analisis = "Sin ingresar aun \n"
     esp = esp + "\n"+ ","+"\n";
     archivo=open("d03-p14-becerra-padilla-P.txt", mode = "a",encoding="utf-8");
     archivo.write(nom);
+    archivo.write(numero);
+    archivo.write(edad);
+    archivo.write(analisis);
     archivo.write(esp);
     archivo.close();
 
