@@ -1,8 +1,25 @@
-John
-20
+Juan Perez
+20wo20
+Alergologo
+,1,3,
+Jorge Humberto
+30wo20
+Odontologia
+,
+Adrian Alvarez
+2019pep
+Oftalmologia
+,
+Jair Orozco 
+3040to
+Cardiologia
+,2,
+Valentin Elizalde
+1234ero1234
 Cirugia
-,1,2,
-Kurt
-90
-Cirugia
-,3,
+,4,5,
+
+Gabriel Siempre Mata
+2019a
+Cardiologia
+,

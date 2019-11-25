@@ -327,7 +327,7 @@ def alta_pac(x,y,cX,xM,yM,numero):#funcion para registrar un nuevo paciente
         numero=numero+1;
     return numero;
 
-def elegir_med(x,y,cX,xM,yM,esp,numero):
+def elegir_med(x,y,cX,xM,yM,esp,numero): #Muestra los medicos disponibles de cierta esp y deja elegirlo
     seccion = "Elegir medico";
     sal=0;
     aux="";
@@ -439,7 +439,7 @@ def ver_resultados(x,y,cX,xM,yM):#muestra los resultados de un paciente
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+14)+"", end="");
     input();
     
-def imprimir(x,y,cX,xM,yM,seccion,lugar):
+def imprimir(x,y,cX,xM,yM,seccion,lugar): #Imprime datos de los pacientes, se usa para antes de dar alta y crear resultados
     cont=0;
     verificari=open("d03-p14-becerra-padilla-P.txt", mode = "r",encoding="utf-8");
     while(True):
@@ -586,8 +586,8 @@ def alta_med(x,y,xM,yM,cX,seccion): #Funcion para dar de alta un nuevo medico
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x+4,y+8)+"", end="");
     input();
 
-def dar_alta(x,y,xM,yM,cX):
-    seccion = "Dar de alta";
+def dar_alta(x,y,xM,yM,cX): #Funcion para que el medico pueda dar de alta a sus pacientes
+    seccion = "Dar de alta paciente";
     er=1;
     while er==1: #While para verificar que el numero no se repita
         ventana(xM,yM,seccion);
@@ -894,11 +894,25 @@ def menu(xM,yM): #Este sera el menu del hospital principal
     opmenu1(x,y,xM,yM);
     while True: #Leera todas las teclas que se presionen hasta que presione una valida
             aux=str(msvcrt.getch());  
+            
             for i in aux: #Buscara en la tecla presionada
                 if "H" in i and mover>0: #Si esta la H, significara que presiono la tecla de arriba(No afecta la H normal)
                     mover-=1;  
                 elif "P" in i and mover<3:#Si esta la P, significara que presiono la tecla de arriba(No afecta la P normal)
-                    mover+=1;                          
+                    mover+=1;  
+                elif "1" in i:
+                    mover=0;
+                    break;
+                elif "2" in i:
+                    mover=1;
+                    break;
+                elif "3" in i:
+                    mover=2;
+                    break;
+                elif "4" in i:
+                    mover=3;
+                    break;   
+                                        
             if "r"==aux[3]: #Si presiona enter, elegira dependiendo la funcion que quiera y entrara
                 if mover==0:
                     numero=paciente(x,y,xM,yM,numero);

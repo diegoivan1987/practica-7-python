@@ -1,24 +1,40 @@
-Gus
-20
-Cirugia
-70
-Cirugia Renal Exitosa
+Gustavo Padilla
+20wo20
+Alergologo
+13
+Paciente con  Miopia
 25/11/2019
 SI
 1
-gr
-20
-Cirugia
-23
-Esta bien
-25/11/2019
-NO
-2
-Jorge
-90
-Cirugia
-77
+Juan Ramirez
+3040to
+Cardiologia
+35
 Sin ingresar aun 
 25/11/2019
 NO
+2
+Daniel Garibaldi
+20wo20
+Alergologo
+15
+Vivira
+25/11/2019
+SI
 3
+Juan Perez Verdia
+1234ero1234
+Cirugia
+27
+Sin ingresar aun 
+25/11/2019
+NO
+4
+Juan del Diablo
+1234ero1234
+Cirugia
+18
+Sin ingresar aun 
+25/11/2019
+NO
+5
