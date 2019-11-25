@@ -4,6 +4,7 @@
 
 from colorama import Cursor,Fore,Back,init,Style; #Llama a colorama
 from time import sleep; #Llama la funcion para pausar
+from datetime import datetime; #Funcion para obtener la fecha
 import os; #Llamo funciones del sistema operativo para poder borrar pantalla
 import msvcrt; #Llama funcion para poder leer lo que se presiona en el teclado
 init(autoreset=True); #Se inicia el colorama, que se autoresetee para evitar basura en la consola
@@ -248,12 +249,19 @@ def alta_pac(x,y,cX,xM,yM,numero):#funcion para registrar un nuevo paciente
     #se ingresa la especialidad a la que acudio
     ventana(xM,yM,seccion);
     aux = len("Elija la especialidad a la que acudió:");
+    abrir=open("d03-p14-becerra-padilla-H.txt", mode = "r",encoding="utf-8");
+    linea=abrir.readline();
+    linea=abrir.readline();
+    linea=abrir.readline();
+    linea=linea.split(",");
+    abrir.close();
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7)+"Elija la especialidad a la que acudió:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"1.-Alergologia:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"2.-Odontología:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"3.-Oftalmología:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+11)+"4.-Cardiología:", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+12)+"5.-Cirugia:", end="");
+    cont=1;
+    for i in linea:
+        aux=str(cont)+".-"+str(i);
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+7+cont)+aux, end="");
+        cont+=1;
+    
     print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+13)+"", end="");
     while True:
         op=str(msvcrt.getch());
@@ -276,6 +284,8 @@ def alta_pac(x,y,cX,xM,yM,numero):#funcion para registrar un nuevo paciente
             pass;
 
     #Agrega los datos del nuevo paciente al documento
+    now = datetime.now();
+    fecha=str(now.day)+"/"+str(now.month)+"/"+str(now.year)+ "\n";
     nom = nom + "\n";
     aux = str(numero)+ "\n";
     edad = str(edad)+ "\n";
@@ -287,6 +297,7 @@ def alta_pac(x,y,cX,xM,yM,numero):#funcion para registrar un nuevo paciente
     archivo.write(esp);
     archivo.write(edad);
     archivo.write(analisis);
+    archivo.write(fecha);
     archivo.write(alta);
     archivo.write(aux);
     archivo.close();
@@ -525,12 +536,22 @@ def reemplazar_linea(archivo, linea, texto): #Funcion para reemplazar una linea 
 
 def ser_hos(x,y,xM,yM,cX,seccion):#muestra los servicios del hospital
     ventana(xM,yM,seccion);
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"Pediatría.", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+9)+"Geriatría.", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+10)+"Oftalmología.", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+11)+"Cardiología.", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+12)+"Cirujano.", end="");
-    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+13)+"", end="");
+    cX=int(len(" Servicios: "));
+    cX=xM-cX;
+    cX=cX//2;
+    abrir=open("d03-p14-becerra-padilla-H.txt", mode = "r",encoding="utf-8");
+    linea=abrir.readline();
+    linea=abrir.readline();
+    linea=abrir.readline();
+    linea=linea.split(",");
+    abrir.close();
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8)+"Servicios:", end="");
+    cont=1;
+    for i in linea:
+        aux=str(cont)+".-"+str(i);
+        print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+8+cont)+aux, end="");
+        cont+=1;
+    print(Fore.WHITE+Back.BLACK+Style.BRIGHT+Cursor.POS(cX+x,y+14)+"", end="");
     input();
 
 
@@ -550,7 +571,10 @@ def menu(xM,yM): #Este sera el menu del hospital principal
             break;
         aux=linea;
     archivo.close();
+    if aux=="":
+        aux="1";
     numero=int(aux);
+    numero=numero+1;
     seccion="Menú Principal"
     ventana(xM,yM,seccion);
     opmenu1(x,y,xM,yM);

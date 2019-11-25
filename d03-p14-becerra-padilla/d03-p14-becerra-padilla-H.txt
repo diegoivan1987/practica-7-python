@@ -1,3 +1,3 @@
 Hospital Mixto
 Calle Medrano #6060
-Dentista,Cirujano,Pediatra,Oftalmologo,
+Alergologia,Odontologia,Oftalmologia,Cardiologia,Cirugia
