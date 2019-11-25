@@ -1,12 +1,8 @@
-Jorge Humberto
-2020
+John
+20
 Cirugia
-,1,2,3,
-Antonio Padilla
-204v46
+,1,2,
+Kurt
+90
 Cirugia
-,4,
-Arnold Schawrtz
-20vrf45
-Oftalmologia
-,
+,3,

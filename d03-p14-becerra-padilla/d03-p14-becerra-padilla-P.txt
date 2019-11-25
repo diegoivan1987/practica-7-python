@@ -1,32 +1,24 @@
-Jorge J
-2020
-Cirugia
+Gus
 20
-Usted tiene cancer
+Cirugia
+70
+Sin ingresar aun 
 25/11/2019
 NO
 1
-Fernando L
-2020
-Cirugia
+gr
 20
+Cirugia
+23
 Sin ingresar aun 
 25/11/2019
 NO
 2
-Emmanuel Roman
-2020
+Jorge
+90
 Cirugia
-10
-La cirugia fue un exito
-25/11/2019
-NO
-3
-Kurt Cobain
-204v46
-Cirugia
-27
+77
 Sin ingresar aun 
 25/11/2019
 NO
-4
+3
